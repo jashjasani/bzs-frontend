@@ -140,7 +140,7 @@ async function renderData(data) {
         if (currentPage != 1) {
             if (currentPage > 10) {
                 const leftArrowButton = document.createElement("a");
-                leftArrowButton.className = "w-pagination-previous pagination-button-left keep-params";
+                leftArrowButton.className = "w-pagination-previous pagination-button-left keep-params 10xarrow";
                 leftArrowButton.setAttribute("aria-label", "Previous Page");
                 leftArrowButton.style.marginRight=0;
                 const leftArrowImage = document.createElement("img");
@@ -154,7 +154,7 @@ async function renderData(data) {
                 else leftArrowButton.href = "?page=" + (currentPage - 10)
             }
             const leftArrowButton = document.createElement("a");
-            leftArrowButton.className = "w-pagination-previous pagination-button-left keep-params";
+            leftArrowButton.className = "w-pagination-previous pagination-button-left keep-params 10xarrow";
             leftArrowButton.setAttribute("aria-label", "Previous Page");
             const leftArrowImage = document.createElement("img");
             leftArrowImage.width = "45";
@@ -298,7 +298,7 @@ async function renderData(data) {
         if (currentPage != pageCount) {
             console.debug(typeof currentPage);
             const rightArrowButton = document.createElement("a");
-            rightArrowButton.className = "w-pagination-right pagination-button-next keep-params";
+            rightArrowButton.className = "w-pagination-right pagination-button-next keep-params 10xarrow";
             rightArrowButton.setAttribute("aria-label", "Next Page");
             const rightArrowImage = document.createElement("img");
             rightArrowButton.style.marginLeft=0;
@@ -312,7 +312,7 @@ async function renderData(data) {
             paginationWrapper.append(rightArrowButton);
             if (pageCount - currentPage >= 10) {
                 const rightArrowButton = document.createElement("a");
-                rightArrowButton.className = "w-pagination-right pagination-button-next keep-params";
+                rightArrowButton.className = "w-pagination-right pagination-button-next keep-params 10xarrow";
                 rightArrowButton.setAttribute("aria-label", "Next Page");
                 const rightArrowImage = document.createElement("img");
                 rightArrowImage.style
@@ -442,4 +442,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const search = document.getElementsByClassName("search-field w-input")[0];
     search.addEventListener('input', loadFData);
     loadFData();
+    setTimeout(()=>{
+
+    },1000)
 })
