@@ -422,6 +422,42 @@ async function loadFData() {
         }
     }, 100)
 }
+async function filtersGeneration() {
+    const checkedElements = document.getElementsByClassName('checkbox-element-wrapper');
+    var filters = {};
+    if (checkedElements) {
+        await checkedElements.forEach(async (element) => {
+            const i = element.childNodes[0];
+            const Clist = await i.classList;
+            if (Clist.contains('fs-cmsfilter_active')) {
+
+                const j = i.childNodes[2];
+                const attr = j.getAttribute('fs-cmsfilter-field');
+                if (Object.keys(filters).includes(attr)) {
+                    filters[attr] += 1;
+                } else {
+                    filters[attr] = 1;
+                }
+            }
+        });
+    }
+    return filters;
+}
+async function makeChanges(filters) {
+    const filterIndicators = document.getElementsByClassName('filter-span');
+    await filterIndicators.forEach(element => {
+        element.innerText = 0;
+    })
+    if (Object.keys(filters).length > 0) {
+        const keys = Object.keys(filters);
+        console.log(keys);
+        for (var i = 0; i < keys.length; i++) {
+            const spanToBeChanged = document.getElementById(keys[i]);
+            spanToBeChanged.innerText = filters[keys[i]];
+            //spanToBeChanged.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[0].childNodes[1].childNodes[0].style.display = 'flex'
+        }
+    }
+}
 document.addEventListener("DOMContentLoaded", async function () {
     const currentTime = new Date().getTime();
     const cookieExpire = new Date(currentTime + 600000);
@@ -442,4 +478,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     const search = document.getElementsByClassName("search-field w-input")[0];
     search.addEventListener('input', loadFData);
     loadFData();
+    const checkedElements = document.getElementsByClassName('checkbox-element-wrapper');
+    checkedElements.forEach(ele =>{
+        ele.addEventListener('mouseup',setTimeout(async () => {
+            var filters = await filtersGeneration();
+            
+            await makeChanges(filters);
+        }, 100))
+    })
+    
 })
