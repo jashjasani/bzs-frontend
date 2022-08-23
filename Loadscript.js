@@ -148,6 +148,8 @@ async function renderData(data) {
                 leftArrowImage.loading = "lazy";
                 leftArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/Group_42_1.svg";
                 leftArrowImage.className = "pagination-arrow left";
+                leftArrowButton.style.marginRight=0;
+                leftArrowButton.style.paddingRight=0;
                 leftArrowButton.append(leftArrowImage);
                 pageFragment.append(leftArrowButton);
                 if (lastQuery != "") leftArrowButton.href = "?page=" + (currentPage - 10) + ("&" + lastQuery);
@@ -161,6 +163,8 @@ async function renderData(data) {
             leftArrowImage.loading = "lazy";
             leftArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651849092/asset/Arrow.svg";
             leftArrowImage.className = "pagination-arrow left";
+            leftArrowButton.style.paddingLeft=0;
+            leftArrowButton.style.paddingRight=0;
             leftArrowButton.append(leftArrowImage);
             pageFragment.append(leftArrowButton);
             if (lastQuery != "") leftArrowButton.href = "?page=" + (currentPage - 1) + ("&" + lastQuery);
@@ -301,7 +305,7 @@ async function renderData(data) {
             rightArrowButton.className = "w-pagination-right pagination-button-next keep-params 10xarrow";
             rightArrowButton.setAttribute("aria-label", "Next Page");
             const rightArrowImage = document.createElement("img");
-            rightArrowButton.style.marginLeft=0;
+            rightArrowButton.style.marginLeft=10;
             rightArrowImage.width = "45";
             rightArrowImage.loading = "lazy";
             rightArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651849092/asset/Arrow.svg";
@@ -317,7 +321,7 @@ async function renderData(data) {
                 const rightArrowImage = document.createElement("img");
                 rightArrowImage.style
                 rightArrowImage.width = "45";
-                rightArrowImage.style.marginLeft=0
+                rightArrowButton.style.marginLeft=0
                 rightArrowImage.loading = "lazy";
                 rightArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/Group_42_1.svg";
                 rightArrowImage.className = "pagination-arrow right";
