@@ -148,8 +148,8 @@ async function renderData(data) {
                 leftArrowImage.loading = "lazy";
                 leftArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/Group_42_1.svg";
                 leftArrowImage.className = "pagination-arrow left";
-                leftArrowButton.style.marginRight=0;
-                leftArrowButton.style.paddingRight=0;
+                leftArrowButton.style.marginRight="0px";
+                leftArrowButton.style.paddingRight="0px";
                 leftArrowButton.append(leftArrowImage);
                 pageFragment.append(leftArrowButton);
                 if (lastQuery != "") leftArrowButton.href = "?page=" + (currentPage - 10) + ("&" + lastQuery);
@@ -163,8 +163,8 @@ async function renderData(data) {
             leftArrowImage.loading = "lazy";
             leftArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651849092/asset/Arrow.svg";
             leftArrowImage.className = "pagination-arrow left";
-            leftArrowButton.style.paddingLeft=0;
-            leftArrowButton.style.paddingRight=0;
+            leftArrowButton.style.paddingLeft="0px";
+            leftArrowButton.style.paddingRight="0px";
             leftArrowButton.append(leftArrowImage);
             pageFragment.append(leftArrowButton);
             if (lastQuery != "") leftArrowButton.href = "?page=" + (currentPage - 1) + ("&" + lastQuery);
@@ -321,7 +321,7 @@ async function renderData(data) {
                 const rightArrowImage = document.createElement("img");
                 rightArrowImage.style
                 rightArrowImage.width = "45";
-                rightArrowButton.style.marginLeft=0
+                rightArrowButton.style.marginLeft="0px"
                 rightArrowImage.loading = "lazy";
                 rightArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/Group_42_1.svg";
                 rightArrowImage.className = "pagination-arrow right";
