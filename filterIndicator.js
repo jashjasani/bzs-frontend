@@ -4,7 +4,8 @@
         // DOMready has fired
         // May now use jQuery and Webflow api
         setTimeout(async () => {
-            const checkedElements = document.getElementsByClassName('checkbox-element-wrapper');
+            const checkedElements = document.querySelectorAll('.checkbox-element-wrapper, .filter-dropdown');
+            console.log(checkedElements.length);
             checkedElements.forEach(ele => {
                 ele.addEventListener('mouseup', () => setTimeout(async () => {
                     var filters = await filtersGeneration();
@@ -36,7 +37,8 @@
             async function makeChanges(filters) {
 								const main_category_indicator = document.getElementsByClassName('main-indicator-txt')
             main_category_indicator.forEach(ele => {
-                ele.style.display = 'none'
+            console.log('none');
+                ele.style.display = 'none';
             })
                 const filterIndicators = document.getElementsByClassName('filter-span');
                 await filterIndicators.forEach(element => {
@@ -61,6 +63,7 @@
                         console.log(ele)
                         const clist = await ele.classList
                         if (clist.contains('single')) {
+                        console.log('flex');
                             ele.parentElement.parentElement.parentElement.childNodes[0].childNodes[1].childNodes[0].style.display = 'flex'
                         }
                     })
