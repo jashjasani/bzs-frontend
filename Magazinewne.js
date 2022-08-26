@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const img = document.getElementsByClassName("product-image")[0];
         img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images;
         console.log(isNaN(parseInt(data.product.Preis)));
+        console.log(parseInt(data.product.Preis));
         if(isNaN(parseInt(data.product.Preis))){
             const priceIndicator = document.getElementsByClassName("price-wrapper")[0];
             priceIndicator.style.display='none';
