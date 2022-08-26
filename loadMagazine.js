@@ -22,15 +22,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const img = document.getElementsByClassName("product-image")[0];
         img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images;
-        console.log(isNaN(parseInt(data.product.Preis)));
-        console.log(parseInt(data.product.Preis));
-        if(isNaN(parseInt(data.product.Preis))){
+        
+        var regExp = /[a-zA-Z]/g;
+        if(regExp.test( data.product.Preis)||data.product.Preis==0){
             const priceIndicator = document.getElementsByClassName("price-wrapper")[0];
             priceIndicator.style.display='none';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.style.display='none';
-            console.log("Price undefined");
-        }else{
+        } else{
             const price = document.getElementsByClassName("price")[0];
             price.innerText = data.product.Preis;
         }
