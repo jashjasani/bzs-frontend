@@ -23,8 +23,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         const img = document.getElementsByClassName("product-image")[0];
         img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images;
 
-        const price = document.getElementsByClassName("price")[0];
-        price.innerText = data.product.Preis;
+        if(isNaN(parseInt(data.product.Preis))||data.product.Preis==0){
+            const priceIndicator = document.getElementsByClassName("price-wrapper")[0];
+            priceIndicator.style.display='none';
+            const addButton = document.getElementsByClassName('snipcart-add-item')[0];
+            addButton.style.display='none';
+        }else{
+            const price = document.getElementsByClassName("price")[0];
+            price.innerText = data.product.Preis;
+        }
+        
 
         const productCategoriesWrapper = document.getElementsByClassName("product-categories-wrapper")[0];
         const cats = data.categories;
