@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             priceIndicator.style.display='none';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.style.display='none';
+            console.log("Price undefined");
         }else{
             const price = document.getElementsByClassName("price")[0];
             price.innerText = data.product.Preis;
