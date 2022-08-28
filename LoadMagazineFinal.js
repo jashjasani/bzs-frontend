@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const img = document.getElementsByClassName("product-image")[0];
         const imgWrapper = document.getElementsByClassName("product-img-wrapper")[0];
-        imagWrapper.setAttribute('data-mfp-src',"https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images);
+        imgWrapper.setAttribute('data-mfp-src',"https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images);
         img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images;
         
         var regExp = /[a-zA-Z]/g;
