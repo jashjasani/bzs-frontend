@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
         const img = document.getElementsByClassName("product-image")[0];
-        const imgWrapper = document.getElementsByClassName("product-img-wrapper")[0];
+        const imgWrapper = document.getElementsByClassName("product-lightbox")[0];
         imgWrapper.setAttribute('data-mfp-src',"https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images);
         img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images;
         
