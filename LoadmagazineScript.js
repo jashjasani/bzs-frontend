@@ -34,6 +34,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         } else{
             const price = document.getElementsByClassName("price")[0];
             price.innerText = data.product.Preis;
+            price.style.display="flex";
+            const addButton = document.getElementsByClassName('snipcart-add-item')[0];
+            addButton.style.display="flex";
+            
         }
         
 
