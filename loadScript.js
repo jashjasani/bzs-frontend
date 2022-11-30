@@ -70,6 +70,7 @@ async function renderData(data) {
           img.className = "product-img";
           img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651695832/" + q.Images;
           img.loading = imgCount<=10 ? "eager" : "lazy";
+          imgCount++;
           img.alt = "product-img";
 
           //product titel creation
