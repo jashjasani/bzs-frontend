@@ -342,7 +342,7 @@ async function loadFData() {
       for (x of individualReset) {
           x.addEventListener("mouseup", loadFData);
       }
-      const selectAllBtn = document.getElementsByClassName("select-all-btn w-inline-block");
+      const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
       for (s of selectAllBtn) {
           s.addEventListener("mouseup", loadFData);
       }

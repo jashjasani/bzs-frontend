@@ -1,0 +1,19 @@
+{
+  "name": "bzsscriptfinal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "LoadmagazineScript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jashjasani/BzsScriptFinal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jashjasani/BzsScriptFinal/issues"
+  },
+  "homepage": "https://github.com/jashjasani/BzsScriptFinal#readme"
+}
