@@ -1,453 +1,457 @@
 function getC(cName) {
-  const name = cName + "=";
-  const cDecoded = document.cookie; //to be careful
-  const cArr = cDecoded.split('; ');
-  let res = '';
-  cArr.forEach(val => {
-      if (val.indexOf(name) === 0) res = val.substring(name.length);
-  })
-  return (res);
+    const name = cName + "=";
+    const cDecoded = document.cookie; //to be careful
+    const cArr = cDecoded.split('; ');
+    let res = '';
+    cArr.forEach(val => {
+        if (val.indexOf(name) === 0) res = val.substring(name.length);
+    })
+    return (res);
 }
 const randomMags = async (array) => {
-  for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-  }
-  return array
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array
 }
 async function renderData(data) {
-  if (data.count == 0) {
-      const colList = document.getElementsByClassName("collection-list w-dyn-items w-row")[0];
-      colList.style.display = "none";
-      const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
-      noResultsFound.style.display = "block";
-  } else {
-      const colList = document.getElementsByClassName("collection-list w-dyn-items w-row")[0];
-      colList.style.display = "block";
-      const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
-      noResultsFound.style.display = "none";
+    if (data.count == 0) {
+        const colList = document.getElementsByClassName("collection-list w-dyn-items w-row")[0];
+        colList.style.display = "none";
+        const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
+        noResultsFound.style.display = "block";
+    } else {
+        const colList = document.getElementsByClassName("collection-list w-dyn-items w-row")[0];
+        colList.style.display = "block";
+        const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
+        noResultsFound.style.display = "none";
 
-      const resultsCount = document.getElementsByClassName("results-count")[0];
-      const replaceResultsCount = document.createElement('div');
-      replaceResultsCount.className = "results-count";
-      const span = document.createElement('span');
-      span.textContent = data.count + " Ergebnisse von ";
-      const span2 = document.createElement('span');
-      span2.textContent = data.totalCount;
-      replaceResultsCount.append(span, span2);
-      resultsCount.replaceWith(replaceResultsCount);
-
-
+        const resultsCount = document.getElementsByClassName("results-count")[0];
+        const replaceResultsCount = document.createElement('div');
+        replaceResultsCount.className = "results-count";
+        const span = document.createElement('span');
+        span.textContent = data.count + " Ergebnisse von ";
+        const span2 = document.createElement('span');
+        span2.textContent = data.totalCount;
+        replaceResultsCount.append(span, span2);
+        resultsCount.replaceWith(replaceResultsCount);
 
 
-      //fragment creation to enhance load speed
-      let fragment = document.createDocumentFragment();
-
-      //grabbing collection elements to later add fragment
-      const list = document.getElementsByClassName("w-dyn-list")[0];
-      var collection;
-      if (document.getElementsByClassName("w-dyn-items w-row")[0]) {
-          collection = document.getElementsByClassName("w-dyn-items w-row")[0];
-          collection.innerHTML = "";
-      } else {
-          collection = document.createElement("div");
-          collection.className = "w-dyn-items w-row";
-      }
-      let imgCount = 0;
-      for (q of data.magazines) {
-          // class_list.push('')
-          let productWrapper = document.createElement("div");
-          productWrapper.className = "archive-col-item w-dyn-item w-col w-col-3";
-          //image wraper link creation
-          var productImgWrapper = document.createElement("a");
-          productImgWrapper.href = new URL(document.baseURI).origin + "/magazine?productId=" + q.SKU;
-          productImgWrapper.className = "produvt-img-wrapper w-inline-block";
-
-          //img element creation
-          var img = document.createElement("img");
-          img.className = "product-img";
-          img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651695832/" + q.Images;
-          img.loading = imgCount<=10 ? "eager" : "lazy";
-          imgCount++;
-          img.alt = "product-img";
-
-          //product titel creation
-          var title = document.createElement("div");
-          title.className = "product-title"
-          if (q.Name.length > 21) title.innerText = q.Name.slice(0, 18) + '...';
-          else title.innerText = q.Name
-
-          title.setAttribute("fs-cmsfilter-field", "Titel");
-
-          var issueWrapper = document.createElement("div");
-          issueWrapper.className = "issue-wrapper";
-
-          //issue wrapper children elements
-          var month = document.createElement("div");
-          month.className = "month";
-          month.innerText = q.Monat + " | ";
-          var dateDivider = document.createElement("div");
-          dateDivider.className = "date-divider";
-          var year = document.createElement("div");
-          year.className = "year";
-          year.innerText = " " + q.Jahr + " Ausgabe " + q.Ausgabe;
-          var decade = document.createElement("div");
-          decade.className = "decade";
 
 
-          issueWrapper.append(month, dateDivider, year, decade);
+        //fragment creation to enhance load speed
+        let fragment = document.createDocumentFragment();
 
-          productImgWrapper.append(img, title, issueWrapper);
-          productWrapper.append(productImgWrapper);
-          productWrapper.setAttribute("role", "listitem");
-          fragment.append(productWrapper);
+        //grabbing collection elements to later add fragment
+        const list = document.getElementsByClassName("w-dyn-list")[0];
+        var collection;
+        if (document.getElementsByClassName("w-dyn-items w-row")[0]) {
+            collection = document.getElementsByClassName("w-dyn-items w-row")[0];
+            collection.innerHTML = "";
+        } else {
+            collection = document.createElement("div");
+            collection.className = "w-dyn-items w-row";
+        }
+        let imgCount = 0;
+        for (q of data.magazines) {
+            // class_list.push('')
+            let productWrapper = document.createElement("div");
+            productWrapper.className = "archive-col-item w-dyn-item w-col w-col-3";
+            //image wraper link creation
+            var productImgWrapper = document.createElement("a");
+            productImgWrapper.href = new URL(document.baseURI).origin + "/magazine?productId=" + q.SKU;
+            productImgWrapper.className = "produvt-img-wrapper w-inline-block";
 
-      }
-      collection.append(fragment);
-      list.prepend(collection);
-      pagination();
-      const lastQuery = getC('lastQuery');
-      if (lastQuery == "") {
-          fetch("https://bildzeitschrift.netlify.app/.netlify/functions/randomize").then((resp) => {
-              resp.json()
-              console.log("Randomized");
+            //img element creation
+            var img = document.createElement("img");
+            img.className = "product-img";
+            img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651695832/" + q.Images;
+            img.loading = imgCount <= 10 ? "eager" : "lazy";
+            imgCount++;
+            img.alt = "product-img";
 
-          })
-      }
+            //product titel creation
+            var title = document.createElement("div");
+            title.className = "product-title"
+            if (q.Name.length > 21) title.innerText = q.Name.slice(0, 18) + '...';
+            else title.innerText = q.Name
 
-  }
+            title.setAttribute("fs-cmsfilter-field", "Titel");
 
-  async function pagination() {
-      const list = document.getElementsByClassName("w-dyn-list")[0];
-      var paginationWrapper;
-      if (document.getElementsByClassName("w-pagination-wrapper pagination")[0]) {
-          paginationWrapper = document.getElementsByClassName("w-pagination-wrapper pagination")[0];
-          paginationWrapper.innerHTML = "";
-          paginationWrapper.style.display = "flex";
-      } else {
-          paginationWrapper = document.createElement("div");
-          paginationWrapper.className = "w-pagination-wrapper pagination";
-          paginationWrapper.style.display = "flex";
-      }
+            var issueWrapper = document.createElement("div");
+            issueWrapper.className = "issue-wrapper";
 
-      const pageCount = data.pageCount;
-      const currentPage = data.currentPage || 1;
-      console.debug("Current page : " + currentPage);
-      const lastQuery = getC('lastQuery');
-      console.debug("Last query inside pagination " + lastQuery);
-      const pageFragment = document.createDocumentFragment();
-      if (currentPage != 1) {
-          if (currentPage > 10) {
-              const leftArrowButton = document.createElement("a");
-              leftArrowButton.className = "w-pagination-previous pagination-button-left keep-params 10xarrow";
-              leftArrowButton.setAttribute("aria-label", "Previous Page");
-              leftArrowButton.style.marginRight=0;
-              const leftArrowImage = document.createElement("img");
-              leftArrowImage.width = "45";
-              leftArrowImage.loading = "lazy";
-              leftArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/Group_42_1.svg";
-              leftArrowImage.className = "pagination-arrow left";
-              leftArrowButton.style.marginRight="0px";
-              leftArrowButton.style.paddingRight="0px";
-              leftArrowButton.append(leftArrowImage);
-              pageFragment.append(leftArrowButton);
-              if (lastQuery != "") leftArrowButton.href = "?page=" + (currentPage - 10) + ("&" + lastQuery);
-              else leftArrowButton.href = "?page=" + (currentPage - 10)
-          }
-          const leftArrowButton = document.createElement("a");
-          leftArrowButton.className = "w-pagination-previous pagination-button-left keep-params 10xarrow";
-          leftArrowButton.setAttribute("aria-label", "Previous Page");
-          const leftArrowImage = document.createElement("img");
-          leftArrowImage.width = "45";
-          leftArrowImage.loading = "lazy";
-          leftArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651849092/asset/Arrow.svg";
-          leftArrowImage.className = "pagination-arrow left";
-          leftArrowButton.style.paddingLeft="0px";
-          leftArrowButton.style.paddingRight="0px";
-          leftArrowButton.append(leftArrowImage);
-          pageFragment.append(leftArrowButton);
-          if (lastQuery != "") leftArrowButton.href = "?page=" + (currentPage - 1) + ("&" + lastQuery);
-          else leftArrowButton.href = "?page=" + (currentPage - 1)
+            //issue wrapper children elements
+            var month = document.createElement("div");
+            month.className = "month";
+            month.innerText = q.Monat + " | ";
+            var dateDivider = document.createElement("div");
+            dateDivider.className = "date-divider";
+            var year = document.createElement("div");
+            year.className = "year";
+            year.innerText = " " + q.Jahr + " Ausgabe " + q.Ausgabe;
+            var decade = document.createElement("div");
+            decade.className = "decade";
 
-      }
-      if (pageCount <= 7) {
-          for (i = 1; i <= pageCount; i++) {
-              const pageButton = document.createElement("a");
-              const pageDiv = document.createElement("div");
-              pageDiv.textContent = i;
-              pageButton.className = "pagination-page-button w-inline-block";
-              console.debug(typeof i);
-              if (lastQuery != "") pageButton.href = "?page=" + i + ("&" + lastQuery);
-              else pageButton.href = "?page=" + i
-              console.debug(pageButton.href);
-              pageButton.append(pageDiv);
-              pageFragment.append(pageButton);
-              if (i == currentPage) {
-                  pageButton.className = "pagination-page-button w-inline-block w--current"
-              }
-          }
-          paginationWrapper.append(pageFragment);
-      } else {
-          if (currentPage < 5) {
-              for (i = 1; i <= 5; i++) {
-                  const pageButton = document.createElement("a");
-                  const pageDiv = document.createElement("div");
-                  pageDiv.textContent = i;
-                  pageButton.className = "pagination-page-button w-inline-block";
-                  console.debug(typeof i);
-                  if (lastQuery != "") { pageButton.href = "?page=" + i + ("&" + lastQuery) }
-                  else { pageButton.href = "?page=" + i; }
-                  console.debug(pageButton.href);
-                  pageButton.append(pageDiv);
-                  pageFragment.append(pageButton);
-                  if (i == currentPage) {
-                      pageButton.className = "pagination-page-button w-inline-block w--current"
-                  }
-              }
 
-              const pageDots = document.createElement("div");
-              pageDots.textContent = '...';
-              pageDots.className = "pagination-dots-button";
-              pageFragment.append(pageDots);
+            issueWrapper.append(month, dateDivider, year, decade);
 
-              const lastPageButton = document.createElement("a");
-              const lastPageDiv = document.createElement("div");
-              lastPageDiv.textContent = pageCount;
-              lastPageButton.className = "pagination-page-button w-inline-block";
-              if (lastQuery != "") lastPageButton.href = "?page=" + pageCount + ("&" + lastQuery);
-              else lastPageButton.href = "?page=" + pageCount
-              lastPageButton.append(lastPageDiv);
-              pageFragment.append(lastPageButton);
-              paginationWrapper.append(pageFragment);
-          }
-          else if (currentPage >= 5 && currentPage <= (pageCount - 4)) {
-              const firstPageButton = document.createElement("a");
-              const firstPageDiv = document.createElement("div");
-              firstPageDiv.textContent = "1";
-              firstPageButton.className = "pagination-page-button w-inline-block";
-              if (lastQuery != "") firstPageButton.href = "?page=" + "1" + ("&" + lastQuery);
-              else firstPageButton.href = "?page=" + "1"
-              firstPageButton.append(firstPageDiv);
-              pageFragment.append(firstPageButton);
+            productImgWrapper.append(img, title, issueWrapper);
+            productWrapper.append(productImgWrapper);
+            productWrapper.setAttribute("role", "listitem");
+            fragment.append(productWrapper);
 
-              const pageDots = document.createElement("div");
-              pageDots.textContent = '...';
-              pageDots.className = "pagination-dots-button";
-              pageFragment.append(pageDots);
-              var j = currentPage - 1;
-              for (i = 0; i < 3; i++) {
-                  const pageButton = document.createElement("a");
-                  const pageDiv = document.createElement("div");
-                  console.debug("Paging : " + j)
-                  pageDiv.textContent = j;
-                  pageButton.className = "pagination-page-button w-inline-block";
-                  if (lastQuery != "") pageButton.href = "?page=" + j + ("&" + lastQuery);
-                  else pageButton.href = "?page=" + j
-                  pageButton.append(pageDiv);
-                  pageFragment.append(pageButton);
-                  if (j == currentPage) {
-                      pageButton.className = "pagination-page-button w-inline-block w--current"
-                  }
-                  j = j + 1;
-              }
-              const midPageDots = document.createElement("div");
-              midPageDots.textContent = '...';
-              midPageDots.className = "pagination-dots-button";
-              pageFragment.append(midPageDots);
+        }
+        collection.append(fragment);
+        list.prepend(collection);
+        pagination();
+        const lastQuery = getC('lastQuery');
+        if (lastQuery == "") {
+            fetch("https://bildzeitschrift.netlify.app/.netlify/functions/randomize").then((resp) => {
+                resp.json()
+                console.log("Randomized");
 
-              const lastPageButton = document.createElement("a");
-              const lastPageDiv = document.createElement("div");
-              lastPageDiv.textContent = pageCount;
-              lastPageButton.className = "pagination-page-button w-inline-block";
-              if (lastQuery != "") lastPageButton.href = "?page=" + i + ("&" + lastQuery);
-              else lastPageButton.href = "?page=" + i
-              lastPageButton.append(lastPageDiv);
-              pageFragment.append(lastPageButton);
-              paginationWrapper.append(pageFragment);
-          }
-          else {
-              const firstPageButton = document.createElement("a");
-              const firstPageDiv = document.createElement("div");
-              firstPageDiv.textContent = "1";
-              firstPageButton.className = "pagination-page-button w-inline-block";
-              if (lastQuery != "") firstPageButton.href = "?page=" + "1" + ("&" + lastQuery);
-              else firstPageButton.href = "?page=" + "1"
-              firstPageButton.append(firstPageDiv);
-              pageFragment.append(firstPageButton);
+            })
+        }
 
-              const pageDots = document.createElement("div");
-              pageDots.textContent = '...';
-              pageDots.className = "pagination-dots-button";
-              pageFragment.append(pageDots);
+    }
 
-              for (i = pageCount - 4; i <= pageCount; i++) {
-                  const pageButton = document.createElement("a");
-                  const pageDiv = document.createElement("div");
-                  pageDiv.textContent = i;
-                  pageButton.className = "pagination-page-button w-inline-block";
-                  if (lastQuery != "") pageButton.href = "?page=" + i + ("&" + lastQuery);
-                  else pageButton.href = "?page=" + i
+    async function pagination() {
+        const list = document.getElementsByClassName("w-dyn-list")[0];
+        var paginationWrapper;
+        if (document.getElementsByClassName("w-pagination-wrapper pagination")[0]) {
+            paginationWrapper = document.getElementsByClassName("w-pagination-wrapper pagination")[0];
+            paginationWrapper.innerHTML = "";
+            paginationWrapper.style.display = "flex";
+        } else {
+            paginationWrapper = document.createElement("div");
+            paginationWrapper.className = "w-pagination-wrapper pagination";
+            paginationWrapper.style.display = "flex";
+        }
 
-                  pageButton.append(pageDiv);
-                  pageFragment.append(pageButton);
-                  if (i == currentPage) {
-                      pageButton.className = "pagination-page-button w-inline-block w--current"
-                  }
-                  j++;
-              }
-              paginationWrapper.append(pageFragment)
-          }
-      }
-      if (currentPage != pageCount) {
-          console.debug(typeof currentPage);
-          const rightArrowButton = document.createElement("a");
-          rightArrowButton.className = "w-pagination-right pagination-button-next keep-params 10xarrow";
-          rightArrowButton.setAttribute("aria-label", "Next Page");
-          const rightArrowImage = document.createElement("img");
-          rightArrowButton.style.marginLeft=10;
-          rightArrowImage.width = "45";
-          rightArrowImage.loading = "lazy";
-          rightArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651849092/asset/Arrow.svg";
-          rightArrowImage.className = "pagination-arrow right";
-          rightArrowButton.append(rightArrowImage);
-          if (lastQuery != "") rightArrowButton.href = "?page=" + parseInt(Number(currentPage) + 1) + ("&" + lastQuery);
-          else rightArrowButton.href = "?page=" + parseInt(Number(currentPage) + 1)
-          paginationWrapper.append(rightArrowButton);
-          if (pageCount - currentPage >= 10) {
-              const rightArrowButton = document.createElement("a");
-              rightArrowButton.className = "w-pagination-right pagination-button-next keep-params 10xarrow";
-              rightArrowButton.setAttribute("aria-label", "Next Page");
-              const rightArrowImage = document.createElement("img");
-              rightArrowImage.style
-              rightArrowImage.width = "45";
-              rightArrowButton.style.marginLeft="0px"
-              rightArrowImage.loading = "lazy";
-              rightArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/Group_42_1.svg";
-              rightArrowImage.className = "pagination-arrow right";
-              rightArrowButton.append(rightArrowImage);
-              if (lastQuery != "") rightArrowButton.href = "?page=" + parseInt(Number(currentPage) + 10) + ("&" + lastQuery);
-              else rightArrowButton.href = "?page=" + parseInt(Number(currentPage) + 10)
-              paginationWrapper.append(rightArrowButton);
-          }
-      }
-      list.append(paginationWrapper);
-  }
+        const pageCount = data.pageCount;
+        const currentPage = data.currentPage || 1;
+        console.debug("Current page : " + currentPage);
+        const lastQuery = getC('lastQuery');
+        console.debug("Last query inside pagination " + lastQuery);
+        const pageFragment = document.createDocumentFragment();
+        if (currentPage != 1) {
+            if (currentPage > 10) {
+                const leftArrowButton = document.createElement("a");
+                leftArrowButton.className = "w-pagination-previous pagination-button-left keep-params 10xarrow";
+                leftArrowButton.setAttribute("aria-label", "Previous Page");
+                leftArrowButton.style.marginRight = 0;
+                const leftArrowImage = document.createElement("img");
+                leftArrowImage.width = "45";
+                leftArrowImage.loading = "lazy";
+                leftArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/Group_42_1.svg";
+                leftArrowImage.className = "pagination-arrow left";
+                leftArrowButton.style.marginRight = "0px";
+                leftArrowButton.style.paddingRight = "0px";
+                leftArrowButton.append(leftArrowImage);
+                pageFragment.append(leftArrowButton);
+                if (lastQuery != "") leftArrowButton.href = "?page=" + (currentPage - 10) + ("&" + lastQuery);
+                else leftArrowButton.href = "?page=" + (currentPage - 10)
+            }
+            const leftArrowButton = document.createElement("a");
+            leftArrowButton.className = "w-pagination-previous pagination-button-left keep-params 10xarrow";
+            leftArrowButton.setAttribute("aria-label", "Previous Page");
+            const leftArrowImage = document.createElement("img");
+            leftArrowImage.width = "45";
+            leftArrowImage.loading = "lazy";
+            leftArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651849092/asset/Arrow.svg";
+            leftArrowImage.className = "pagination-arrow left";
+            leftArrowButton.style.paddingLeft = "0px";
+            leftArrowButton.style.paddingRight = "0px";
+            leftArrowButton.append(leftArrowImage);
+            pageFragment.append(leftArrowButton);
+            if (lastQuery != "") leftArrowButton.href = "?page=" + (currentPage - 1) + ("&" + lastQuery);
+            else leftArrowButton.href = "?page=" + (currentPage - 1)
+
+        }
+        if (pageCount <= 7) {
+            for (i = 1; i <= pageCount; i++) {
+                const pageButton = document.createElement("a");
+                const pageDiv = document.createElement("div");
+                pageDiv.textContent = i;
+                pageButton.className = "pagination-page-button w-inline-block";
+                console.debug(typeof i);
+                if (lastQuery != "") pageButton.href = "?page=" + i + ("&" + lastQuery);
+                else pageButton.href = "?page=" + i
+                console.debug(pageButton.href);
+                pageButton.append(pageDiv);
+                pageFragment.append(pageButton);
+                if (i == currentPage) {
+                    pageButton.className = "pagination-page-button w-inline-block w--current"
+                }
+            }
+            paginationWrapper.append(pageFragment);
+        } else {
+            if (currentPage < 5) {
+                for (i = 1; i <= 5; i++) {
+                    const pageButton = document.createElement("a");
+                    const pageDiv = document.createElement("div");
+                    pageDiv.textContent = i;
+                    pageButton.className = "pagination-page-button w-inline-block";
+                    console.debug(typeof i);
+                    if (lastQuery != "") { pageButton.href = "?page=" + i + ("&" + lastQuery) }
+                    else { pageButton.href = "?page=" + i; }
+                    console.debug(pageButton.href);
+                    pageButton.append(pageDiv);
+                    pageFragment.append(pageButton);
+                    if (i == currentPage) {
+                        pageButton.className = "pagination-page-button w-inline-block w--current"
+                    }
+                }
+
+                const pageDots = document.createElement("div");
+                pageDots.textContent = '...';
+                pageDots.className = "pagination-dots-button";
+                pageFragment.append(pageDots);
+
+                const lastPageButton = document.createElement("a");
+                const lastPageDiv = document.createElement("div");
+                lastPageDiv.textContent = pageCount;
+                lastPageButton.className = "pagination-page-button w-inline-block";
+                if (lastQuery != "") lastPageButton.href = "?page=" + pageCount + ("&" + lastQuery);
+                else lastPageButton.href = "?page=" + pageCount
+                lastPageButton.append(lastPageDiv);
+                pageFragment.append(lastPageButton);
+                paginationWrapper.append(pageFragment);
+            }
+            else if (currentPage >= 5 && currentPage <= (pageCount - 4)) {
+                const firstPageButton = document.createElement("a");
+                const firstPageDiv = document.createElement("div");
+                firstPageDiv.textContent = "1";
+                firstPageButton.className = "pagination-page-button w-inline-block";
+                if (lastQuery != "") firstPageButton.href = "?page=" + "1" + ("&" + lastQuery);
+                else firstPageButton.href = "?page=" + "1"
+                firstPageButton.append(firstPageDiv);
+                pageFragment.append(firstPageButton);
+
+                const pageDots = document.createElement("div");
+                pageDots.textContent = '...';
+                pageDots.className = "pagination-dots-button";
+                pageFragment.append(pageDots);
+                var j = currentPage - 1;
+                for (i = 0; i < 3; i++) {
+                    const pageButton = document.createElement("a");
+                    const pageDiv = document.createElement("div");
+                    console.debug("Paging : " + j)
+                    pageDiv.textContent = j;
+                    pageButton.className = "pagination-page-button w-inline-block";
+                    if (lastQuery != "") pageButton.href = "?page=" + j + ("&" + lastQuery);
+                    else pageButton.href = "?page=" + j
+                    pageButton.append(pageDiv);
+                    pageFragment.append(pageButton);
+                    if (j == currentPage) {
+                        pageButton.className = "pagination-page-button w-inline-block w--current"
+                    }
+                    j = j + 1;
+                }
+                const midPageDots = document.createElement("div");
+                midPageDots.textContent = '...';
+                midPageDots.className = "pagination-dots-button";
+                pageFragment.append(midPageDots);
+
+                const lastPageButton = document.createElement("a");
+                const lastPageDiv = document.createElement("div");
+                lastPageDiv.textContent = pageCount;
+                lastPageButton.className = "pagination-page-button w-inline-block";
+                if (lastQuery != "") lastPageButton.href = "?page=" + i + ("&" + lastQuery);
+                else lastPageButton.href = "?page=" + i
+                lastPageButton.append(lastPageDiv);
+                pageFragment.append(lastPageButton);
+                paginationWrapper.append(pageFragment);
+            }
+            else {
+                const firstPageButton = document.createElement("a");
+                const firstPageDiv = document.createElement("div");
+                firstPageDiv.textContent = "1";
+                firstPageButton.className = "pagination-page-button w-inline-block";
+                if (lastQuery != "") firstPageButton.href = "?page=" + "1" + ("&" + lastQuery);
+                else firstPageButton.href = "?page=" + "1"
+                firstPageButton.append(firstPageDiv);
+                pageFragment.append(firstPageButton);
+
+                const pageDots = document.createElement("div");
+                pageDots.textContent = '...';
+                pageDots.className = "pagination-dots-button";
+                pageFragment.append(pageDots);
+
+                for (i = pageCount - 4; i <= pageCount; i++) {
+                    const pageButton = document.createElement("a");
+                    const pageDiv = document.createElement("div");
+                    pageDiv.textContent = i;
+                    pageButton.className = "pagination-page-button w-inline-block";
+                    if (lastQuery != "") pageButton.href = "?page=" + i + ("&" + lastQuery);
+                    else pageButton.href = "?page=" + i
+
+                    pageButton.append(pageDiv);
+                    pageFragment.append(pageButton);
+                    if (i == currentPage) {
+                        pageButton.className = "pagination-page-button w-inline-block w--current"
+                    }
+                    j++;
+                }
+                paginationWrapper.append(pageFragment)
+            }
+        }
+        if (currentPage != pageCount) {
+            console.debug(typeof currentPage);
+            const rightArrowButton = document.createElement("a");
+            rightArrowButton.className = "w-pagination-right pagination-button-next keep-params 10xarrow";
+            rightArrowButton.setAttribute("aria-label", "Next Page");
+            const rightArrowImage = document.createElement("img");
+            rightArrowButton.style.marginLeft = 10;
+            rightArrowImage.width = "45";
+            rightArrowImage.loading = "lazy";
+            rightArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651849092/asset/Arrow.svg";
+            rightArrowImage.className = "pagination-arrow right";
+            rightArrowButton.append(rightArrowImage);
+            if (lastQuery != "") rightArrowButton.href = "?page=" + parseInt(Number(currentPage) + 1) + ("&" + lastQuery);
+            else rightArrowButton.href = "?page=" + parseInt(Number(currentPage) + 1)
+            paginationWrapper.append(rightArrowButton);
+            if (pageCount - currentPage >= 10) {
+                const rightArrowButton = document.createElement("a");
+                rightArrowButton.className = "w-pagination-right pagination-button-next keep-params 10xarrow";
+                rightArrowButton.setAttribute("aria-label", "Next Page");
+                const rightArrowImage = document.createElement("img");
+                rightArrowImage.style
+                rightArrowImage.width = "45";
+                rightArrowButton.style.marginLeft = "0px"
+                rightArrowImage.loading = "lazy";
+                rightArrowImage.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/Group_42_1.svg";
+                rightArrowImage.className = "pagination-arrow right";
+                rightArrowButton.append(rightArrowImage);
+                if (lastQuery != "") rightArrowButton.href = "?page=" + parseInt(Number(currentPage) + 10) + ("&" + lastQuery);
+                else rightArrowButton.href = "?page=" + parseInt(Number(currentPage) + 10)
+                paginationWrapper.append(rightArrowButton);
+            }
+        }
+        list.append(paginationWrapper);
+    }
 }
 
 async function loadFData() {
-  setTimeout(async () => {
-      console.debug('button clicked');
-      const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
-      for (x of individualReset) {
-          x.addEventListener("mouseup", loadFData);
-      }
-      const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
-      for (s of selectAllBtn) {
-          s.addEventListener("mouseup", loadFData);
-      }
-      const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
-      const checkboxSingleElements = document.getElementsByClassName('filter-dropdown single')
-      const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
-      resetAllButton.href = new URL(document.baseURI).origin + "/archiv"
-      resetAllButton.addEventListener("mouseup", loadFData);
-      for (q of checkboxWrappers) {
-          q.addEventListener("mouseup", loadFData)
-      }
-      for (s of checkboxSingleElements) {
-          s.addEventListener('mouseup', loadFData);
-      }
-      var url = window.location.href
-      var getQuery = url.split('?')[1]
-      console.debug(url);
-      var queryCookie = "";
-      if (getQuery) {
-          if (url.split('?')[1].includes('page')) {
-              if (getQuery.split('&').length > 1)
-                  console.debug(getQuery.split('&'));
-              var queries = getQuery.split('&');
-              console.debug(queries);
-              for (i = 1; i < queries.length; i++) {
-                  queryCookie += queries[i];
-              }
-          } else {
-              queryCookie += getQuery;
-          }
-      }
-      document.cookie = "lastQuery=" + queryCookie;
-      console.debug("Query cookie" + queryCookie);
-      console.debug("Get query :" + getQuery);
-      if (url.split('?').length > 1) {
-          console.debug("Inside if block");
-          fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?' + 'randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
-              .then(resp => resp.json())
-              .then(data => {
-                  console.debug("Data count " + data.count);
-                  if (data.count == 0) {
-                      console.debug("Data count " + data.count);
-                      const colList = document.getElementsByClassName("collection-list w-dyn-items w-row")[0];
-                      colList.style.display = "none";
-                      const resCount = document.getElementsByClassName("results-count")[0];
-                      resCount.innerHTML = "";
-                      const span = document.createElement('span');
-                      span.textContent = data.count + " Ergebnisse von ";
-                      const span2 = document.createElement('span');
-                      span2.textContent = data.totalCount;
-                      resCount.append(span, span2)
-                      const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
-                      noResultsFound.style.display = "block";
-                      const pagination = document.getElementsByClassName("w-pagination-wrapper pagination")[0];
-                      pagination.style.display = "none";
-                  } else {
-                      renderData(data);
-                      console.debug('data count : ' + data.count);
-                      if (data.currentPage > data.pageCount) {
-                          const button = document.getElementsByClassName('pagination-page-button w-inline-block')[0];
-                          button.click();
-                      }
-                  }
-              })
-      }
-      else {
-          fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1' + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder'))
-              .then(resp => resp.json())
-              .then(data => {
-                  console.debug("Data count " + data.count);
-                  if (data.count == 0) {
-                      console.debug("Data count " + data.count);
-                      const colList = document.getElementsByClassName("collection-list w-dyn-items w-row")[0];
-                      colList.style.display = "none";
-                      const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
-                      noResultsFound.style.display = "block";
-                  } else {
-                      renderData(data);
-                  }
-              })
-      }
-  }, 100)
+    setTimeout(async () => {
+        console.debug('button clicked');
+        const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
+        for (x of individualReset) {
+            x.addEventListener("mouseup", loadFData);
+        }
+        const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
+        for (s of selectAllBtn) {
+            s.addEventListener("mouseup", loadFData);
+        }
+        const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
+        const checkboxSingleElements = document.getElementsByClassName('filter-dropdown single')
+        const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
+        resetAllButton.href = new URL(document.baseURI).origin + "/archiv"
+        resetAllButton.addEventListener("mouseup", loadFData);
+        for (q of checkboxWrappers) {
+            q.addEventListener("mouseup", loadFData)
+        }
+        for (s of checkboxSingleElements) {
+            s.addEventListener('mouseup', loadFData);
+        }
+        var url = window.location.href
+        var getQuery = url.split('?')[1]
+        console.debug(url);
+        var queryCookie = "";
+        if (getQuery) {
+            if (url.split('?')[1].includes('page')) {
+                if (getQuery.split('&').length > 1)
+                    console.debug(getQuery.split('&'));
+                var queries = getQuery.split('&');
+                console.debug(queries);
+                for (i = 1; i < queries.length; i++) {
+                    queryCookie += queries[i];
+                }
+            } else {
+                queryCookie += getQuery;
+            }
+        }
+        document.cookie = "lastQuery=" + queryCookie;
+        console.debug("Query cookie" + queryCookie);
+        console.debug("Get query :" + getQuery);
+        if (url.split('?').length > 1) {
+            console.debug("Inside if block");
+            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?' + 'randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
+                .then(resp => resp.json())
+                .then(data => {
+                    console.debug("Data count " + data.count);
+                    if (data.count == 0) {
+                        console.debug("Data count " + data.count);
+                        const colList = document.getElementsByClassName("collection-list w-dyn-items w-row")[0];
+                        colList.style.display = "none";
+                        const resCount = document.getElementsByClassName("results-count")[0];
+                        resCount.innerHTML = "";
+                        const span = document.createElement('span');
+                        span.textContent = data.count + " Ergebnisse von ";
+                        const span2 = document.createElement('span');
+                        span2.textContent = data.totalCount;
+                        resCount.append(span, span2)
+                        const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
+                        noResultsFound.style.display = "block";
+                        const pagination = document.getElementsByClassName("w-pagination-wrapper pagination")[0];
+                        pagination.style.display = "none";
+                    } else {
+                        renderData(data);
+                        console.debug('data count : ' + data.count);
+                        if (data.currentPage > data.pageCount) {
+                            const button = document.getElementsByClassName('pagination-page-button w-inline-block')[0];
+                            button.click();
+                        }
+                    }
+                })
+        }
+        else {
+            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1' + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder'))
+                .then(resp => resp.json())
+                .then(data => {
+                    console.debug("Data count " + data.count);
+                    if (data.count == 0) {
+                        console.debug("Data count " + data.count);
+                        const colList = document.getElementsByClassName("collection-list w-dyn-items w-row")[0];
+                        colList.style.display = "none";
+                        const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
+                        noResultsFound.style.display = "block";
+                    } else {
+                        renderData(data);
+                    }
+                })
+        }
+    }, 100)
 }
 document.addEventListener("DOMContentLoaded", async function () {
-  const currentTime = new Date().getTime();
-  const cookieExpire = new Date(currentTime + 600000);
-  var randomNumber = Math.floor(Math.random() * (4 - 0 + 1));
-  var randomOrder = Math.floor(Math.random() * (1 - 0 + 1));
-  var randomOrderFinal = randomOrder == 0 ? -1 : 1;
-  if (getC('randomOrder') == '' && getC('randomNumber') == '') {
-      document.cookie = "randomOrder=" + randomOrderFinal + ";path=/;expires=" + cookieExpire.toUTCString();
-      document.cookie = "randomNumber=" + randomNumber + ";path=/;expires=" + cookieExpire.toUTCString();
-  }
-  const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
-  const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
-  resetAllButton.addEventListener("mouseup", loadFData);
-  resetAllButton.href = "#"
-  for (q of checkboxWrappers) {
-      q.addEventListener("mouseup", loadFData)
-  }
-  const search = document.getElementsByClassName("search-field w-input")[0];
-  search.addEventListener('input', loadFData);
-  loadFData();
-  setTimeout(()=>{
+    const currentTime = new Date().getTime();
+    const cookieExpire = new Date(currentTime + 600000);
+    var randomNumber = Math.floor(Math.random() * (4 - 0 + 1));
+    var randomOrder = Math.floor(Math.random() * (1 - 0 + 1));
+    var randomOrderFinal = randomOrder == 0 ? -1 : 1;
+    if (getC('randomOrder') == '' && getC('randomNumber') == '') {
+        document.cookie = "randomOrder=" + randomOrderFinal + ";path=/;expires=" + cookieExpire.toUTCString();
+        document.cookie = "randomNumber=" + randomNumber + ";path=/;expires=" + cookieExpire.toUTCString();
+    }
+    const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
+    for (s of selectAllBtn) {
+        s.addEventListener("mouseup", loadFData);
+    }
+    const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
+    const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
+    resetAllButton.addEventListener("mouseup", loadFData);
+    resetAllButton.href = "#"
+    for (q of checkboxWrappers) {
+        q.addEventListener("mouseup", loadFData)
+    }
+    const search = document.getElementsByClassName("search-field w-input")[0];
+    search.addEventListener('input', loadFData);
+    loadFData();
+    setTimeout(() => {
 
-  },1000)
+    }, 1000)
 })
