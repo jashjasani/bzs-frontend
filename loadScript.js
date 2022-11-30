@@ -55,7 +55,7 @@ async function renderData(data) {
           collection = document.createElement("div");
           collection.className = "w-dyn-items w-row";
       }
-
+      let imgCount = 0;
       for (q of data.magazines) {
           // class_list.push('')
           let productWrapper = document.createElement("div");
@@ -69,7 +69,7 @@ async function renderData(data) {
           var img = document.createElement("img");
           img.className = "product-img";
           img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1651695832/" + q.Images;
-          img.loading = "lazy";
+          img.loading = imgCount<=10 ? "eager" : "lazy";
           img.alt = "product-img";
 
           //product titel creation
