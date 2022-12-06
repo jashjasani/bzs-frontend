@@ -35,7 +35,7 @@
                 return filters;
             }
             async function makeChanges(filters) {
-								const main_category_indicator = document.getElementsByClassName('main-indicator-txt')
+	    const main_category_indicator = document.getElementsByClassName('main-indicator-txt')
             main_category_indicator.forEach(ele => {
             console.log('none');
                 ele.style.display = 'none';
@@ -43,6 +43,8 @@
                 const filterIndicators = document.getElementsByClassName('filter-span');
                 await filterIndicators.forEach(element => {
                     element.innerText = 0;
+			//Changed
+			console.log(element)
                     element.parentElement.parentElement.style.display = 'none';
                     element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[0].childNodes[1].childNodes[0].style.display = 'none'
                 })
