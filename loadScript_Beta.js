@@ -369,7 +369,12 @@ async function loadFData() {
                 var queries = getQuery.split('&');
                 console.debug(queries);
                 for (i = 1; i < queries.length; i++) {
-                    queryCookie += queries[i];
+                    if(i!=queries.length-1){
+                        queryCookie += queries[i] + "&";
+                    } else{
+                        queryCookie += queries[i];
+                    }
+                    
                 }
             } else {
                 queryCookie += getQuery;
