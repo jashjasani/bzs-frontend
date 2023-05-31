@@ -385,6 +385,7 @@ async function loadFData(sort_random) {
         console.debug("Get query :" + getQuery);
         if (url.split('?').length > 1) {
             console.debug("Inside if block");
+            console.log('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?sort_toggle='+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
             fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?sort_toggle='+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
                 .then(resp => resp.json())
                 .then(data => {
