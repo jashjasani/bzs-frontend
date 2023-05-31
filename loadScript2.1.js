@@ -336,7 +336,7 @@ async function renderData(data) {
     }
 }
 
-async function loadFData() {
+async function loadFData(sort_random) {
     setTimeout(async () => {
         console.debug('button clicked');
         const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
@@ -385,7 +385,7 @@ async function loadFData() {
         console.debug("Get query :" + getQuery);
         if (url.split('?').length > 1) {
             console.debug("Inside if block");
-            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?' + 'randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
+            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?sort_toggle='+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
                 .then(resp => resp.json())
                 .then(data => {
                     console.debug("Data count " + data.count);
@@ -415,7 +415,7 @@ async function loadFData() {
                 })
         }
         else {
-            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1' + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder'))
+            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle'+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder'))
                 .then(resp => resp.json())
                 .then(data => {
                     console.debug("Data count " + data.count);
@@ -433,6 +433,7 @@ async function loadFData() {
     }, 100)
 }
 document.addEventListener("DOMContentLoaded", async function () {
+    let sort_random = false
     const currentTime = new Date().getTime();
     const cookieExpire = new Date(currentTime + 600000);
     var randomNumber = Math.floor(Math.random() * (4 - 0 + 1));
@@ -454,9 +455,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         q.addEventListener("mouseup", loadFData)
     }
     const search = document.getElementsByClassName("search-field w-input")[0];
-    search.addEventListener('input', loadFData);
-    loadFData();
-    setTimeout(() => {
 
-    }, 1000)
+    const sortToggle = document.getElementsByClassName("random-switch")
+
+    sortToggle.addEventListener("click",()=>{
+        sort_random = !(sort_random)
+        loadFData(sort_random);
+    })
+
+    search.addEventListener('input', loadFData);
+    loadFData(sort_random);
 })
