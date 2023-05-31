@@ -338,6 +338,8 @@ async function renderData(data) {
 
 async function loadFData(sort_random) {
     setTimeout(async () => {
+        console.log('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?sort_toggle='+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
+        console.log('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle'+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder'))
         console.debug('button clicked');
         const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
         for (x of individualReset) {
@@ -385,7 +387,6 @@ async function loadFData(sort_random) {
         console.debug("Get query :" + getQuery);
         if (url.split('?').length > 1) {
             console.debug("Inside if block");
-            console.log('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?sort_toggle='+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
             fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?sort_toggle='+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
                 .then(resp => resp.json())
                 .then(data => {
