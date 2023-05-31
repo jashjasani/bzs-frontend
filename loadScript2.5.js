@@ -338,8 +338,6 @@ async function renderData(data) {
 
 async function loadFData(sort_random) {
     setTimeout(async () => {
-        console.log('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?sort_toggle='+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
-        console.log('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle'+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder'))
         console.debug('button clicked');
         const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
         for (x of individualReset) {
@@ -387,7 +385,7 @@ async function loadFData(sort_random) {
         console.debug("Get query :" + getQuery);
         if (url.split('?').length > 1) {
             console.debug("Inside if block");
-            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?sort_toggle='+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder') + '&' + getQuery)
+            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?' + 'randomNumber=' + getC('randomNumber') + '&sort_toggle=' + sort_random + '&' + getQuery)
                 .then(resp => resp.json())
                 .then(data => {
                     console.debug("Data count " + data.count);
@@ -417,7 +415,7 @@ async function loadFData(sort_random) {
                 })
         }
         else {
-            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle'+ sort_random + '&randomNumber=' + getC('randomNumber') + '&randomOrder=' + getC('randomOrder'))
+            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1' + '&sort_toggle=' + sort_random + '&randomOrder=' + getC('randomOrder'))
                 .then(resp => resp.json())
                 .then(data => {
                     console.debug("Data count " + data.count);
@@ -435,7 +433,7 @@ async function loadFData(sort_random) {
     }, 100)
 }
 document.addEventListener("DOMContentLoaded", async function () {
-    let sort_random = false
+    let sort_random = "false"
     const currentTime = new Date().getTime();
     const cookieExpire = new Date(currentTime + 600000);
     var randomNumber = Math.floor(Math.random() * (4 - 0 + 1));
@@ -461,7 +459,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     const sortToggle = document.getElementsByClassName("random-switch")[0];
 
     sortToggle.addEventListener("click",()=>{
-        sort_random = !(sort_random)
+        if (sort_random == "false"){
+            sort_random = "true"
+        } else{
+            sort_random = "false"
+        }
         loadFData(sort_random);
     })
 
