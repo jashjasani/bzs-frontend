@@ -456,7 +456,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     const search = document.getElementsByClassName("search-field w-input")[0];
 
-    const sortToggle = document.getElementsByClassName("random-switch")
+    const sortToggle = document.getElementsByClassName("random-switch")[0];
 
     sortToggle.addEventListener("click",()=>{
         sort_random = !(sort_random)
