@@ -452,14 +452,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
     for (s of selectAllBtn) {
-        s.addEventListener("mouseup", loadFData());
+        s.addEventListener("mouseup", loadFData);
     }
     const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
     const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
-    resetAllButton.addEventListener("mouseup", loadFData());
+    resetAllButton.addEventListener("mouseup", loadFData);
     resetAllButton.href = "#"
     for (q of checkboxWrappers) {
-        q.addEventListener("mouseup", loadFData())
+        q.addEventListener("mouseup", loadFData)
     }
     const search = document.getElementsByClassName("search-field w-input")[0];
 
@@ -479,6 +479,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         loadFData();
     })
 
-    search.addEventListener('input', loadFData());
+    search.addEventListener('input', loadFData);
     loadFData();
 })
