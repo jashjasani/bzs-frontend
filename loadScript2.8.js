@@ -452,14 +452,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
     for (s of selectAllBtn) {
-        s.addEventListener("mouseup", loadFData);
+        s.addEventListener("mouseup", loadFData(getC("sort_random")));
     }
     const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
     const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
-    resetAllButton.addEventListener("mouseup", loadFData);
+    resetAllButton.addEventListener("mouseup", loadFData(getC("sort_random")));
     resetAllButton.href = "#"
     for (q of checkboxWrappers) {
-        q.addEventListener("mouseup", loadFData)
+        q.addEventListener("mouseup", loadFData(getC("sort_random")))
     }
     const search = document.getElementsByClassName("search-field w-input")[0];
 
@@ -469,6 +469,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         sortToggle.style = "background-color: rgb(191, 133, 99);"
     }
     sortToggle.addEventListener("click",()=>{
+        
         if (sort_random == "false"){
             sort_random = "true"
         } else{
@@ -478,6 +479,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         loadFData(sort_random);
     })
 
-    search.addEventListener('input', loadFData);
+    search.addEventListener('input', loadFData(getC("sort_random")));
     loadFData(sort_random);
 })
