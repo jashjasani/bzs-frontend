@@ -536,11 +536,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const sortToggle = document.getElementsByClassName("random-switch")[0];
   const toggle = document.getElementsByClassName("toggle")[0];
-  if (sort_random == "false") {
-    sortToggle.style = "background-color: rgb(191, 133, 99);";
-    toggle.style =
-      "transform: translate3d(-10%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;";
-  }
+  
   sortToggle.addEventListener("click", () => {
     if (sort_random == "false") {
       sort_random = "true";
@@ -559,4 +555,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   search.addEventListener("input", loadFData);
   loadFData();
+  if (sort_random == "false") {
+    sortToggle.style = "background-color: rgb(191, 133, 99);";
+    toggle.style =
+      "transform: translate3d(-10%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;";
+  }
 });
