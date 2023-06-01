@@ -433,7 +433,14 @@ async function loadFData(sort_random) {
     }, 100)
 }
 document.addEventListener("DOMContentLoaded", async function () {
-    let sort_random = "false"
+    let sort_random = "true"
+    if(getC("sort_random") != ''){
+        sort_random = getC("sort_random")
+    }else {
+        document.cookie = "sort_random" = sort_random + ";"
+    }
+
+    
     const currentTime = new Date().getTime();
     const cookieExpire = new Date(currentTime + 600000);
     var randomNumber = Math.floor(Math.random() * (4 - 0 + 1));
@@ -457,13 +464,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     const search = document.getElementsByClassName("search-field w-input")[0];
 
     const sortToggle = document.getElementsByClassName("random-switch")[0];
-
+    if(sort_random == "false"){
+        sortToggle.firstChild.style = "transform: translate3d(-10%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
+        sortToggle.style = "background-color: rgb(191, 133, 99);"
+    }
     sortToggle.addEventListener("click",()=>{
         if (sort_random == "false"){
             sort_random = "true"
         } else{
             sort_random = "false"
         }
+        document.cookie = "sort_random=" + sort_random +";"
         loadFData(sort_random);
     })
 
