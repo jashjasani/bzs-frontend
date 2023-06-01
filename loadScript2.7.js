@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if(getC("sort_random") != ''){
         sort_random = getC("sort_random")
     }else {
-        document.cookie = "sort_random" = sort_random + ";"
+        document.cookie = "sort_random=" + sort_random + ";"
     }
 
     
