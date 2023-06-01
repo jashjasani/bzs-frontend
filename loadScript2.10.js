@@ -336,28 +336,28 @@ async function renderData(data) {
     }
 }
 
-async function loadFData(sort_random) {
+async function loadFData() {
     setTimeout(async () => {
         console.debug('button clicked');
-        const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
-        for (x of individualReset) {
-            x.addEventListener("mouseup", loadFData);
-        }
-        const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
-        for (s of selectAllBtn) {
-            s.addEventListener("mouseup", loadFData);
-        }
-        const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
-        const checkboxSingleElements = document.getElementsByClassName('filter-dropdown single')
-        const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
-        resetAllButton.href = new URL(document.baseURI).origin + "/archiv"
-        resetAllButton.addEventListener("mouseup", loadFData);
-        for (q of checkboxWrappers) {
-            q.addEventListener("mouseup", loadFData)
-        }
-        for (s of checkboxSingleElements) {
-            s.addEventListener('mouseup', loadFData);
-        }
+        // const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
+        // for (x of individualReset) {
+        //     x.addEventListener("mouseup", loadFData);
+        // }
+        // const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
+        // for (s of selectAllBtn) {
+        //     s.addEventListener("mouseup", loadFData);
+        // }
+        // const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
+        // const checkboxSingleElements = document.getElementsByClassName('filter-dropdown single')
+        // const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
+        // resetAllButton.href = new URL(document.baseURI).origin + "/archiv"
+        // resetAllButton.addEventListener("mouseup", loadFData);
+        // for (q of checkboxWrappers) {
+        //     q.addEventListener("mouseup", loadFData)
+        // }
+        // for (s of checkboxSingleElements) {
+        //     s.addEventListener('mouseup', loadFData);
+        // }
         var url = window.location.href
         var getQuery = url.split('?')[1]
         console.debug(url);
@@ -385,7 +385,7 @@ async function loadFData(sort_random) {
         console.debug("Get query :" + getQuery);
         if (url.split('?').length > 1) {
             console.debug("Inside if block");
-            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?' + 'randomNumber=' + getC('randomNumber') + '&sort_toggle=' + sort_random + '&' + getQuery)
+            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?' + 'randomNumber=' + getC('randomNumber') + '&sort_toggle=' +getC("sort_random") + '&' + getQuery)
                 .then(resp => resp.json())
                 .then(data => {
                     console.debug("Data count " + data.count);
@@ -415,7 +415,7 @@ async function loadFData(sort_random) {
                 })
         }
         else {
-            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1' + '&sort_toggle=' + sort_random + '&randomOrder=' + getC('randomOrder'))
+            fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1' + '&sort_toggle=' + getC("sort_random") + '&randomOrder=' + getC('randomOrder'))
                 .then(resp => resp.json())
                 .then(data => {
                     console.debug("Data count " + data.count);
@@ -452,14 +452,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
     for (s of selectAllBtn) {
-        s.addEventListener("mouseup", loadFData(getC("sort_random")));
+        s.addEventListener("mouseup", loadFData());
     }
     const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
     const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
-    resetAllButton.addEventListener("mouseup", loadFData(getC("sort_random")));
+    resetAllButton.addEventListener("mouseup", loadFData());
     resetAllButton.href = "#"
     for (q of checkboxWrappers) {
-        q.addEventListener("mouseup", loadFData(getC("sort_random")))
+        q.addEventListener("mouseup", loadFData())
     }
     const search = document.getElementsByClassName("search-field w-input")[0];
 
@@ -476,9 +476,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             sort_random = "false"
         }
         document.cookie = "sort_random=" + sort_random +";"
-        loadFData(sort_random);
+        loadFData();
     })
 
-    search.addEventListener('input', loadFData(getC("sort_random")));
-    loadFData(sort_random);
+    search.addEventListener('input', loadFData());
+    loadFData();
 })
