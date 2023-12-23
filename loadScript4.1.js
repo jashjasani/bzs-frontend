@@ -557,7 +557,7 @@ function getC(cName) {
       loadFData();
     });
   
-    search.addEventListener("keypress", loadFData);
+    search.addEventListener("keypress", (event)=>loadFData(event));
     loadFData();
     
   });
