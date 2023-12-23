@@ -369,7 +369,7 @@ function getC(cName) {
   }
   
   async function loadFData(e) {
-    if(e.key == "Enter"){
+    if(e?.key == "Enter"){
         setTimeout(async () => {
             console.debug("button clicked");
             // const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
