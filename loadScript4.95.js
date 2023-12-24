@@ -552,11 +552,10 @@ function getC(cName) {
     resetAllButton.addEventListener("mouseup", ()=>{
       let currentUrl = new URL(window.location.href);
       if (currentUrl.searchParams.getAll().length>0){
-        loadFData()
+        window.location.replace(currentUrl.origin+currentUrl.pathname)
       }
      
     });
-    resetAllButton.href = "#";
     for (q of checkboxWrappers) {
       q.addEventListener("mouseup", loadFData);
     }
