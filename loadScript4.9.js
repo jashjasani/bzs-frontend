@@ -379,6 +379,10 @@ function getC(cName) {
     }
     if(!e || e.key == "Enter"){
         setTimeout(async () => {
+          var currentUrl = new URL(window.location.href);
+          if (currentUrl.searchParams.get("search").length>0){
+            let searchValue = document.getElementsByClassName("search-field w-input")[0].value = String(currentUrl.searchParams.get("search")) 
+          }
             // const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
             // for (x of individualReset) {
             //     x.addEventListener("mouseup", loadFData);
