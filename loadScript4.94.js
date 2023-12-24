@@ -551,7 +551,7 @@ function getC(cName) {
     
     resetAllButton.addEventListener("mouseup", ()=>{
       let currentUrl = new URL(window.location.href);
-      if (currentUrl.searchParams.getAll().length!=0){
+      if (currentUrl.searchParams.getAll().length>0){
         loadFData()
       }
      
