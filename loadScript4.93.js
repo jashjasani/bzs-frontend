@@ -550,10 +550,11 @@ function getC(cName) {
     const resetAllButton = document.getElementsByClassName("reset-all-btn")[0];
     
     resetAllButton.addEventListener("mouseup", ()=>{
-      let searchValue = document.getElementsByClassName("search-field w-input")[0].value = ''
       let currentUrl = new URL(window.location.href);
-      let page = currentUrl.searchParams.get("page")
-      window.location.assign(page !== null ? currentUrl.origin + currentUrl.pathname +"?page=" + page : currentUrl.origin + currentUrl.pathname)
+      if (currentUrl.searchParams.getAll().length!=0){
+        loadFData()
+      }
+     
     });
     resetAllButton.href = "#";
     for (q of checkboxWrappers) {
