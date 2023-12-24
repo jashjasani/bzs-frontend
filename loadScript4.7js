@@ -373,7 +373,7 @@ function getC(cName) {
       
       let searchValue = document.getElementsByClassName("search-field w-input")[0].value
       var currentUrl = new URL(window.location.href);
-      searchValue == '' || searchValue == null ? currentUrl.searchParams.delete('yourKey') : currentUrl.searchParams.set("search", searchValue);
+      searchValue == '' || searchValue == null ? currentUrl.searchParams.delete('search') : currentUrl.searchParams.set("search", searchValue);
       window.history.replaceState({}, document.title, currentUrl.href);
 
     }
