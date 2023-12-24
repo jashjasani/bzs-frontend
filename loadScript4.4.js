@@ -369,9 +369,15 @@ function getC(cName) {
   }
   
   async function loadFData(e) {
+    if(e?.key == "Enter"){
+      let searchValue = document.getElementsByClassName("search-field w-input")[0].value
+      var currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set("search", searchValue);
+      window.history.replaceState({}, document.title, currentUrl.href);
+
+    }
     if(!e || e.key == "Enter"){
         setTimeout(async () => {
-            console.debug("button clicked");
             // const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
             // for (x of individualReset) {
             //     x.addEventListener("mouseup", loadFData);
@@ -557,7 +563,9 @@ function getC(cName) {
       loadFData();
     });
   
-    search.addEventListener("keypress", (event)=>loadFData(event));
+    search.addEventListener("keypress", (event)=>{
+        loadFData(event)
+    });
     loadFData();
     
   });
