@@ -382,129 +382,128 @@ async function loadFData(e) {
     window.history.replaceState({}, document.title, currentUrl.href);
   }
   if (!e || e.key == "Enter") {
-    setTimeout(async () => {
-      var currentUrl = new URL(window.location.href);
-      if (currentUrl.searchParams.get("search")) {
-        let searchValue = (document.getElementsByClassName(
-          "search-field w-input"
-        )[0].value = String(currentUrl.searchParams.get("search")));
+    var currentUrl = new URL(window.location.href);
+    if (currentUrl.searchParams.get("search")) {
+      let searchValue = (document.getElementsByClassName(
+        "search-field w-input"
+      )[0].value = String(currentUrl.searchParams.get("search")));
+    }
+  }
+  setTimeout(async () => {
+    // const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
+    // for (x of individualReset) {
+    //     x.addEventListener("mouseup", loadFData);
+    // }
+    // const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
+    // for (s of selectAllBtn) {
+    //     s.addEventListener("mouseup", loadFData);
+    // }
+    // const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
+    // const checkboxSingleElements = document.getElementsByClassName('filter-dropdown single')
+    // const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
+    // resetAllButton.href = new URL(document.baseURI).origin + "/archiv"
+    // resetAllButton.addEventListener("mouseup", loadFData);
+    // for (q of checkboxWrappers) {
+    //     q.addEventListener("mouseup", loadFData)
+    // }
+    // for (s of checkboxSingleElements) {
+    //     s.addEventListener('mouseup', loadFData);
+    // }
+    var url = window.location.href;
+    var getQuery = url.split("?")[1];
+    console.debug(url);
+    var queryCookie = "";
+    if (getQuery) {
+      if (url.split("?")[1].includes("page")) {
+        if (getQuery.split("&").length > 1) console.debug(getQuery.split("&"));
+        var queries = getQuery.split("&");
+        console.debug(queries);
+        for (i = 1; i < queries.length; i++) {
+          if (i != queries.length - 1) {
+            queryCookie += queries[i] + "&";
+          } else {
+            queryCookie += queries[i];
+          }
+        }
+      } else {
+        queryCookie += getQuery;
       }
-      // const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
-      // for (x of individualReset) {
-      //     x.addEventListener("mouseup", loadFData);
-      // }
-      // const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
-      // for (s of selectAllBtn) {
-      //     s.addEventListener("mouseup", loadFData);
-      // }
-      // const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
-      // const checkboxSingleElements = document.getElementsByClassName('filter-dropdown single')
-      // const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
-      // resetAllButton.href = new URL(document.baseURI).origin + "/archiv"
-      // resetAllButton.addEventListener("mouseup", loadFData);
-      // for (q of checkboxWrappers) {
-      //     q.addEventListener("mouseup", loadFData)
-      // }
-      // for (s of checkboxSingleElements) {
-      //     s.addEventListener('mouseup', loadFData);
-      // }
-      var url = window.location.href;
-      var getQuery = url.split("?")[1];
-      console.debug(url);
-      var queryCookie = "";
-      if (getQuery) {
-        if (url.split("?")[1].includes("page")) {
-          if (getQuery.split("&").length > 1)
-            console.debug(getQuery.split("&"));
-          var queries = getQuery.split("&");
-          console.debug(queries);
-          for (i = 1; i < queries.length; i++) {
-            if (i != queries.length - 1) {
-              queryCookie += queries[i] + "&";
-            } else {
-              queryCookie += queries[i];
+    }
+    document.cookie = "lastQuery=" + queryCookie;
+    console.debug("Query cookie" + queryCookie);
+    console.debug("Get query :" + getQuery);
+    if (url.split("?").length > 1) {
+      console.debug("Inside if block");
+      fetch(
+        "https://bildzeitschrift.netlify.app/.netlify/functions/loadData?" +
+          "randomNumber=" +
+          getC("randomNumber") +
+          "&sort_toggle=" +
+          getC("sort_random") +
+          "&" +
+          getQuery
+      )
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.debug("Data count " + data.count);
+          if (data.count == 0) {
+            console.debug("Data count " + data.count);
+            const colList = document.getElementsByClassName(
+              "collection-list w-dyn-items w-row"
+            )[0];
+            colList.style.display = "none";
+            const resCount =
+              document.getElementsByClassName("results-count")[0];
+            resCount.innerHTML = "";
+            const span = document.createElement("span");
+            span.textContent = data.count + " Ergebnisse von ";
+            const span2 = document.createElement("span");
+            span2.textContent = data.totalCount;
+            resCount.append(span, span2);
+            const noResultsFound =
+              document.getElementsByClassName("no-results-wrapper")[0];
+            noResultsFound.style.display = "block";
+            const pagination = document.getElementsByClassName(
+              "w-pagination-wrapper pagination"
+            )[0];
+            pagination.style.display = "none";
+          } else {
+            renderData(data);
+            console.debug("data count : " + data.count);
+            if (data.currentPage > data.pageCount) {
+              const button = document.getElementsByClassName(
+                "pagination-page-button w-inline-block"
+              )[0];
+              button.click();
             }
           }
-        } else {
-          queryCookie += getQuery;
-        }
-      }
-      document.cookie = "lastQuery=" + queryCookie;
-      console.debug("Query cookie" + queryCookie);
-      console.debug("Get query :" + getQuery);
-      if (url.split("?").length > 1) {
-        console.debug("Inside if block");
-        fetch(
-          "https://bildzeitschrift.netlify.app/.netlify/functions/loadData?" +
-            "randomNumber=" +
-            getC("randomNumber") +
-            "&sort_toggle=" +
-            getC("sort_random") +
-            "&" +
-            getQuery
-        )
-          .then((resp) => resp.json())
-          .then((data) => {
+        });
+    } else {
+      fetch(
+        "https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1" +
+          "&sort_toggle=" +
+          getC("sort_random") +
+          "&randomOrder=" +
+          getC("randomOrder")
+      )
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.debug("Data count " + data.count);
+          if (data.count == 0) {
             console.debug("Data count " + data.count);
-            if (data.count == 0) {
-              console.debug("Data count " + data.count);
-              const colList = document.getElementsByClassName(
-                "collection-list w-dyn-items w-row"
-              )[0];
-              colList.style.display = "none";
-              const resCount =
-                document.getElementsByClassName("results-count")[0];
-              resCount.innerHTML = "";
-              const span = document.createElement("span");
-              span.textContent = data.count + " Ergebnisse von ";
-              const span2 = document.createElement("span");
-              span2.textContent = data.totalCount;
-              resCount.append(span, span2);
-              const noResultsFound =
-                document.getElementsByClassName("no-results-wrapper")[0];
-              noResultsFound.style.display = "block";
-              const pagination = document.getElementsByClassName(
-                "w-pagination-wrapper pagination"
-              )[0];
-              pagination.style.display = "none";
-            } else {
-              renderData(data);
-              console.debug("data count : " + data.count);
-              if (data.currentPage > data.pageCount) {
-                const button = document.getElementsByClassName(
-                  "pagination-page-button w-inline-block"
-                )[0];
-                button.click();
-              }
-            }
-          });
-      } else {
-        fetch(
-          "https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1" +
-            "&sort_toggle=" +
-            getC("sort_random") +
-            "&randomOrder=" +
-            getC("randomOrder")
-        )
-          .then((resp) => resp.json())
-          .then((data) => {
-            console.debug("Data count " + data.count);
-            if (data.count == 0) {
-              console.debug("Data count " + data.count);
-              const colList = document.getElementsByClassName(
-                "collection-list w-dyn-items w-row"
-              )[0];
-              colList.style.display = "none";
-              const noResultsFound =
-                document.getElementsByClassName("no-results-wrapper")[0];
-              noResultsFound.style.display = "block";
-            } else {
-              renderData(data);
-            }
-          });
-      }
-    }, 100);
-  }
+            const colList = document.getElementsByClassName(
+              "collection-list w-dyn-items w-row"
+            )[0];
+            colList.style.display = "none";
+            const noResultsFound =
+              document.getElementsByClassName("no-results-wrapper")[0];
+            noResultsFound.style.display = "block";
+          } else {
+            renderData(data);
+          }
+        });
+    }
+  }, 100);
 }
 document.addEventListener("DOMContentLoaded", async function () {
   let sort_random = "true";
@@ -580,4 +579,3 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
   loadFData();
 });
-
