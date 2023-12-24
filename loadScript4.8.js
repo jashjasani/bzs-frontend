@@ -371,7 +371,7 @@ function getC(cName) {
   async function loadFData(e) {
     if(e?.key == "Enter"){
       
-      let searchValue = document.getElementsByClassName("search-field w-input")[0].value
+      let searchValue = document.getElementsByClassName("search-field w-input")[0].value.trim()
       var currentUrl = new URL(window.location.href);
       searchValue == '' || searchValue == null ? currentUrl.searchParams.delete('search') : currentUrl.searchParams.set("search", searchValue);
       window.history.replaceState({}, document.title, currentUrl.href);
