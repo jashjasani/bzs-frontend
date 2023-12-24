@@ -369,8 +369,6 @@ async function renderData(data) {
 }
 
 async function loadFData(e) {
-  console.clear();
-  console.log("Pressed");
   if (e?.key == "Enter") {
     let searchValue = document
       .getElementsByClassName("search-field w-input")[0]
@@ -445,7 +443,6 @@ async function loadFData(e) {
       )
         .then((resp) => resp.json())
         .then((data) => {
-          console.debug("Data count " + data.count);
           if (data.count == 0) {
             console.debug("Data count " + data.count);
             const colList = document.getElementsByClassName(
@@ -575,7 +572,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
   search.addEventListener("keypress", (event) => {
-    loadFData(event);
+    if(event.key == "Enter"){
+      loadFData(event);
+    }
+    
   });
   loadFData();
 });
