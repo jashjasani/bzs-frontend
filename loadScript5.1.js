@@ -28,14 +28,15 @@ async function renderData(data) {
     noResultsFound.style.display = "block";
   } else {
     const colList = document.getElementsByClassName(
-      "collection-list w-dyn-items w-row"
+      "w-dyn-items w-row"
     )[0];
-    colList.style.display = "block";
+    colList ? colList.style.display = "block" : null
     const noResultsFound =
       document.getElementsByClassName("no-results-wrapper")[0];
     noResultsFound.style.display = "none";
 
     const resultsCount = document.getElementsByClassName("results-count")[0];
+    
     const replaceResultsCount = document.createElement("div");
     replaceResultsCount.className = "results-count";
     const span = document.createElement("span");
@@ -50,14 +51,15 @@ async function renderData(data) {
 
     //grabbing collection elements to later add fragment
     const list = document.getElementsByClassName("w-dyn-list")[0];
+    
     var collection;
     if (document.getElementsByClassName("w-dyn-items w-row")[0]) {
       collection = document.getElementsByClassName("w-dyn-items w-row")[0];
-      collection.innerHTML = "";
-    } else {
-      collection = document.createElement("div");
-      collection.className = "w-dyn-items w-row";
-    }
+      collection.remove()
+    } 
+    collection = document.createElement("div");
+    collection.className = "w-dyn-items w-row";
+  
     let imgCount = 0;
     for (q of data.magazines) {
       // class_list.push('')
@@ -130,13 +132,12 @@ async function renderData(data) {
       paginationWrapper = document.getElementsByClassName(
         "w-pagination-wrapper pagination"
       )[0];
-      paginationWrapper.innerHTML = "";
-      paginationWrapper.style.display = "flex";
-    } else {
-      paginationWrapper = document.createElement("div");
-      paginationWrapper.className = "w-pagination-wrapper pagination";
-      paginationWrapper.style.display = "flex";
-    }
+      paginationWrapper.remove();
+    } 
+    paginationWrapper = document.createElement("div");
+    paginationWrapper.className = "w-pagination-wrapper pagination";
+    paginationWrapper.style.display = "flex";
+  
 
     const pageCount = data.pageCount;
     const currentPage = data.currentPage || 1;
@@ -446,7 +447,7 @@ async function loadFData(e) {
           if (data.count == 0) {
             console.debug("Data count " + data.count);
             const colList = document.getElementsByClassName(
-              "collection-list w-dyn-items w-row"
+              "w-dyn-items w-row"
             )[0];
             colList.style.display = "none";
             const resCount =
@@ -489,7 +490,7 @@ async function loadFData(e) {
           if (data.count == 0) {
             console.debug("Data count " + data.count);
             const colList = document.getElementsByClassName(
-              "collection-list w-dyn-items w-row"
+              "w-dyn-items w-row"
             )[0];
             colList.style.display = "none";
             const noResultsFound =
