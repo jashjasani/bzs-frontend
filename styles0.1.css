@@ -1,3 +1,7 @@
+button {
+    visibility: hidden;
+}
+
 .container-mode {
     align-items: center;
     text-align: center;
@@ -10,7 +14,9 @@
     overflow: auto;
     scrollbar-width: none;
 }
-.left-btn {
+.btn-specihern.left-btn {
+    border: none;
+    background-color: transparent;
     left: 10%;
 }
 
@@ -115,7 +121,9 @@
     }
 }
 @media (max-width: 1000px) {
-    .left-btn {
+    .btn-specihern.left-btn {
+        border: none;
+        background-color: transparent;
         left: 4%;
     }
     .btn-specihern {
