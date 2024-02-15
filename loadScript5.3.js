@@ -87,12 +87,12 @@ async function renderData(data) {
       save.className = "btn-specihern"
       save.innerText = "Specihern"
 
-      img.addEventListener("mouseenter",()=>{
+      img.addEventListener("mouseover",()=>{
         dropdown.style.visibility = "visible"
         save.style.visibility = "visible"
       })
 
-      img.addEventListener("mouseleave",()=>{
+      img.addEventListener("mouseout",()=>{
         dropdown.style.visibility = "hidden"
         save.style.visibility = "hidden"
       })
