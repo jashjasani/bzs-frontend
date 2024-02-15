@@ -75,11 +75,28 @@ async function renderData(data) {
       var img = document.createElement("img");
       img.className = "product-img";
       img.src =
-        "https://res.cloudinary.com/wdy-bzs/image/upload/v1651695832/" +
+        "https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/" +
         q.Images;
       img.loading = imgCount <= 10 ? "eager" : "lazy";
       imgCount++;
       img.alt = "product-img";
+      const dropdown = document.createElement("button");
+      dropdown.className = "btn-specihern left-btn"
+      dropdown.innerText = "..."
+      const save = document.createElement("button");
+      save.className = "btn-specihern"
+      save.innerText = "Specihern"
+
+      img.addEventListener("mouseenter",()=>{
+        dropdown.style.visibility = "visible"
+        save.style.visibility = "visible"
+      })
+
+      img.addEventListener("mouseleave",()=>{
+        dropdown.style.visibility = "hidden"
+        save.style.visibility = "hidden"
+      })
+
 
       //product titel creation
       var title = document.createElement("div");
@@ -106,7 +123,7 @@ async function renderData(data) {
 
       issueWrapper.append(month, dateDivider, year, decade);
 
-      productImgWrapper.append(img, title, issueWrapper);
+      productImgWrapper.append(img, save, dropdown, title, issueWrapper);
       productWrapper.append(productImgWrapper);
       productWrapper.setAttribute("role", "listitem");
       fragment.append(productWrapper);
