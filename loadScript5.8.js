@@ -90,16 +90,16 @@ async function renderData(data) {
 
       dropdown.addEventListener("click",(event)=>{
         event.preventDefault() // to stop link element from redirecting
-        if(productImgWrapper.querySelector(".container-mode")==null){
+        // if(productImgWrapper.querySelector(".container-mode")==null){
           const container = document.createElement("div")
           container.className = "container-mode"
           const search = document.createElement("input")
           search.className = "collection-search"
           container.appendChild(search)
           img.insertAdjacentElement('afterend',container)
-        } else {
-          productImgWrapper.querySelector(".container-mode").remove()
-        }
+        // } else {
+        //   productImgWrapper.querySelector(".container-mode").remove()
+        // }
 
         
       })
