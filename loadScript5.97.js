@@ -133,11 +133,11 @@ async function renderData(data) {
         
       })
 
-      document.addEventListener("click",(event)=>{
-        if(event.target.id != "container-main"){
-          document.querySelector("#container-main").remove()
-        }
-      })
+      // document.addEventListener("click",(event)=>{
+      //   if(event.target.id != "container-main"){
+      //     document.querySelector("#container-main").remove()
+      //   }
+      // })
 
 
       save.addEventListener("click",(event)=>{
