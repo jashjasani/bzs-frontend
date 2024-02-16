@@ -91,8 +91,9 @@ async function renderData(data) {
       dropdown.addEventListener("click",(event)=>{
         event.preventDefault() // to stop link element from redirecting
         
-        console.log(event);
+        
         if(event.target.parentElement.querySelector(".container-mode")==null){
+          console.log("inside if");
           const container = document.createElement("div")
           container.id = "container-main"
           container.className = "container-mode"
@@ -127,6 +128,7 @@ async function renderData(data) {
           event.target.insertAdjacentElement("afterend",container)
           
         } else {
+          console.log("inside else");
           event.target.parentElement.querySelector(".container-mode").remove()
         }
 
