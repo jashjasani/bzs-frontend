@@ -132,6 +132,15 @@ async function renderData(data) {
         
       })
 
+      document.addEventListener("click",(event)=>{
+        if(event.target.className != "container-mode"){
+          document.querySelectorAll(".container-mode").forEach((e)=>{
+            e.remove()
+          })
+        }
+      })
+
+
       save.addEventListener("click",(event)=>{
         event.preventDefault() // to stop link element from redirecting
       })

@@ -124,8 +124,13 @@ button {
 }
 @media (max-width: 1000px) {
     .container-mode {
-        width: 18%;
+        width: 40%;
         top: 35%;
+        left: 25%;
+        font-size: large;
+    }
+    .collection-name{
+        font-size: 15px;
     }
     .btn-specihern.left-btn {
         border: none;
