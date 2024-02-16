@@ -90,13 +90,14 @@ async function renderData(data) {
 
       dropdown.addEventListener("click",(event)=>{
         event.preventDefault() // to stop link element from redirecting
+        console.log(event);
         // if(productImgWrapper.querySelector(".container-mode")==null){
           const container = document.createElement("div")
           container.className = "container-mode"
           const search = document.createElement("input")
           search.className = "collection-search"
           container.appendChild(search)
-          productImgWrapper.append(container)
+          
         // } else {
         //   productImgWrapper.querySelector(".container-mode").remove()
         // }
