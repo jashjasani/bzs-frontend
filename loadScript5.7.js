@@ -90,7 +90,7 @@ async function renderData(data) {
 
       dropdown.addEventListener("click",(event)=>{
         event.preventDefault() // to stop link element from redirecting
-        if(img.querySelector(".container-mode")==null){
+        if(productImgWrapper.querySelector(".container-mode")==null){
           const container = document.createElement("div")
           container.className = "container-mode"
           const search = document.createElement("input")
@@ -98,7 +98,7 @@ async function renderData(data) {
           container.appendChild(search)
           img.insertAdjacentElement('afterend',container)
         } else {
-          img.querySelector(".container-mode").remove()
+          productImgWrapper.querySelector(".container-mode").remove()
         }
 
         
