@@ -94,6 +94,7 @@ async function renderData(data) {
         console.log(event);
         if(event.target.parentElement.querySelector(".container-mode")==null){
           const container = document.createElement("div")
+          container.id = "container-main"
           container.className = "container-mode"
           const search = document.createElement("input")
           search.placeholder = "Suchen ..."
@@ -133,10 +134,8 @@ async function renderData(data) {
       })
 
       document.addEventListener("click",(event)=>{
-        if(event.target.className != "container-mode"){
-          document.querySelectorAll(".container-mode").forEach((e)=>{
-            e.remove()
-          })
+        if(event.target.id != "container-main"){
+          document.querySelector("#container-main").remove()
         }
       })
 
