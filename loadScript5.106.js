@@ -91,9 +91,10 @@ async function renderData(data) {
       dropdown.addEventListener("click",(event)=>{
         event.preventDefault() // to stop link element from redirecting
         
+        if(document.querySelector("#container-main")!=null) document.querySelector("#container-main")
         
         if(event.target.parentElement.querySelector(".container-mode")==null){
-          document.querySelector("#container-main").remove()
+          
           const container = document.createElement("div")
           container.id = "container-main"
           container.className = "container-mode"
