@@ -93,7 +93,7 @@ async function renderData(data) {
         
         
         if(event.target.parentElement.querySelector(".container-mode")==null){
-          console.log("inside if");
+          document.querySelector("#container-main").remove()
           const container = document.createElement("div")
           container.id = "container-main"
           container.className = "container-mode"
@@ -128,7 +128,6 @@ async function renderData(data) {
           event.target.insertAdjacentElement("afterend",container)
           
         } else {
-          console.log("inside else");
           event.target.parentElement.querySelector(".container-mode").remove()
         }
 
@@ -198,7 +197,7 @@ async function renderData(data) {
         "https://bildzeitschrift.netlify.app/.netlify/functions/randomize"
       ).then((resp) => {
         resp.json();
-        console.log("Randomized");
+
       });
     }
   }
@@ -219,9 +218,9 @@ async function renderData(data) {
 
     const pageCount = data.pageCount;
     const currentPage = data.currentPage || 1;
-    console.debug("Current page : " + currentPage);
+   
     const lastQuery = getC("lastQuery");
-    console.debug("Last query inside pagination " + lastQuery);
+    
     const pageFragment = document.createDocumentFragment();
     if (currentPage != 1) {
       if (currentPage > 10) {
@@ -269,10 +268,10 @@ async function renderData(data) {
         const pageDiv = document.createElement("div");
         pageDiv.textContent = i;
         pageButton.className = "pagination-page-button w-inline-block";
-        console.debug(typeof i);
+       
         if (lastQuery != "") pageButton.href = "?page=" + i + ("&" + lastQuery);
         else pageButton.href = "?page=" + i;
-        console.debug(pageButton.href);
+       
         pageButton.append(pageDiv);
         pageFragment.append(pageButton);
         if (i == currentPage) {
@@ -288,13 +287,13 @@ async function renderData(data) {
           const pageDiv = document.createElement("div");
           pageDiv.textContent = i;
           pageButton.className = "pagination-page-button w-inline-block";
-          console.debug(typeof i);
+         
           if (lastQuery != "") {
             pageButton.href = "?page=" + i + ("&" + lastQuery);
           } else {
             pageButton.href = "?page=" + i;
           }
-          console.debug(pageButton.href);
+      ;
           pageButton.append(pageDiv);
           pageFragment.append(pageButton);
           if (i == currentPage) {
@@ -337,7 +336,7 @@ async function renderData(data) {
         for (i = 0; i < 3; i++) {
           const pageButton = document.createElement("a");
           const pageDiv = document.createElement("div");
-          console.debug("Paging : " + j);
+          
           pageDiv.textContent = j;
           pageButton.className = "pagination-page-button w-inline-block";
           if (lastQuery != "")
@@ -403,7 +402,7 @@ async function renderData(data) {
       }
     }
     if (currentPage != pageCount) {
-      console.debug(typeof currentPage);
+  
       const rightArrowButton = document.createElement("a");
       rightArrowButton.className =
         "w-pagination-right pagination-button-next keep-params 10xarrow";
@@ -488,13 +487,13 @@ async function loadFData(e) {
     // }
     var url = window.location.href;
     var getQuery = url.split("?")[1];
-    console.debug(url);
+
     var queryCookie = "";
     if (getQuery) {
       if (url.split("?")[1].includes("page")) {
-        if (getQuery.split("&").length > 1) console.debug(getQuery.split("&"));
+        if (getQuery.split("&").length > 1) ;
         var queries = getQuery.split("&");
-        console.debug(queries);
+      
         for (i = 1; i < queries.length; i++) {
           if (i != queries.length - 1) {
             queryCookie += queries[i] + "&";
@@ -507,10 +506,9 @@ async function loadFData(e) {
       }
     }
     document.cookie = "lastQuery=" + queryCookie;
-    console.debug("Query cookie" + queryCookie);
-    console.debug("Get query :" + getQuery);
+
     if (url.split("?").length > 1) {
-      console.debug("Inside if block");
+
       fetch(
         "https://bildzeitschrift.netlify.app/.netlify/functions/loadData?" +
           "randomNumber=" +
@@ -523,7 +521,7 @@ async function loadFData(e) {
         .then((resp) => resp.json())
         .then((data) => {
           if (data.count == 0) {
-            console.debug("Data count " + data.count);
+
             const colList = document.getElementsByClassName(
               "w-dyn-items w-row"
             )[0];
@@ -545,7 +543,7 @@ async function loadFData(e) {
             pagination.style.display = "none";
           } else {
             renderData(data);
-            console.debug("data count : " + data.count);
+
             if (data.currentPage > data.pageCount) {
               const button = document.getElementsByClassName(
                 "pagination-page-button w-inline-block"
@@ -564,9 +562,9 @@ async function loadFData(e) {
       )
         .then((resp) => resp.json())
         .then((data) => {
-          console.debug("Data count " + data.count);
+
           if (data.count == 0) {
-            console.debug("Data count " + data.count);
+
             const colList = document.getElementsByClassName(
               "w-dyn-items w-row"
             )[0];
