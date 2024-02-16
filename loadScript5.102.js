@@ -136,7 +136,8 @@ async function renderData(data) {
       })
 
       document.addEventListener("click",(event)=>{
-        if(!event.target.closest("#container-main") && document.querySelector("#container-main")!=null){
+        if(!event.target.closest("#container-main") && document.querySelector("#container-main")!=null && event.target.className != "btn-specihern.left-btn"){
+          console.log("Hello");
           document.querySelector("#container-main").remove()
         }
       })
