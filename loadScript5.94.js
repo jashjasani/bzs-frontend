@@ -106,11 +106,12 @@ async function renderData(data) {
           createCollection.className = "collections"
           const btn = document.createElement("button")
           btn.innerText = "+"
-          btn.classNamem = "collection-btn"
+          btn.className = "collection-btn"
           btn.style.visibility = "visible"
 
 
           const label = document.createElement("div")
+          label.className = "collection-name"
           label.innerText = "Kollektion erstellen"
           label.style.marginLeft = "10px"
 
