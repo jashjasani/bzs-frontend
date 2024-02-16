@@ -96,7 +96,7 @@ async function renderData(data) {
           const search = document.createElement("input")
           search.className = "collection-search"
           container.appendChild(search)
-          img.insertAdjacentElement('afterend',container)
+          productImgWrapper.append(container)
         // } else {
         //   productImgWrapper.querySelector(".container-mode").remove()
         // }
