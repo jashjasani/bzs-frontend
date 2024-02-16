@@ -1,17 +1,26 @@
 <style>
+    button {
+        visibility: hidden;
+    }
     .container-mode {
         align-items: center;
         text-align: center;
         padding: 10px;
         background-color: #d9d3d0;
-        width: 201px;
-        height: 160px;
+        position: absolute;
+        top: 10%;
+        width: 60%;
+        height: auto;
+        left: 13%;
+
         border-radius: 10px;
         border: 2px solid #2b2a2a;
         overflow: auto;
         scrollbar-width: none;
     }
-    .left-btn {
+    .btn-specihern.left-btn {
+        border: none;
+        background-color: transparent;
         left: 10%;
     }
 
@@ -116,7 +125,13 @@
         }
     }
     @media (max-width: 1000px) {
-        .left-btn {
+        .container-mode {
+            width: 18%;
+            top: 35%;
+        }
+        .btn-specihern.left-btn {
+            border: none;
+            background-color: transparent;
             left: 4%;
         }
         .btn-specihern {
@@ -223,15 +238,11 @@
     }
 </style>
 
-<button class="btn-specihern">Specihern</button>
+<!-- <button class="btn-specihern">Specihern</button> -->
 
 <button class="btn-specihern left-btn">
     Mode 60er
-    <img
-        class="iconlylight-outlinearrow-d"
-        alt=""
-        src="./public/iconlylightoutlinearrowdown2.svg"
-    />
+    <img class="iconlylight-outlinearrow-d" alt="" src="arrow-down-2.svg" />
 </button>
 
 <div class="container-mode">

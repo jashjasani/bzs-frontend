@@ -87,6 +87,29 @@ async function renderData(data) {
       save.className = "btn-specihern"
       save.innerText = "Specihern"
 
+
+      dropdown.addEventListener("click",(event)=>{
+        event.preventDefault() // to stop link element from redirecting
+        if(img.querySelector(".container-mode")==null){
+          const container = document.createElement("div")
+          container.className = "container-mode"
+          const search = document.createElement("input")
+          search.className = "collection-search"
+          container.appendChild(search)
+          img.insertAdjacentElement(container)
+        } else {
+          img.querySelector(".container-mode").remove()
+        }
+
+        
+      })
+
+      save.addEventListener("click",(event)=>{
+        event.preventDefault() // to stop link element from redirecting
+      })
+
+
+
       productImgWrapper.addEventListener("mouseover",()=>{
         dropdown.style.visibility = "visible"
         save.style.visibility = "visible"

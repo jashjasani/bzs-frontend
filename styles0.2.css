@@ -1,14 +1,16 @@
 button {
     visibility: hidden;
 }
-
 .container-mode {
     align-items: center;
     text-align: center;
     padding: 10px;
     background-color: #d9d3d0;
-    width: 201px;
-    height: 160px;
+    position: absolute;
+    top: 10%;
+    width: 60%;
+    height: auto;
+    left: 13%;
     border-radius: 10px;
     border: 2px solid #2b2a2a;
     overflow: auto;
@@ -121,6 +123,10 @@ button {
     }
 }
 @media (max-width: 1000px) {
+    .container-mode {
+        width: 18%;
+        top: 35%;
+    }
     .btn-specihern.left-btn {
         border: none;
         background-color: transparent;
