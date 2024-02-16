@@ -92,17 +92,41 @@ async function renderData(data) {
         event.preventDefault() // to stop link element from redirecting
         
         console.log(event);
-        // if(productImgWrapper.querySelector(".container-mode")==null){
+        if(event.target.parentElement.querySelector(".container-mode")==null){
           const container = document.createElement("div")
           container.className = "container-mode"
           const search = document.createElement("input")
+          search.placeholder = "Suchen ..."
           search.className = "collection-search"
           container.appendChild(search)
+
+
+
+          const createCollection = document.createElement("div")
+          createCollection.className = "collections"
+          const btn = document.createElement("button")
+          btn.innerText = "+"
+          btn.classNamem = "collection-btn"
+          btn.style.visibility = "visible"
+
+
+          const label = document.createElement("div")
+          label.innerText = "Kollektion erstellen"
+          label.style.marginLeft = "10px"
+
+          createCollection.appendChild(btn)
+          createCollection.appendChild(label)
+          container.appendChild(createCollection)
+
+          container.addEventListener("click",(event)=>{
+            event.preventDefault()
+          })
+
           event.target.insertAdjacentElement("afterend",container)
           
-        // } else {
-        //   productImgWrapper.querySelector(".container-mode").remove()
-        // }
+        } else {
+          event.target.parentElement.querySelector(".container-mode").remove()
+        }
 
         
       })
