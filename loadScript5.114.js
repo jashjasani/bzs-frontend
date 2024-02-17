@@ -102,7 +102,7 @@ async function renderData(data) {
           search.placeholder = "Suchen ..."
           search.className = "collection-search"
 
-          search.addEventListener("keydown",(event)=>{
+          search.addEventListener("input",(event)=>{
             console.log(event.target.value)
           })
 
