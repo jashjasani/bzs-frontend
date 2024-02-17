@@ -103,7 +103,46 @@ async function renderData(data) {
           search.className = "collection-search"
 
           search.addEventListener("input",(event)=>{
-            console.log(event.target.value)
+            const it = event.target.parentElement.querySelectorAll(".collections")
+            if(event.target.value == ''){
+              let collections = JSON.parse(sessionStorage.getItem("collections"))
+              for(let i =0;i<collections.length;i++){
+                const parentDiv = document.createElement("div")
+                parentDiv.className = "collections"
+                const childDiv = document.createElement("div")
+                childDiv.className = "collection-name"
+                childDiv.style.marginLeft = "10px"
+                childDiv.innerText = collections[i].name 
+                const btn = document.createElement("button")
+                btn.className = "collection-btn"
+                btn.innerText = "+"
+                btn.style.visibility = "visible"
+                btn.addEventListener("click", (event)=>{
+                  event.target
+                  .parentElement
+                  .parentElement
+                  .parentElement
+                  .querySelector(".btn-specihern.left-btn")
+                  .innerText = collections[i].name 
+
+                  event.target
+                  .parentElement
+                  .parentElement
+                  .remove()
+
+
+                })
+                parentDiv.appendChild(childDiv)
+                parentDiv.appendChild(btn)
+                event.target.insertAdjacentElement("afterend", parentDiv)
+              }
+            }
+            for(let i=0;i<it.length-1;i++){
+              if(it.innerText!= event.target.value){
+                it.style.display = "none"
+              }
+            }
+            
           })
 
           container.appendChild(search)
