@@ -101,6 +101,11 @@ async function renderData(data) {
           const search = document.createElement("input")
           search.placeholder = "Suchen ..."
           search.className = "collection-search"
+
+          search.addEventListener("keydown",(event)=>{
+            console.log(event.target.value)
+          })
+
           container.appendChild(search)
 
           if(sessionStorage.getItem("collections")){
@@ -116,6 +121,21 @@ async function renderData(data) {
               btn.className = "collection-btn"
               btn.innerText = "+"
               btn.style.visibility = "visible"
+              btn.addEventListener("click", (event)=>{
+                event.target
+                .parentElement
+                .parentElement
+                .parentElement
+                .querySelector(".btn-specihern.left-btn")
+                .innerText = collections[i].name 
+
+                event.target
+                .parentElement
+                .parentElement
+                .remove()
+
+
+              })
               parentDiv.appendChild(childDiv)
               parentDiv.appendChild(btn)
               container.appendChild(parentDiv)
