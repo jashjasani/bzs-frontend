@@ -103,6 +103,24 @@ async function renderData(data) {
           search.className = "collection-search"
           container.appendChild(search)
 
+          if(sessionStorage.getItem("collections")){
+            let collections = JSON.parse(sessionStorage.getItem("collections"))
+            for(let i =0;i<collections.length;i++){
+              const parentDiv = document.createElement("div")
+              parentDiv.className = "collections"
+              const childDiv = document.createElement("div")
+              childDiv.className = "collection-name"
+              childDiv.style.marginLeft = "10px"
+              childDiv.innerText = collections[i].name 
+              const btn = document.createElement("button")
+              btn.className = "collection-btn"
+              btn.innerText = "+"
+              parentDiv.appendChild(childDiv)
+              parentDiv.appendChild(btn)
+              container.appendChild(parentDiv)
+            }
+          }
+
 
 
           const createCollection = document.createElement("div")
