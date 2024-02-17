@@ -115,6 +115,7 @@ async function renderData(data) {
               const btn = document.createElement("button")
               btn.className = "collection-btn"
               btn.innerText = "+"
+              btn.style.visibility = "visible"
               parentDiv.appendChild(childDiv)
               parentDiv.appendChild(btn)
               container.appendChild(parentDiv)
