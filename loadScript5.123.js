@@ -85,15 +85,16 @@ async function renderData(data) {
       dropdown.innerText = "..."
       const save = document.createElement("button");
       save.className = "btn-specihern"
-      save.innerText = "Specihern"
+      save.innerText =  JSON.parse(sessionStorage.getItem("collections")).some(obj => obj.items.has(q.SKU)) ?  "Gerettet" : "Specihern" 
 
 
       dropdown.addEventListener("click",(event)=>{
         event.preventDefault() // to stop link element from redirecting
         
         
-        
+        // open dropdown 
         if(event.target.parentElement.querySelector(".container-mode")==null){
+          // if there are any other open containers remove them
           if(document.querySelector("#container-main")!=null) document.querySelector("#container-main").remove()
           const container = document.createElement("div")
           container.id = "container-main"
@@ -133,8 +134,8 @@ async function renderData(data) {
               childDiv.innerText = collections[i].name 
               const btn = document.createElement("button")
               btn.className = "collection-btn"
-              btn.innerText = "+"
               btn.style.visibility = "visible"
+              btn.innerText = collections[i].items.has(q.SKU) ? "saved" : "+"
               btn.addEventListener("click", (event)=>{
                 event.target
                 .parentElement
@@ -148,6 +149,7 @@ async function renderData(data) {
                 .parentElement
                 .remove()
 
+                
 
               })
               parentDiv.appendChild(childDiv)
@@ -182,8 +184,8 @@ async function renderData(data) {
             let collections = JSON.parse(sessionStorage.getItem("collections"))
 
             if(!collections.some(obj => obj.name == output.value)){
-              const obj = { name : output.value , items : []}
-              obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+              const obj = { name : output.value , items : new Set()}
+              obj.items.add(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
               collections.push(obj)
               sessionStorage.setItem("collections", JSON.stringify(collections))
             }
@@ -210,7 +212,9 @@ async function renderData(data) {
 
           event.target.insertAdjacentElement("afterend",container)
           
-        } else {
+        } 
+        // to close dropdown
+        else {
           event.target.parentElement.querySelector(".container-mode").remove()
         }
 
@@ -225,7 +229,7 @@ async function renderData(data) {
 
 
       save.addEventListener("click",(event)=>{
-        event.preventDefault() // to stop link element from redirecting
+        event.preventDefault()
       })
 
 
