@@ -60,6 +60,10 @@ async function renderData(data) {
     collection = document.createElement("div");
     collection.className = "w-dyn-items w-row";
     let collections = JSON.parse(sessionStorage.getItem("collections"))
+    if(collections == null){
+      collections = []
+      sessionStorage.setItem("collections", JSON.stringify([]))
+    }
     let imgCount = 0;
     for (q of data.magazines) {
       // class_list.push('')
