@@ -136,7 +136,7 @@ async function renderData(data) {
               const btn = document.createElement("button")
               btn.className = "collection-btn"
               btn.style.visibility = "visible"
-              btn.innerText = collections[i].items.includes(q.SKU) ? "saved" : "+"
+              btn.innerText = collections[i].items.includes(event.target.parentElement.querySelector(".container-mode").getAttribute("dropdwon-key")) ? "saved" : "+"
               btn.addEventListener("click", (event)=>{
                 event.target
                 .parentElement
@@ -145,10 +145,23 @@ async function renderData(data) {
                 .querySelector(".btn-specihern.left-btn")
                 .innerText = collections[i].name 
 
-                event.target
-                .parentElement
-                .parentElement
-                .remove()
+                // event.target
+                // .parentElement
+                // .parentElement
+                // .remove()
+                // save 
+                if(event.target.innerText == "+"){
+                  let arry = collections.filter(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
+                  arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+                  event.target.innerText = "saved"
+                } else{
+                  let arry = collections.filter(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
+                  const index = arry.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
+                  if (index > -1) { // only splice array when item is found
+                    arry.splice(index, 1); // 2nd parameter means remove one item only
+                  }
+                  event.target.innerText = "+"
+                }
 
                 
 
