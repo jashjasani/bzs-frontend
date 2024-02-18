@@ -86,7 +86,7 @@ async function renderData(data) {
       const save = document.createElement("button");
       save.className = "btn-specihern"
       
-      save.innerText = "Specihern" 
+      save.innerText = collections.some(obj => obj.items.includes(q.SKU)) ? "Gerettet" : "Specihern" 
 
 
       dropdown.addEventListener("click",(event)=>{
@@ -165,6 +165,13 @@ async function renderData(data) {
                     sessionStorage.setItem("collections", JSON.stringify(collections))
                   }
                   event.target.innerText = "+"
+                }
+
+
+                if(!collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
+                  event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
+                } else {
+                  event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Specihern"
                 }
 
                 
