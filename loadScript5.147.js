@@ -223,7 +223,7 @@ async function renderData(data) {
             if(!collections.some(obj => obj.name == output.value) && output.value!= undefined){
               const obj = { name : output.value , items : []}
               obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
-              document.querySelector(`#${event.target.parentElement.parentElement.getAttribute("dropdown-key")}`).querySelector(".btn-specihern").innerText = "Gerettet"
+              document.getElementById(`${event.target.parentElement.parentElement.getAttribute("dropdown-key")}`).querySelector(".btn-specihern").innerText = "Gerettet"
               document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
                 e.innerText = output.value
               })
