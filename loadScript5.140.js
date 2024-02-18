@@ -156,6 +156,12 @@ async function renderData(data) {
                   arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
                   event.target.innerText = "saved"
                   sessionStorage.setItem("collections", JSON.stringify(collections))
+
+                  document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
+                    e.innerText = event.target.parentElement.childNodes[0].innerText
+                  })
+
+
                 } else{
                   let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
                   const index = arry.items.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
@@ -208,9 +214,12 @@ async function renderData(data) {
             });
             let collections = JSON.parse(sessionStorage.getItem("collections"))
             
-            if(!collections.some(obj => obj.name == output.value)){
+            if(!collections.some(obj => obj.name == output.value) && output.value!= undefined){
               const obj = { name : output.value , items : []}
               obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+              document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
+                e.innerText = output.value
+              })
               collections.push(obj)
               sessionStorage.setItem("collections", JSON.stringify(collections))
             }

@@ -18,7 +18,7 @@ button {
 }
 .btn-specihern.left-btn {
     border: none;
-    background-color: transparent;
+    background-color: #D9D3D0BF;
     left: 10%;
 }
 
@@ -134,7 +134,7 @@ button {
     }
     .btn-specihern.left-btn {
         border: none;
-        background-color: transparent;
+        background-color: #D9D3D0BF;
         left: 4%;
     }
     .btn-specihern {
@@ -278,6 +278,7 @@ button {
     border-radius: 10px;
     width: 175px;
     margin-bottom: 10px;
+    visibility: visible;
 }
 .swal2-validation-message{
     background-color: #d9d3d0;
