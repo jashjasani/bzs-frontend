@@ -85,6 +85,7 @@ async function renderData(data) {
       dropdown.innerText = "..."
       const save = document.createElement("button");
       save.className = "btn-specihern"
+      let collections = JSON.parse(sessionStorage.getItem("collections"))
       save.innerText = collections[i].items.includes(q.SKU) ? "Gerettet" : "Specihern" 
 
 
