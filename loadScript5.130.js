@@ -136,7 +136,7 @@ async function renderData(data) {
               const btn = document.createElement("button")
               btn.className = "collection-btn"
               btn.style.visibility = "visible"
-              btn.innerText = collections[i].items.includes(event.target.parentElement.querySelector(".container-mode").getAttribute("dropdwon-key")) ? "saved" : "+"
+              btn.innerText = collections[i].items.includes(event.target.parentElement.href.split("?productId=")[1]) ? "saved" : "+"
               btn.addEventListener("click", (event)=>{
                 event.target
                 .parentElement
