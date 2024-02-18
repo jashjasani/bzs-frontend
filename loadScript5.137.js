@@ -161,7 +161,7 @@ async function renderData(data) {
                   const index = arry.items.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
                   
                   if (index > -1) { 
-                    arry.splice(index, 1); 
+                    arry.items.splice(index, 1); 
                     sessionStorage.setItem("collections", JSON.stringify(collections))
                   }
                   event.target.innerText = "+"
