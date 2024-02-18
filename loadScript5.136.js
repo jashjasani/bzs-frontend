@@ -158,7 +158,7 @@ async function renderData(data) {
                   sessionStorage.setItem("collections", JSON.stringify(collections))
                 } else{
                   let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
-                  const index = arry.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
+                  const index = arry.items.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
                   
                   if (index > -1) { 
                     arry.splice(index, 1); 
@@ -200,7 +200,7 @@ async function renderData(data) {
                 },
             });
             let collections = JSON.parse(sessionStorage.getItem("collections"))
-
+            
             if(!collections.some(obj => obj.name == output.value)){
               const obj = { name : output.value , items : []}
               obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
