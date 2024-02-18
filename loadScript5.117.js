@@ -135,12 +135,12 @@ async function renderData(data) {
                 })
                 parentDiv.appendChild(childDiv)
                 parentDiv.appendChild(btn)
-                ary.push(parentDiv)
+                event.target.insertAdjacentElement("afterend",)
               }
-              event.target.insertAdjacentElement("afterend", ary)
+              
             }
             for(let i=0;i<it.length-1;i++){
-              console.log(it);
+              console.log(it.innerText.toLowerCase());
               if(it.innerText.toLowerCase().startsWith()!= event.target.value.toLowerCase()){
                 it.style.display = "none"
               }
