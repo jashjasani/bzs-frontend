@@ -151,7 +151,7 @@ async function renderData(data) {
                 // .remove()
                 // save 
                 if(event.target.innerText == "+"){
-                  let arry = collections.filter(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
+                  let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
                   arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
                   event.target.innerText = "saved"
                 } else{
