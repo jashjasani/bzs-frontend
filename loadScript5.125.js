@@ -85,8 +85,7 @@ async function renderData(data) {
       dropdown.innerText = "..."
       const save = document.createElement("button");
       save.className = "btn-specihern"
-      console.log(JSON.parse(sessionStorage.getItem("collections")));
-      save.innerText = "Specihern" 
+      save.innerText = collections[i].items.includes(q.SKU) ? "Gerettet" : "Specihern" 
 
 
       dropdown.addEventListener("click",(event)=>{
@@ -136,7 +135,7 @@ async function renderData(data) {
               const btn = document.createElement("button")
               btn.className = "collection-btn"
               btn.style.visibility = "visible"
-              btn.innerText = collections[i].items.has(q.SKU) ? "saved" : "+"
+              btn.innerText = collections[i].items.includes(q.SKU) ? "saved" : "+"
               btn.addEventListener("click", (event)=>{
                 event.target
                 .parentElement
@@ -185,8 +184,8 @@ async function renderData(data) {
             let collections = JSON.parse(sessionStorage.getItem("collections"))
 
             if(!collections.some(obj => obj.name == output.value)){
-              const obj = { name : output.value , items : new Set()}
-              obj.items.add(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+              const obj = { name : output.value , items : []}
+              obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
               collections.push(obj)
               sessionStorage.setItem("collections", JSON.stringify(collections))
             }
