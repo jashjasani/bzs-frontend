@@ -168,7 +168,7 @@ async function renderData(data) {
                 }
 
 
-                if(!collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
+                if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
                   event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
                 } else {
                   event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Specihern"
