@@ -106,43 +106,42 @@ async function renderData(data) {
             const it = event.target.parentElement.querySelectorAll(".collections")
             if(event.target.value == ''){
               let collections = JSON.parse(sessionStorage.getItem("collections"))
-              let ary = []
               for(let i =0;i<collections.length;i++){
-                const parentDiv = document.createElement("div")
-                parentDiv.className = "collections"
-                const childDiv = document.createElement("div")
-                childDiv.className = "collection-name"
-                childDiv.style.marginLeft = "10px"
-                childDiv.innerText = collections[i].name 
-                const btn = document.createElement("button")
-                btn.className = "collection-btn"
-                btn.innerText = "+"
-                btn.style.visibility = "visible"
-                btn.addEventListener("click", (event)=>{
-                  event.target
-                  .parentElement
-                  .parentElement
-                  .parentElement
-                  .querySelector(".btn-specihern.left-btn")
-                  .innerText = collections[i].name 
+                
+                // const parentDiv = document.createElement("div")
+                // parentDiv.className = "collections"
+                // const childDiv = document.createElement("div")
+                // childDiv.className = "collection-name"
+                // childDiv.style.marginLeft = "10px"
+                // childDiv.innerText = collections[i].name 
+                // const btn = document.createElement("button")
+                // btn.className = "collection-btn"
+                // btn.innerText = "+"
+                // btn.style.visibility = "visible"
+                // btn.addEventListener("click", (event)=>{
+                //   event.target
+                //   .parentElement
+                //   .parentElement
+                //   .parentElement
+                //   .querySelector(".btn-specihern.left-btn")
+                //   .innerText = collections[i].name 
 
-                  event.target
-                  .parentElement
-                  .parentElement
-                  .remove()
+                //   event.target
+                //   .parentElement
+                //   .parentElement
+                //   .remove()
                   
 
-                })
-                parentDiv.appendChild(childDiv)
-                parentDiv.appendChild(btn)
-                event.target.insertAdjacentElement("afterend",)
+                // })
+                // parentDiv.appendChild(childDiv)
+                // parentDiv.appendChild(btn)
+                // event.target.insertAdjacentElement("afterend",)
               }
               
             }
             for(let i=0;i<it.length-1;i++){
-              console.log(it.innerText.toLowerCase());
-              if(it.innerText.toLowerCase().startsWith()!= event.target.value.toLowerCase()){
-                it.style.display = "none"
+              if(it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())){
+                it[i].style.display = "none"
               }
             }
           })
