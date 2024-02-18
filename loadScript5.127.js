@@ -59,7 +59,7 @@ async function renderData(data) {
     } 
     collection = document.createElement("div");
     collection.className = "w-dyn-items w-row";
-  
+    let collections = JSON.parse(sessionStorage.getItem("collections"))
     let imgCount = 0;
     for (q of data.magazines) {
       // class_list.push('')
@@ -85,8 +85,8 @@ async function renderData(data) {
       dropdown.innerText = "..."
       const save = document.createElement("button");
       save.className = "btn-specihern"
-      let collections = JSON.parse(sessionStorage.getItem("collections"))
-      save.innerText = collections[i].items.includes(q.SKU) ? "Gerettet" : "Specihern" 
+      
+      save.innerText = collections.some(obj => obj.items.includes(q.SKU)) ? "Gerettet" : "Specihern" 
 
 
       dropdown.addEventListener("click",(event)=>{
