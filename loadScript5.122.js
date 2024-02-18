@@ -182,10 +182,10 @@ async function renderData(data) {
             let collections = JSON.parse(sessionStorage.getItem("collections"))
 
             if(!collections.some(obj => obj.name == output.value)){
-              const obj = { name : output.value , items : new Set()}
-              console.log(event.target);
+              const obj = { name : output.value , items : []}
+              obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
               collections.push(obj)
-              console.log(output.value);
+              sessionStorage.setItem("collections", JSON.stringify(collections))
             }
 
    
