@@ -152,15 +152,17 @@ async function renderData(data) {
                 // save 
                 if(event.target.innerText == "+"){
                   let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
-                  console.log(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
+                  
                   arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
                   event.target.innerText = "saved"
+                  sessionStorage.setItem("collections", JSON.stringify(collections))
                 } else{
                   let arry = collections.filter(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
                   const index = arry.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
-                  console.log(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
-                  if (index > -1) { // only splice array when item is found
-                    arry.splice(index, 1); // 2nd parameter means remove one item only
+                  
+                  if (index > -1) { 
+                    arry.splice(index, 1); 
+                    sessionStorage.setItem("collections", JSON.stringify(collections))
                   }
                   event.target.innerText = "+"
                 }
