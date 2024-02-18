@@ -98,6 +98,7 @@ async function renderData(data) {
           const container = document.createElement("div")
           container.id = "container-main"
           container.className = "container-mode"
+          container.setAttribute("dropdown-key", q.SKU)
           const search = document.createElement("input")
           search.placeholder = "Suchen ..."
           search.className = "collection-search"
@@ -108,34 +109,7 @@ async function renderData(data) {
               
               for(let i =0;i<it.length-1;i++){
                 it[i].style.display = "flex"
-                // const parentDiv = document.createElement("div")
-                // parentDiv.className = "collections"
-                // const childDiv = document.createElement("div")
-                // childDiv.className = "collection-name"
-                // childDiv.style.marginLeft = "10px"
-                // childDiv.innerText = collections[i].name 
-                // const btn = document.createElement("button")
-                // btn.className = "collection-btn"
-                // btn.innerText = "+"
-                // btn.style.visibility = "visible"
-                // btn.addEventListener("click", (event)=>{
-                //   event.target
-                //   .parentElement
-                //   .parentElement
-                //   .parentElement
-                //   .querySelector(".btn-specihern.left-btn")
-                //   .innerText = collections[i].name 
-
-                //   event.target
-                //   .parentElement
-                //   .parentElement
-                //   .remove()
-                  
-
-                // })
-                // parentDiv.appendChild(childDiv)
-                // parentDiv.appendChild(btn)
-                // event.target.insertAdjacentElement("afterend",)
+                
               }
               
             }
@@ -190,6 +164,35 @@ async function renderData(data) {
           btn.innerText = "+"
           btn.className = "collection-btn"
           btn.style.visibility = "visible"
+
+          btn.addEventListener("click",async(event)=>{
+
+            let output = await Swal.fire({
+                title: "New Collection",
+                input: "text",
+                inputLabel: "Name",
+                inputPlaceholder: "Name deiner neuen Kollektion",
+                confirmButtonText: "Create",
+                inputValidator: (value) => {
+                    if (!value) {
+                        return "Name cannot be empty";
+                    }
+                },
+            });
+            let collections = JSON.parse(sessionStorage.getItem("collections"))
+
+            if(!collections.some(obj => obj.name == output.value)){
+              const obj = { name : output.value , items : new Set()}
+              console.log(event.target);
+              collections.push(obj)
+              console.log(output.value);
+            }
+
+   
+
+
+
+          })
 
 
           const label = document.createElement("div")

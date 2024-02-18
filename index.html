@@ -37,23 +37,35 @@
             }
 
             .swal2-confirm.swal2-styled {
-                background-color: #BF8563;
+                background-color: #bf8563;
                 border: 2px solid #2b2a2a;
                 color: #2b2a2a;
                 border-radius: 10px;
                 width: 175px;
+                margin-bottom: 10px;
+            }
+            .swal2-validation-message{
+                background-color: #d9d3d0;
             }
         </style>
     </head>
     <body>
         <script>
-            Swal.fire({
-                title: "New Collection",
-                input: "text",
-                inputLabel: "Name",
-                inputPlaceholder: "Name deiner neuen Kollektion",
-                confirmButtonText: "Create",
-            });
+            (async () => {
+                let name = await Swal.fire({
+                    title: "New Collection",
+                    input: "text",
+                    inputLabel: "Name",
+                    inputPlaceholder: "Name deiner neuen Kollektion",
+                    confirmButtonText: "Create",
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return "Name cannot be empty";
+                        }
+                    },
+                });
+
+            })().catch();
         </script>
     </body>
 </html>
