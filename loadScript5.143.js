@@ -228,6 +228,7 @@ async function renderData(data) {
               })
               collections.push(obj)
               sessionStorage.setItem("collections", JSON.stringify(collections))
+              event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
             }
 
    
