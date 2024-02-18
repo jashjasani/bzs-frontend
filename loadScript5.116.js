@@ -106,6 +106,7 @@ async function renderData(data) {
             const it = event.target.parentElement.querySelectorAll(".collections")
             if(event.target.value == ''){
               let collections = JSON.parse(sessionStorage.getItem("collections"))
+              let ary = []
               for(let i =0;i<collections.length;i++){
                 const parentDiv = document.createElement("div")
                 parentDiv.className = "collections"
@@ -129,20 +130,21 @@ async function renderData(data) {
                   .parentElement
                   .parentElement
                   .remove()
-
+                  
 
                 })
                 parentDiv.appendChild(childDiv)
                 parentDiv.appendChild(btn)
-                event.target.insertAdjacentElement("afterend", parentDiv)
+                ary.push(parentDiv)
               }
+              event.target.insertAdjacentElement("afterend", ary)
             }
             for(let i=0;i<it.length-1;i++){
-              if(it.innerText!= event.target.value){
+              console.log(it);
+              if(it.innerText.toLowerCase().startsWith()!= event.target.value.toLowerCase()){
                 it.style.display = "none"
               }
             }
-            
           })
 
           container.appendChild(search)
