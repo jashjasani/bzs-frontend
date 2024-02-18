@@ -157,7 +157,7 @@ async function renderData(data) {
                   event.target.innerText = "saved"
                   sessionStorage.setItem("collections", JSON.stringify(collections))
                 } else{
-                  let arry = collections.filter(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
+                  let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
                   const index = arry.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
                   
                   if (index > -1) { 
