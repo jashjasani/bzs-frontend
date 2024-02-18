@@ -122,6 +122,8 @@ async function renderData(data) {
             for(let i=0;i<it.length-1;i++){
               if(!it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())){
                 it[i].style.display = "none"
+              }else if(it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase()) && it[i].style.display == "none") {
+                it[i].style.display = "flex"
               }
             }
           })
