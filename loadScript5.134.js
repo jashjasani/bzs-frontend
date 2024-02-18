@@ -100,7 +100,7 @@ async function renderData(data) {
           const container = document.createElement("div")
           container.id = "container-main"
           container.className = "container-mode"
-          container.setAttribute("dropdown-key", q.SKU)
+          container.setAttribute("dropdown-key", event.target.parentElement.href.split("?productId=")[1])
           const search = document.createElement("input")
           search.placeholder = "Suchen ..."
           search.className = "collection-search"
