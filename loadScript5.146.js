@@ -74,7 +74,7 @@ async function renderData(data) {
       productImgWrapper.href =
         new URL(document.baseURI).origin + "/magazine?productId=" + q.SKU;
       productImgWrapper.className = "produvt-img-wrapper w-inline-block";
-
+      productImgWrapper.id = q.SKU
       //img element creation
       var img = document.createElement("img");
       img.className = "product-img";
@@ -223,7 +223,7 @@ async function renderData(data) {
             if(!collections.some(obj => obj.name == output.value) && output.value!= undefined){
               const obj = { name : output.value , items : []}
               obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
-              event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
+              document.querySelector(`#${event.target.parentElement.parentElement.getAttribute("dropdown-key")}`).querySelector(".btn-specihern").innerText = "Gerettet"
               document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
                 e.innerText = output.value
               })
