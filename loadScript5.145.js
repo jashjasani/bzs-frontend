@@ -223,12 +223,13 @@ async function renderData(data) {
             if(!collections.some(obj => obj.name == output.value) && output.value!= undefined){
               const obj = { name : output.value , items : []}
               obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+              event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
               document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
                 e.innerText = output.value
               })
               collections.push(obj)
               sessionStorage.setItem("collections", JSON.stringify(collections))
-              console.log(event.target.parentElement.parentElement)
+              
             }
 
    
