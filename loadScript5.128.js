@@ -86,7 +86,7 @@ async function renderData(data) {
       const save = document.createElement("button");
       save.className = "btn-specihern"
       
-      save.innerText = collections.some(obj => obj.items.includes(q.SKU)) ? "Gerettet" : "Specihern" 
+      save.innerText = "Specihern" 
 
 
       dropdown.addEventListener("click",(event)=>{
