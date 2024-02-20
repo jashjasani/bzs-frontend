@@ -40,64 +40,57 @@
 .swal2-validation-message {
     background-color: #d9d3d0;
 }
-.swal2-popup > textarea {
+ textarea {
     resize: none;
 }
 
-.swal2-popup > .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.swal2-popup > .cover-image {
+ .cover-image {
     width: 200px;
     height: 200px;
     border: 1px solid #ddd;
     margin-bottom: 20px;
 }
 
-.swal2-popup > .title {
+ .title {
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-.swal2-popup > .input-group {
+ .input-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
 }
 
-.swal2-popup > .input-label {
+ .input-label {
     text-align: left;
 
     margin-bottom: 5px;
 }
 
-.swal2-popup > .input-field {
+ .input-field {
     padding: 8px;
     border: 2px solid #2b2a2a;  
     border-radius: 4px;
     background-color: #d9d3d0;
 }
 
-.swal2-popup > input ::placeholder{
+ input ::placeholder{
     font-family: Circular, sans-serif;
     color: #2b2a2a;
 }
 
-.swal2-popup > .description {
+ .description {
     
     margin-bottom: 10px;
 }
 
-.swal2-popup > .buttons {
+ .buttons {
     display: flex;
     justify-content: space-between;
 }
 
-.swal2-popup > .button {
+ .button {
     padding: 8px 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
