@@ -59,10 +59,15 @@ async function renderData(data) {
     } 
     collection = document.createElement("div");
     collection.className = "w-dyn-items w-row";
-    let collections = JSON.parse(sessionStorage.getItem("collections"))
-    if(collections == null){
-      collections = []
-      sessionStorage.setItem("collections", JSON.stringify([]))
+    let collections 
+    if(sessionStorage.getItem("auth") != null){
+      collections = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
+        method : "GET",
+        headers: {
+          Authorization: sessionStorage.getItem("auth"),
+        },
+      })
+      sessionStorage.setItem("collections", JSON.stringify(collections))
     }
     let imgCount = 0;
     for (q of data.magazines) {
@@ -84,207 +89,272 @@ async function renderData(data) {
       img.loading = imgCount <= 10 ? "eager" : "lazy";
       imgCount++;
       img.alt = "product-img";
-      const dropdown = document.createElement("button");
-      dropdown.className = "btn-specihern left-btn"
-      dropdown.innerText = "..."
-      const save = document.createElement("button");
-      save.className = "btn-specihern"
-      
-      save.innerText = collections.some(obj => obj.items.includes(q.SKU)) ? "Gerettet" : "Specihern" 
+      let dropdown = "", save = ""
 
 
-      dropdown.addEventListener("click",(event)=>{
-        event.preventDefault() // to stop link element from redirecting
+      // check if logged in 
+      if(sessionStorage.getItem("auth")){
+        dropdown = document.createElement("button");
+        dropdown.className = "btn-specihern left-btn"
+        dropdown.innerText = "..."
+        save = document.createElement("button");
+        save.className = "btn-specihern"
         
-        
-        // open dropdown 
-        if(event.target.parentElement.querySelector(".container-mode")==null){
-          // if there are any other open containers remove them
-          if(document.querySelector("#container-main")!=null) document.querySelector("#container-main").remove()
-          const container = document.createElement("div")
-          container.id = "container-main"
-          container.className = "container-mode"
-          container.setAttribute("dropdown-key", event.target.parentElement.href.split("?productId=")[1])
-          const search = document.createElement("input")
-          search.placeholder = "Suchen ..."
-          search.className = "collection-search"
+        save.innerText = collections.some(obj => obj.items.includes(q.SKU)) ? "Gerettet" : "Specihern" 
 
-          search.addEventListener("input",(event)=>{
-            const it = event.target.parentElement.querySelectorAll(".collections")
-            if(event.target.value == ''){
-              
-              for(let i =0;i<it.length-1;i++){
-                it[i].style.display = "flex"
+
+        dropdown.addEventListener("click",(event)=>{
+          event.preventDefault() // to stop link element from redirecting
+          
+          
+          // open dropdown 
+          if(event.target.parentElement.querySelector(".container-mode")==null){
+            // if there are any other open containers remove them
+            if(document.querySelector("#container-main")!=null) document.querySelector("#container-main").remove()
+            const container = document.createElement("div")
+            container.id = "container-main"
+            container.className = "container-mode"
+            container.setAttribute("dropdown-key", event.target.parentElement.href.split("?productId=")[1])
+            const search = document.createElement("input")
+            search.placeholder = "Suchen ..."
+            search.className = "collection-search"
+
+            search.addEventListener("input",(event)=>{
+              const it = event.target.parentElement.querySelectorAll(".collections")
+              if(event.target.value == ''){
+                
+                for(let i =0;i<it.length-1;i++){
+                  it[i].style.display = "flex"
+                  
+                }
                 
               }
-              
-            }
-            for(let i=0;i<it.length-1;i++){
-              if(!it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())){
-                it[i].style.display = "none"
-              }else if(it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase()) && it[i].style.display == "none") {
-                it[i].style.display = "flex"
+              for(let i=0;i<it.length-1;i++){
+                if(!it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())){
+                  it[i].style.display = "none"
+                }else if(it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase()) && it[i].style.display == "none") {
+                  it[i].style.display = "flex"
+                }
               }
-            }
-          })
+            })
 
-          container.appendChild(search)
+            container.appendChild(search)
 
-          if(sessionStorage.getItem("collections")){
-            let collections = JSON.parse(sessionStorage.getItem("collections"))
-            for(let i =0;i<collections.length;i++){
-              const parentDiv = document.createElement("div")
-              parentDiv.className = "collections"
-              const childDiv = document.createElement("div")
-              childDiv.className = "collection-name"
-              childDiv.style.marginLeft = "10px"
-              childDiv.innerText = collections[i].name 
-              const btn = document.createElement("button")
-              btn.className = "collection-btn"
-              btn.style.visibility = "visible"
-              btn.innerText = collections[i].items.includes(event.target.parentElement.href.split("?productId=")[1]) ? "saved" : "+"
-              btn.addEventListener("click", (event)=>{
-                event.target
-                .parentElement
-                .parentElement
-                .parentElement
-                .querySelector(".btn-specihern.left-btn")
-                .innerText = collections[i].name 
+            if(sessionStorage.getItem("collections")){
+              let collections = JSON.parse(sessionStorage.getItem("collections"))
+              for(let i =0;i<collections.length;i++){
+                const parentDiv = document.createElement("div")
+                parentDiv.className = "collections"
+                const childDiv = document.createElement("div")
+                childDiv.className = "collection-name"
+                childDiv.style.marginLeft = "10px"
+                childDiv.innerText = collections[i].name 
+                const btn = document.createElement("button")
+                btn.className = "collection-btn"
+                btn.style.visibility = "visible"
+                btn.innerText = collections[i].items.includes(event.target.parentElement.href.split("?productId=")[1]) ? "saved" : "+"
+                btn.addEventListener("click", (event)=>{
+                  event.target
+                  .parentElement
+                  .parentElement
+                  .parentElement
+                  .querySelector(".btn-specihern.left-btn")
+                  .innerText = collections[i].name 
 
-                // event.target
-                // .parentElement
-                // .parentElement
-                // .remove()
-                // save 
-                if(event.target.innerText == "+"){
-                  let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
-                  
-                  arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
-                  event.target.innerText = "saved"
-                  sessionStorage.setItem("collections", JSON.stringify(collections))
+                  // save an item to collection
+                  if(event.target.innerText == "+"){
+                    fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
+                      method : "PUT",
+                      headers : {
+                        Authorization : sessionStorage.getItem("auth")
+                      },
+                      body : {
+                        name : event.target.parentElement.childNodes[0].innerText,
+                        update : {
+                          $addToSet : {
+                            items : event.target.parentElement.parentElement.getAttribute("dropdown-key")
+                          }
+                        }
+                      }
+                    }).then((res)=> {
+                      // if it was saved to database only then update the state
+                      if(res.status == 200) {
+                        let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
+                    
+                        arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+                        event.target.innerText = "saved"
+                        sessionStorage.setItem("collections", JSON.stringify(collections))
 
-                  document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
-                    e.innerText = event.target.parentElement.childNodes[0].innerText
-                  })
+                        document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
+                          e.innerText = event.target.parentElement.childNodes[0].innerText
+                        })
+                      }
+                    })
+                    
 
 
-                } else{
-                  let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
-                  const index = arry.items.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
-                  
-                  if (index > -1) { 
-                    arry.items.splice(index, 1); 
-                    sessionStorage.setItem("collections", JSON.stringify(collections))
                   }
-                  event.target.innerText = "+"
-                }
+                  // delete an item from collection 
+                  else{
+                    
+                    fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
+                      method : "PUT",
+                      headers : {
+                        Authorization : sessionStorage.getItem("auth")
+                      },
+                      body : {
+                        name : event.target.parentElement.childNodes[0].innerText,
+                        update : {
+                          $pull : {
+                            items : event.target.parentElement.parentElement.getAttribute("dropdown-key")
+                          }
+                        }
+                      }
+                    }).then((res)=>{
+                      // if it was deleted from database only then update the state
+                      if(res.status == 200){
+                        let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
+                        const index = arry.items.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
+                        
+                        if (index > -1) { 
+                          arry.items.splice(index, 1); 
+                          sessionStorage.setItem("collections", JSON.stringify(collections))
+                        }
+                        event.target.innerText = "+"
+                      }
+                    })
+
+                    
+                  }
 
 
-                if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
-                  event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
-                } else {
-                  event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Specihern"
-                }
+                  if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
+                    event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
+                  } else {
+                    event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Specihern"
+                  }
+
+                  
+
+                })
+                parentDiv.appendChild(childDiv)
+                parentDiv.appendChild(btn)
+                container.appendChild(parentDiv)
+              }
+            }
+
+
+
+            const createCollection = document.createElement("div")
+            createCollection.className = "collections"
+            const btn = document.createElement("button")
+            btn.innerText = "+"
+            btn.className = "collection-btn"
+            btn.style.visibility = "visible"
+
+            btn.addEventListener("click",async(event)=>{
+
+              let output = await Swal.fire({
+                  title: "New Collection",
+                  input: "text",
+                  inputLabel: "Name",
+                  inputPlaceholder: "Name deiner neuen Kollektion",
+                  confirmButtonText: "Create",
+                  inputValidator: (value) => {
+                      if (!value) {
+                          return "Name cannot be empty";
+                      }
+                  },
+              });
+              let collections = JSON.parse(sessionStorage.getItem("collections"))
+              // check if collection already exists
+              if(!collections.some(obj => obj.name == output.value) && output.value!= undefined){
+                // create new collection in database 
+                fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+                  method:"POST",
+                  headers : {
+                    Authorization : sessionStorage.getItem("auth")
+                  }, 
+                  body: {
+                    name : output.value,
+                    item : event.target.parentElement.parentElement.getAttribute("dropdown-key")
+                  }
+                }).then((res)=>{
+                  if(res.status == 200){
+                    const obj = { name : output.value , items : []}
+                    obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+                    document.getElementById(`${event.target.parentElement.parentElement.getAttribute("dropdown-key")}`).querySelector(".btn-specihern").innerText = "Gerettet"
+                    document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
+                      e.innerText = output.value
+                    })
+                    
+    
+                    collections.push(obj)
+                    sessionStorage.setItem("collections", JSON.stringify(collections))
+
+
+                  }
+                })
 
                 
+                
+              }
 
-              })
-              parentDiv.appendChild(childDiv)
-              parentDiv.appendChild(btn)
-              container.appendChild(parentDiv)
-            }
+    
+
+
+
+            })
+
+
+            const label = document.createElement("div")
+            label.className = "collection-name"
+            label.innerText = "Kollektion erstellen"
+            label.style.marginLeft = "10px"
+
+            createCollection.appendChild(btn)
+            createCollection.appendChild(label)
+            container.appendChild(createCollection)
+
+            container.addEventListener("click",(event)=>{
+              event.preventDefault()
+            })
+
+            event.target.insertAdjacentElement("afterend",container)
+            
+          } 
+          // to close dropdown
+          else {
+            event.target.parentElement.querySelector(".container-mode").remove()
           }
 
-
-
-          const createCollection = document.createElement("div")
-          createCollection.className = "collections"
-          const btn = document.createElement("button")
-          btn.innerText = "+"
-          btn.className = "collection-btn"
-          btn.style.visibility = "visible"
-
-          btn.addEventListener("click",async(event)=>{
-
-            let output = await Swal.fire({
-                title: "New Collection",
-                input: "text",
-                inputLabel: "Name",
-                inputPlaceholder: "Name deiner neuen Kollektion",
-                confirmButtonText: "Create",
-                inputValidator: (value) => {
-                    if (!value) {
-                        return "Name cannot be empty";
-                    }
-                },
-            });
-            let collections = JSON.parse(sessionStorage.getItem("collections"))
-            
-            if(!collections.some(obj => obj.name == output.value) && output.value!= undefined){
-              const obj = { name : output.value , items : []}
-              obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
-              document.getElementById(`${event.target.parentElement.parentElement.getAttribute("dropdown-key")}`).querySelector(".btn-specihern").innerText = "Gerettet"
-              document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
-                e.innerText = output.value
-              })
-              collections.push(obj)
-              sessionStorage.setItem("collections", JSON.stringify(collections))
-              
-            }
-
-   
-
-
-
-          })
-
-
-          const label = document.createElement("div")
-          label.className = "collection-name"
-          label.innerText = "Kollektion erstellen"
-          label.style.marginLeft = "10px"
-
-          createCollection.appendChild(btn)
-          createCollection.appendChild(label)
-          container.appendChild(createCollection)
-
-          container.addEventListener("click",(event)=>{
-            event.preventDefault()
-          })
-
-          event.target.insertAdjacentElement("afterend",container)
           
-        } 
-        // to close dropdown
-        else {
-          event.target.parentElement.querySelector(".container-mode").remove()
-        }
+        })
 
-        
-      })
-
-      document.addEventListener("click",(event)=>{
-        if(!event.target.closest("#container-main") && document.querySelector("#container-main")!=null && event.target.className != "btn-specihern left-btn"){
-          document.querySelector("#container-main").remove()
-        }
-      })
+        document.addEventListener("click",(event)=>{
+          if(!event.target.closest("#container-main") && document.querySelector("#container-main")!=null && event.target.className != "btn-specihern left-btn"){
+            document.querySelector("#container-main").remove()
+          }
+        })
 
 
-      save.addEventListener("click",(event)=>{
-        event.preventDefault()
-      })
+        save.addEventListener("click",(event)=>{
+          event.preventDefault()
+        })
 
 
 
-      productImgWrapper.addEventListener("mouseover",()=>{
-        dropdown.style.visibility = "visible"
-        save.style.visibility = "visible"
-      })
+        productImgWrapper.addEventListener("mouseover",()=>{
+          dropdown.style.visibility = "visible"
+          save.style.visibility = "visible"
+        })
 
-      productImgWrapper.addEventListener("mouseout",()=>{
-        dropdown.style.visibility = "hidden"
-        save.style.visibility = "hidden"
-      })
+        productImgWrapper.addEventListener("mouseout",()=>{
+          dropdown.style.visibility = "hidden"
+          save.style.visibility = "hidden"
+        })
+      }
+      
 
 
       //product titel creation
