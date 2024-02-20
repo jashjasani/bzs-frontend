@@ -222,6 +222,11 @@ async function renderData(data) {
                           sessionStorage.setItem("collections", JSON.stringify(collections))
                         }
                         event.target.innerText = "+"
+                        if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
+                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
+                        } else {
+                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Specihern"
+                        }
                       }
                     })
 
@@ -229,11 +234,7 @@ async function renderData(data) {
                   }
 
 
-                  if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
-                    event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
-                  } else {
-                    event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Specihern"
-                  }
+                  
 
                   
 
