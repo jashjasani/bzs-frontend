@@ -8,9 +8,9 @@
         <style>
             .swal2-popup {
                 width: 599px;
-                height: 272px;
+                height: 658px;
                 border: 2px solid #2b2a2a;
-                font-family: sans-serif;
+                font-family: Circular, sans-serif;
                 background: #d9d3d0;
                 color: #2b2a2a;
             }
@@ -45,8 +45,71 @@
                 margin-bottom: 10px;
                 visibility: visible;
             }
-            .swal2-validation-message{
+            .swal2-validation-message {
                 background-color: #d9d3d0;
+            }
+            textarea {
+                resize: none;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .cover-image {
+                width: 200px;
+                height: 200px;
+                border: 1px solid #ddd;
+                margin-bottom: 20px;
+            }
+
+            .title {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            .input-group {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+
+            .input-label {
+                text-align: left;
+        
+                margin-bottom: 5px;
+            }
+
+            .input-field {
+                padding: 8px;
+                border: 2px solid #2b2a2a;  
+                border-radius: 4px;
+                background-color: #d9d3d0;
+            }
+
+            input ::placeholder{
+                font-family: Circular, sans-serif;
+                color: #2b2a2a;
+            }
+
+            .description {
+                
+                margin-bottom: 10px;
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .button {
+                padding: 8px 16px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                cursor: pointer;
             }
         </style>
     </head>
@@ -54,18 +117,43 @@
         <script>
             (async () => {
                 let name = await Swal.fire({
-                    title: "New Collection",
-                    input: "text",
-                    inputLabel: "Name",
-                    inputPlaceholder: "Name deiner neuen Kollektion",
-                    confirmButtonText: "Create",
-                    inputValidator: (value) => {
-                        if (!value) {
-                            return "Name cannot be empty";
-                        }
+                    title: "Edit collection",
+                    showCancelButton: true,
+                    confirmButtonText: "Delete collection",
+                    cancelButtonText: "Save",
+                    html: `
+                    
+                        <div class="input-group">
+                            <label for="name" class="input-label">Cover Image</label>
+                            <div style="width:fit-content;">
+                            <div style="position:relative;">
+                                <a href="#" style="position: absolute;top: 70%;left: 80%; background-color: #D9D3D0BF;border: 2px solid #2b2a2a; border-radius: 30%;">
+                                    <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" width="30" height="30">
+                                </a>
+                                <img  width="170" height="143.96" src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/images/Stern_2009_w_52" style="border: 2px solid #2b2a2a; border-radius: 10px;">
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="input-group">
+                        <label for="name" class="input-label">Name*</label>
+                        <input type="text" id="name" name="name" placeholder="Enter collection name" class="input-field">
+                        </div>
+
+                        <div class="input-group">
+                        <label for="description" class="input-label">Description</label>
+                        <textarea id="description" name="description" rows="9" placeholder="Enter collection description" class="input-field"></textarea>
+                        </div>
+                
+                        `,
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        return [
+                            document.getElementById("swal-input1").value,
+                            document.getElementById("swal-input2").value,
+                        ];
                     },
                 });
-
             })().catch();
         </script>
     </body>

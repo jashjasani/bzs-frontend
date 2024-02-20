@@ -186,15 +186,16 @@ async function renderData(data) {
                         event.target.innerText = "saved"
                         sessionStorage.setItem("collections", JSON.stringify(collections))
 
-                        document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
-                          e.innerText = event.target.parentElement.childNodes[0].innerText
-                        })
+                        
 
                         if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
                           event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
                         } else {
                           event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Specihern"
                         }
+                        document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
+                          e.innerText = event.target.parentElement.childNodes[0].innerText
+                        })
                       }
                     })
                     
