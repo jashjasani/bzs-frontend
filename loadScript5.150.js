@@ -169,14 +169,14 @@ async function renderData(data) {
                       headers : {
                         Authorization : sessionStorage.getItem("auth")
                       },
-                      body : {
+                      body : JSON.stringify({
                         name : event.target.parentElement.childNodes[0].innerText,
                         update : {
                           $addToSet : {
                             items : event.target.parentElement.parentElement.getAttribute("dropdown-key")
                           }
                         }
-                      }
+                      })
                     }).then((res)=> {
                       // if it was saved to database only then update the state
                       if(res.status == 200) {
@@ -203,14 +203,14 @@ async function renderData(data) {
                       headers : {
                         Authorization : sessionStorage.getItem("auth")
                       },
-                      body : {
+                      body : JSON.stringify({
                         name : event.target.parentElement.childNodes[0].innerText,
                         update : {
                           $pull : {
                             items : event.target.parentElement.parentElement.getAttribute("dropdown-key")
                           }
                         }
-                      }
+                      })
                     }).then((res)=>{
                       // if it was deleted from database only then update the state
                       if(res.status == 200){
@@ -276,10 +276,10 @@ async function renderData(data) {
                   headers : {
                     Authorization : sessionStorage.getItem("auth")
                   }, 
-                  body: {
+                  body: JSON.stringify({
                     name : output.value,
                     item : event.target.parentElement.parentElement.getAttribute("dropdown-key")
-                  }
+                  })
                 }).then((res)=>{
                   if(res.status == 200){
                     const obj = { name : output.value , items : []}
