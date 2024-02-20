@@ -67,7 +67,8 @@ async function renderData(data) {
           Authorization: sessionStorage.getItem("auth"),
         },
       })
-      sessionStorage.setItem("collections", JSON.stringify(collections))
+      collections = await collections.json()
+      sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
     }
     let imgCount = 0;
     for (q of data.magazines) {
