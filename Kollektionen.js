@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <div class="collection_name">${collections[i].name}</div>
             </div>
             <a href="#" class="edit_collection w-inline-block" onclick="editPopup(event)" name="${collections[i].name}" cover="${collections[i].cover}" description="${collections[i].description}">
-                <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="">
+                <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="" name="${collections[i].name}" cover="${collections[i].cover}" description="${collections[i].description}">
             </a>
         </div>
         `;
