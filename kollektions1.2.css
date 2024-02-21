@@ -27,9 +27,17 @@
     font-size: 32px;
     font-weight: 500;
 }
-
-.swal2-confirm.swal2-styled {
+.swal2-cancel.swal2-styled{
     background-color: #bf8563;
+    border: 2px solid #2b2a2a;
+    color: #2b2a2a;
+    border-radius: 10px;
+    width: 175px;
+    margin-bottom: 10px;
+    visibility: visible;
+}
+.swal2-confirm.swal2-styled {
+    background-color: #d9d3d0;
     border: 2px solid #2b2a2a;
     color: #2b2a2a;
     border-radius: 10px;
