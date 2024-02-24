@@ -294,8 +294,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                                     <div class="collection_name_wrap">
                                         <div class="collection_name">${output.value[0]}</div>
                                     </div>
-                                    <a class="edit_collection w-inline-block" onclick="editPopup(event)" name="${output.value[0]}" cover="" description="${collections[i].description}">
-                                        <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="" name="${output.value[0]}" cover="" description="${collections[i].description}">
+                                    <a class="edit_collection w-inline-block" onclick="editPopup(event)" name="${output.value[0]}" cover="" description="${output.value[1]}">
+                                        <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="" name="${output.value[0]}" cover="" description="${output.value[1]}">
                                     </a>
                                     </a>
                     `;
