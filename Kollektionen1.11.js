@@ -123,28 +123,28 @@ document.addEventListener("DOMContentLoaded", async function () {
                         name: name,
                         update: {
                             $set: {
-                                name: output.value[0],
-                                description: output.value[1],
+                                name: output.value[0].trim(),
+                                description: output.value[1].trim(),
                             },
                         },
                     }),
                 }
             ).then((res) => {
                 if (res.status == 200) {
-                    event.target.setAttribute("name", output.value[0]);
-                    event.target.setAttribute("description", output.value[1]);
+                    event.target.setAttribute("name", output.value[0].trim());
+                    event.target.setAttribute("description", output.value[1].trim());
                     console.log(event.currentTarget);
                     if (event.target.tagName == "IMG") {
                         event.target.parentElement.parentElement.querySelector(
                             ".collection_name"
-                        ).innerText = output.value[0];
+                        ).innerText = output.value[0].trim();
                         event.target.parentElement.setAttribute(
                             "name",
-                            output.value[0]
+                            output.value[0].trim()
                         );
                         event.target.parentElement.setAttribute(
                             "description",
-                            output.value[1]
+                            output.value[1].trim()
                         );
                         event.target.parentElement.parentElement.querySelector(
                             "a"
@@ -153,30 +153,30 @@ document.addEventListener("DOMContentLoaded", async function () {
                                 .querySelector("a")
                                 .href.split("=")[0] +
                             "=" +
-                            output.value[0];
+                            output.value[0].trim();
                         event.target.parentElement.parentElement.setAttribute(
                             "name",
-                            output.value[0]
+                            output.value[0].trim()
                         );
                     } else {
                         event.target.parentElement.querySelector(
                             ".collection_name"
-                        ).innerText = output.value[0];
+                        ).innerText = output.value[0].trim();
                         event.target
                             .querySelector("img")
-                            .setAttribute("name", output.value[0]);
+                            .setAttribute("name", output.value[0].trim());
                         event.target
                             .querySelector("img")
-                            .setAttribute("description", output.value[1]);
+                            .setAttribute("description", output.value[1].trim());
                         event.target.parentElement.querySelector("a").href =
                             event.target.parentElement
                                 .querySelector("a")
                                 .href.split("=")[0] +
                             "=" +
-                            output.value[0];
+                            output.value[0].trim();
                         event.target.parentElement.parentElement.setAttribute(
                             "name",
-                            output.value[0]
+                            output.value[0].trim()
                         );
                     }
                 }
@@ -275,8 +275,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                         Authorization: sessionStorage.getItem("auth"),
                     },
                     body: JSON.stringify({
-                        name: output.value[0],
-                        description: output.value[1],
+                        name: output.value[0].trim(),
+                        description: output.value[1].trim(),
                     }),
                 }
             ).then((res) => {
@@ -288,15 +288,15 @@ document.addEventListener("DOMContentLoaded", async function () {
                     const div = document.createElement("div");
                     div.className = "collection_item_wrap";
                     div.setAttribute("randid", document.querySelectorAll("[randid]").length);
-                    div.setAttribute("name", output.value[0]);
+                    div.setAttribute("name", output.value[0].trim());
                     div.innerHTML = `
-                                        <a class="ind-item" href="/deine-kollektion?name=${output.value[0]}" style="width:100%;">
+                                        <a class="ind-item" href="/deine-kollektion?name=${output.value[0].trim()}" style="width:100%;">
                                         <img src="" loading="lazy" sizes="(max-width: 479px) 89vw, (max-width: 767px) 85vw, 86vw" srcset="" alt="" class="collection_main_img">
                                         <div class="collection_name_wrap">
-                                            <div class="collection_name">${output.value[0]}</div>
+                                            <div class="collection_name">${output.value[0].trim()}</div>
                                         </div>
-                                        <a class="edit_collection w-inline-block" onclick="editPopup(event)" name="${output.value[0]}" cover="" description="${output.value[1]}">
-                                            <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="" name="${output.value[0]}" cover="" description="${output.value[1]}">
+                                        <a class="edit_collection w-inline-block" onclick="editPopup(event)" name="${output.value[0].trim()}" cover="" description="${output.value[1].trim()}">
+                                            <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="" name="${output.value[0].trim()}" cover="" description="${output.value[1].trim()}">
                                         </a>
                                         </a>
                         `;
