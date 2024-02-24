@@ -15,7 +15,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         switch (args) {
             case "":
                 grid.innerHTML = "";
-                grid.insertAdjacentHTML("beforeend", array);
+                for(let i of array){
+                    grid.appendChild(i);
+                }
+                
                 break;
             case "First":
                 array.sort((a, b) => {
@@ -233,6 +236,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     ".w-layout-grid.collections_grid"
                 );
                 let array = Array.from(grid.children);
+                console.log(array);
                 sortArrAndAppend(event.target.value, array, grid);
             });
 
