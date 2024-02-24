@@ -178,7 +178,7 @@ async function renderData(data) {
                           $addToSet : {
                             items : event.target.parentElement.parentElement.getAttribute("dropdown-key")
                           },
-                          ...( arry.hasOwnProperty("cover") ? { $set : {cover : event.target.parentElement.parentElement.parentElement.querySelector(".product-img").src.split("/v1651695832/")[1] }
+                          ...( !arry.hasOwnProperty("cover") ? { $set : {cover : event.target.parentElement.parentElement.parentElement.querySelector(".product-img").src.split("/v1651695832/")[1] }
                             
                           } : {})
                         }
@@ -187,8 +187,10 @@ async function renderData(data) {
                       // if it was saved to database only then update the state
                       if(res.status == 200) {
                         arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
-                        arry.cover = event.target.parentElement.parentElement.parentElement.querySelector(".product-img").src.split("/v1651695832/")[1]
-                        arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+                        if (arry.hasOwnProperty("cover")){
+                          arry["cover"] = event.target.parentElement.parentElement.parentElement.querySelector(".product-img").src.split("/v1651695832/")[1]
+                        }
+                          arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
                         event.target.innerText = "saved"
                         sessionStorage.setItem("collections", JSON.stringify(collections))
 
