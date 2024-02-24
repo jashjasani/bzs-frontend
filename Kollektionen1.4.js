@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     collections = await collections.json();
     sessionStorage.setItem("collections", JSON.stringify(collections));
 
-    const sortArrAndAppend = (args, array, grid) => {
+    function sortArrAndAppend(args, array, grid){
         switch (args) {
             case "":
                 grid.innerHTML = "";
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
                 break;
         }
-
+    }
         window.editPopup = async (event) => {
             const name = event.target.getAttribute("name") || "";
             const cover = event.target.getAttribute("cover") || "";
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             Swal.fire();
         };
 
-        let grid = document.querySelector(".w-layout-grid.collections_grid");
+        const grid = document.querySelector(".w-layout-grid.collections_grid");
         let str = ``;
         for (let i = 0; i < collections.length; i++) {
             str += `
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         document
             .getElementById("Filter-Kollektionen")
             .addEventListener("change", (event) => {
-                grid = document.querySelector(
+                const grid = document.querySelector(
                     ".w-layout-grid.collections_grid"
                 );
                 let array = Array.from(grid.children);
@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     }
                 ).then((res) => {
                     if (res.ok) {
-
+                        const grid = document.querySelector(".w-layout-grid.collections_grid");
                         let array = Array.from(grid.children);
                         const div = document.createElement("div");
                         div.className = "collection_item_wrap";
@@ -307,5 +307,5 @@ document.addEventListener("DOMContentLoaded", async function () {
                 });
             }
         );
-    };
-});
+
+        });
