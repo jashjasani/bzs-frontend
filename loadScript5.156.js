@@ -164,8 +164,10 @@ async function renderData(data) {
 
                   // save an item to collection
                   if(event.target.innerText == "+"){
+                    console.log(collections);
+                    console.log(event.target.parentElement.childNodes[0].innerText);
                     var arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
-                    console.log(arry);
+                    
                     fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
                       method : "PUT",
                       headers : {
