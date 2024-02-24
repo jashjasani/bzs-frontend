@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             Swal.fire();
         };
 
-        const grid = document.querySelector(".w-layout-grid.collections_grid");
+        let grid = document.querySelector(".w-layout-grid.collections_grid");
         let str = ``;
         for (let i = 0; i < collections.length; i++) {
             str += `
