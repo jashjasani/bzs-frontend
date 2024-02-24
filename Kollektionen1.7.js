@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             sortArrAndAppend(event.target.value, array, grid);
         });
 
-    document.querySelector("button.new-collection.w-inline-block").addEventListener("click",async function () {
+    document.querySelector(".button.new-collection.w-inline-block").addEventListener("click",async function () {
         const output = await Swal.fire({
             title: "Edit collection",
             showCancelButton: true,
