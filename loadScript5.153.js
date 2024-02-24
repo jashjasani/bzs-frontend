@@ -164,6 +164,8 @@ async function renderData(data) {
 
                   // save an item to collection
                   if(event.target.innerText == "+"){
+                    let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
+                    
                     fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
                       method : "PUT",
                       headers : {
@@ -174,14 +176,17 @@ async function renderData(data) {
                         update : {
                           $addToSet : {
                             items : event.target.parentElement.parentElement.getAttribute("dropdown-key")
-                          }
+                          },
+                          ...( arry.hasOwnProperty("cover") ? {cover : event.target
+                            .parentElement.parentElement.parentElement.querySelector(".product-img").src.split("/v1651695832/")[1]
+                          } : {})
                         }
                       })
                     }).then((res)=> {
                       // if it was saved to database only then update the state
                       if(res.status == 200) {
-                        let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
-                    
+                        arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
+                        
                         arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
                         event.target.innerText = "saved"
                         sessionStorage.setItem("collections", JSON.stringify(collections))
