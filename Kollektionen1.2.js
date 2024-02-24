@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         document
             .getElementById("Filter-Kollektionen")
             .addEventListener("change", (event) => {
-                let grid = document.querySelector(
+                grid = document.querySelector(
                     ".w-layout-grid.collections_grid"
                 );
                 let array = Array.from(grid.children);
@@ -281,9 +281,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     }
                 ).then((res) => {
                     if (res.ok) {
-                        let grid = document.querySelector(
-                            ".w-layout-grid.collections_grid"
-                        );
+
                         let array = Array.from(grid.children);
                         const div = document.createElement("div");
                         div.className = "collection_item_wrap";
