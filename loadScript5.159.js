@@ -178,7 +178,7 @@ async function renderData(data) {
                           $addToSet : {
                             items : event.target.parentElement.parentElement.getAttribute("dropdown-key")
                           },
-                          ...( arry.hasOwnProperty("cover") ? {cover : event.target
+                          ...( arry.hasOwnProperty("cover") ? { $set : {cover : event.target }
                             .parentElement.parentElement.parentElement.querySelector(".product-img").src.split("/v1651695832/")[1]
                           } : {})
                         }
