@@ -202,6 +202,27 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     };
 
+    window.changeCover = async (name,cover)=>{
+        fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
+            method : "PUT",
+            headers : {
+                Authorization : sessionStorage.getItem("auth")
+            },body: JSON.stringify({
+                name: name,
+                update: {
+                    $set: {
+                        cover: cover
+                    },
+                },
+            }),
+        }).then((res)=>{
+            if(res.ok){
+                console.log("Ok");
+            }
+        })
+        
+    }
+
     window.newFunction = async (name) => {
         let collection = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/collection?name=${name}`,{
             method : "GET",
@@ -215,7 +236,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             collection = await collection.json()
             console.log(collection);
             for (i of collection.collection.items){
-                str += `<img src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/images/${i.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}">`
+                str += `<img src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/images/${i.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}" onclick="changeCover('${name}','images/${i.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}')">`
             }
             
         }
