@@ -211,8 +211,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         })
         let str
         if(collection.ok){
-            collection = await collection.json().collection
-            for (i of collection.items){
+           
+            collection = await collection.json()
+            console.log(collection);
+            for (i of collection.collection.items){
                 str += `<img src=https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/images/
                 ${i.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}>`
             }
