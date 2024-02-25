@@ -217,7 +217,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             }),
         }).then((res)=>{
             if(res.ok){
-                console.log("Ok");
+                const changes = document.querySelectorAll(`[name='${name}']`)
+                changes[0].querySelector("img").src = changes[0].querySelector("img").src.split("images")[0] + cover
+                changes[1].setAttribute("cover",cover)
+                changes[2].setAttribute("cover",cover)
             }
         })
         
