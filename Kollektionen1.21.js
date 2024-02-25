@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const name = event.target.getAttribute("name") || "";
         const cover = event.target.getAttribute("cover") || "";
         const description = event.target.getAttribute("description") || "";
-
+        console.log(name);
         const output = await Swal.fire({
             title: "Edit collection",
             showCancelButton: true,
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <label for="name" class="input-label">Cover Image</label>
                     <div style="width:fit-content;">
                     <div style="position:relative;">
-                        <a href="#" style="position: absolute;top: 70%;left: 80%; background-color: #D9D3D0BF;border: 2px solid #2b2a2a; border-radius: 30%;" onclick=newFunction('${name}')>
+                        <a href="#" style="position: absolute;top: 70%;left: 80%; background-color: #D9D3D0BF;border: 2px solid #2b2a2a; border-radius: 30%;" onclick=newFunction("${name}")>
                             <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" width="30" height="30">
                         </a>
                         <img  width="170" height="143.96" src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/${cover}" style="border: 2px solid #2b2a2a; border-radius: 10px;">
