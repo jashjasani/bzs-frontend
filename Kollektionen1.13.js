@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
 
     window.newFunction = async (name) => {
-        const collection = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/collection?name=${name}`,{
+        let collection = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/collection?name=${name}`,{
             method : "GET",
             headers : {
                 Authorization : sessionStorage.getItem("auth")
