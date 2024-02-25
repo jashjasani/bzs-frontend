@@ -209,14 +209,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                 Authorization : sessionStorage.getItem("auth")
             }
         })
-        let str
+        let str = ''
         if(collection.ok){
            
             collection = await collection.json()
             console.log(collection);
             for (i of collection.collection.items){
-                str += `<img src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/images/
-                ${i.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}">`
+                str += `<img src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/images/${i.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}">`
             }
             
         }
