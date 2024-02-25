@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             
         }
         let output = await Swal.fire({
-            title: "Edit collection",
+            title: "Change your cover image",
             showCancelButton: true,
             showConfirmButton:false,
             cancelButtonText: "Cancel",

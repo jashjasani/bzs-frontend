@@ -111,6 +111,6 @@
 }
 .flex-container > img {
     width: 202px;
-    height: 181px;
+    height: auto;
     margin: 5px;
 }
