@@ -221,6 +221,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 changes[0].querySelector("img").src = changes[0].querySelector("img").src.split("images")[0] + cover
                 changes[1].setAttribute("cover",cover)
                 changes[2].setAttribute("cover",cover)
+                Swal.close()
             }
         })
         
