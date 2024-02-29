@@ -9,6 +9,26 @@ document.addEventListener("DOMContentLoaded", async function () {
         button.setAttribute('data-item-description', data.product.Monat + " " + data.product.Jahr + " " + data.product.Ausgabe);
     }
 
+
+    async function addCollectionButton(){
+        if (sessionStorage.getItem("auth")) {
+            const wrapper = document.getElementsByClassName("product-price-wrapper")[0]
+            const Link = document.createElement("a")
+            Link.className = "button snipcart-add-item w-inline-block"
+            Link.style.cssText = "transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d; display: flex; margin-top:15px; background: #a4a67c;"
+            const div = document.createElement("div")
+            div.className = "button-text"
+            div.innerText = "In Kollektion speichern"
+            Link.appendChild(div)
+            window.collections = await loadCollections()
+            Link.addEventListener("click", (event) => {
+                Swal.fire()
+                console.log(window.collections);
+            })
+            wrapper.appendChild(Link)
+        }
+    }
+
     async function renderData(data) {
         const productHeading = document.getElementsByClassName("heading-2")[0];
         productHeading.innerText = data.product.Name;
@@ -31,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             priceIndicator.style.display = 'none';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.style.display = 'none';
+            await addCollectionButton()
         } else {
             const price = document.getElementsByClassName("price")[0];
             price.innerText = data.product.Preis;
@@ -38,34 +59,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             priceWrapper.style.display = "flex";
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.style.display = "flex";
+            await addCollectionButton()
         }
-
-        if (sessionStorage.getItem("auth")) {
-            const wrapper = document.getElementsByClassName("product-price-wrapper")[0]
-            const Link = document.createElement("a")
-            Link.className = "button snipcart-add-item w-inline-block"
-            Link.style.cssText = "transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d; display: flex; margin-top:15px; background: #a4a67c;"
-            const div = document.createElement("div")
-            div.className = "button-text"
-            div.innerText = "In Kollektion speichern"
-            Link.appendChild(div)
-
-            window.collections = await loadCollections()
-            Link.addEventListener("click", (event)=>{
-                Swal.fire()
-                console.log(window.collections);
-            })
-
-
-
-            wrapper.appendChild(Link)
-
-
-           
-
-
-
-        }
+        
 
 
 
@@ -158,7 +154,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         })
         return collections = await collections.json()
 
-    
+
     }
 
     setTimeout(() => {
@@ -170,7 +166,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 .then(async (data) => {
                     addSnipcartAttributes(data)
                     await renderData(data)
-                    
+
                 })
         }
     }, 10)
