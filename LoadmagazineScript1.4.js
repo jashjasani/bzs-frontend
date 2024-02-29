@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (sessionStorage.getItem("auth")) {
             const wrapper = document.getElementsByClassName("product-price-wrapper")[0]
             const Link = document.createElement("a")
-            Link.className = "button snipcart-add-item w-inline-block"
+            Link.className = "button w-inline-block"
             Link.style.cssText = "transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d; display: flex; margin-top:15px; background: #a4a67c;"
             const div = document.createElement("div")
             div.className = "button-text"
