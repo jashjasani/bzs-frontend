@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         button.setAttribute('data-item-description', data.product.Monat + " " + data.product.Jahr + " " + data.product.Ausgabe);
     }
 
-    function renderData(data) {
+    async function renderData(data) {
         const productHeading = document.getElementsByClassName("heading-2")[0];
         productHeading.innerText = data.product.Name;
 
@@ -22,25 +22,25 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const img = document.getElementsByClassName("product-image")[0];
         const imgWrapper = document.getElementsByClassName("product-lightbox")[0];
-        imgWrapper.setAttribute('data-mfp-src',"https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images);
+        imgWrapper.setAttribute('data-mfp-src', "https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images);
         img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images;
-        
+
         var regExp = /[a-zA-Z]/g;
-        if(regExp.test( data.product.Preis)||data.product.Preis==0){
+        if (regExp.test(data.product.Preis) || data.product.Preis == 0) {
             const priceIndicator = document.getElementsByClassName("price-wrapper")[0];
-            priceIndicator.style.display='none';
+            priceIndicator.style.display = 'none';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
-            addButton.style.display='none';
-        } else{
+            addButton.style.display = 'none';
+        } else {
             const price = document.getElementsByClassName("price")[0];
             price.innerText = data.product.Preis;
             const priceWrapper = document.getElementsByClassName("price-wrapper")[0];
-            priceWrapper.style.display="flex";
+            priceWrapper.style.display = "flex";
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
-            addButton.style.display="flex";    
+            addButton.style.display = "flex";
         }
-        
-        if(sessionStorage.getItem("auth")){
+
+        if (sessionStorage.getItem("auth")) {
             const wrapper = document.getElementsByClassName("product-price-wrapper")[0]
             const Link = document.createElement("a")
             Link.className = "button snipcart-add-item w-inline-block"
@@ -49,11 +49,26 @@ document.addEventListener("DOMContentLoaded", async function () {
             div.className = "button-text"
             div.innerText = "In Kollektion speichern"
             Link.appendChild(div)
+
+            window.collections = await loadCollections()
+            Link.addEventListener("click", (event)=>{
+                Swal.fire()
+                console.log(window.collections);
+            })
+
+
+
             wrapper.appendChild(Link)
+
+
+           
+
+
+
         }
-        
-        
-        
+
+
+
 
         const productCategoriesWrapper = document.getElementsByClassName("product-categories-wrapper")[0];
         const cats = data.categories;
@@ -131,16 +146,31 @@ document.addEventListener("DOMContentLoaded", async function () {
             i++;
         }
     }
+
+
+    async function loadCollections() {
+
+        collections = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+            method: "GET",
+            headers: {
+                Authorization: sessionStorage.getItem("auth"),
+            },
+        })
+        return collections = await collections.json()
+
+    
+    }
+
     setTimeout(() => {
         var url = window.location.href;
         var productId = url.split('?')[1];
         if (productId) {
             fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadProduct?' + productId)
                 .then(resp => resp.json())
-                .then(data => {
+                .then(async (data) => {
                     addSnipcartAttributes(data)
-                    renderData(data)
-
+                    await renderData(data)
+                    
                 })
         }
     }, 10)
