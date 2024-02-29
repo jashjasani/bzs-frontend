@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             div.className = "button-text"
             div.innerText = "In Kollektion speichern"
             Link.appendChild(div)
-            window.collections = await loadCollections()
+  
             Link.addEventListener("click", (event) => {
                 Swal.fire()
                 console.log(window.collections);
@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             wrapper.appendChild(Link)
         }
     }
+
+
+    
 
     async function renderData(data) {
         const productHeading = document.getElementsByClassName("heading-2")[0];
@@ -47,19 +50,21 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         var regExp = /[a-zA-Z]/g;
         if (regExp.test(data.product.Preis) || data.product.Preis == 0) {
+            await addCollectionButton()
             const priceIndicator = document.getElementsByClassName("price-wrapper")[0];
             priceIndicator.style.display = 'none';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.style.display = 'none';
-            await addCollectionButton()
+            
         } else {
+            await addCollectionButton()
             const price = document.getElementsByClassName("price")[0];
             price.innerText = data.product.Preis;
             const priceWrapper = document.getElementsByClassName("price-wrapper")[0];
             priceWrapper.style.display = "flex";
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.style.display = "flex";
-            await addCollectionButton()
+            
         }
         
 
@@ -166,7 +171,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 .then(async (data) => {
                     addSnipcartAttributes(data)
                     await renderData(data)
-
+                    window.collections = await loadCollections()
                 })
         }
     }, 10)
