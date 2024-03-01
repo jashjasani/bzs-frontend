@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             for (let i of window.collections){
                 str+=`
-                        <div style="display:flex; align-content: center;justify-content: center;">
+                        <div style="display:flex; justify-content: space-between;">
                             <div style="margin: 10px;">${i.name}</div>
                             <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
                             border-radius: 10px; font-size:initial;">${i.items.includes(window.productId)? "Saved" : "Save"}</button>
@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                     showCloseButton: true,
                     html: `
                 
-                    <div style="display: flex;align-content: center;justify-content: center;flex-direction:column;overflow: auto;
-                    scrollbar-width: none; width:70%">
+                    <div style="display: flex;flex-direction:column;overflow: auto;
+                    scrollbar-width: none;">
                         ${str}
                     </div>            
                     `,
