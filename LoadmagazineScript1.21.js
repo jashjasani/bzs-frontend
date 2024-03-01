@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
             for (let i of window.collections) {
-                console.log(i.items,productId,i.items.includes(productId));
+                console.log(i.items,window.productId,i.items.includes(window.productId));
                 str += `
                         <div style="display:flex; justify-content: space-between;">
                             <div style="margin: 10px;">${i.name}</div>
