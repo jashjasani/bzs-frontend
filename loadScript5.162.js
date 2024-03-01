@@ -298,7 +298,7 @@ async function renderData(data) {
                   })
                 }).then((res)=>{
                   if(res.status == 200){
-                    const obj = { name : output.value , items : []}
+                    const obj = { name : output.value , items : [], cover: event.target.parentElement.parentElement.getAttribute("dropdown-key").replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}
                     obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
                     document.getElementById(`${event.target.parentElement.parentElement.getAttribute("dropdown-key")}`).querySelector(".btn-specihern").innerText = "Gerettet"
                     document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{

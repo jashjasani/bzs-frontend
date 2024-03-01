@@ -80,6 +80,48 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
+    window.createCollections = async(event)=>{
+
+        let output = await Swal.fire({
+            title: "New Collection",
+            input: "text",
+            inputLabel: "Name",
+            inputPlaceholder: "Name deiner neuen Kollektion",
+            confirmButtonText: "Create",
+            inputValidator: (value) => {
+                if (!value) {
+                    return "Name cannot be empty";
+                }
+            },
+        });
+        
+        // check if collection already exists
+        if(!window.collections.some(obj => obj.name == output.value) && output.value!= undefined){
+          // create new collection in database 
+          fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+            method:"POST",
+            headers : {
+              Authorization : sessionStorage.getItem("auth")
+            }, 
+            body: JSON.stringify({
+              name : output.value,
+              item : window.productId
+            })
+          }).then((res)=>{
+            if(res.status == 200){
+              const obj = { name : output.value , items : [], cover : window.productId.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}
+              obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+              window.collections.push(obj)
+            }
+          })
+
+          
+          
+        }
+    }
+
+
+
     window.clickHandler = (event) => {
 
         let str = ``
@@ -95,6 +137,14 @@ document.addEventListener("DOMContentLoaded", async function () {
             </div>
             `
         }
+        str+=`
+        <div style="display:flex; justify-content: space-between;">
+            
+            <button style="margin: 10px; border: 2px solid var(--black); color: var(--black);
+            border-radius: 10px; font-size:initial; ${includes ? 'background-color: rgb(164, 166, 124);' : 'background-color:var(--peru);'}"   name="${window.collections[i].name.trim()}"   onclick='createCollection()'>+</button>
+            <div style="margin: 10px;">Kollektion erstellen</div>
+        </div>
+        `
 
         Swal.fire({
             showCloseButton: false,
