@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 if (res.status == 200) {
                     arry.items.push(productId)
                     target.innerText = "Gerettet"
-                    target.style.setProperty("backgroundColor" ,"rgb(164, 166, 124);")
+                    target.style = "margin: 10px; border: 2px solid var(--black); color: var(--black); background-color: rgb(164, 166, 124);"
                 }
             })
 
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         arry.items.splice(index, 1);
                     }
                     target.innerText = "Specihern"
-                    target.style.setProperty("backgroundColor" ,"var(--peru);")
+                    target.style = "margin: 10px; border: 2px solid var(--black); color: var(--black); background-color:var(--peru);"
                 }
             })
 
