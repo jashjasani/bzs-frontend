@@ -36,10 +36,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                 })
             }).then((res) => {
                 // if it was saved to database only then update the state
+      
                 if (res.status == 200) {
                     arry.items.push(productId)
                     target.innerText = "Gerettet"
-                    target.style = "margin: 10px; border: 2px solid var(--black); color: var(--black); background-color: rgb(164, 166, 124);"
+                    target.style = "margin: 10px; border: 2px solid var(--black); color: var(--black); background-color: #A4A67C; border-radius:10px;font-size: initial;"
                 }
             })
 
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         arry.items.splice(index, 1);
                     }
                     target.innerText = "Specihern"
-                    target.style = "margin: 10px; border: 2px solid var(--black); color: var(--black); background-color:var(--peru);"
+                    target.style = "margin: 10px; border: 2px solid var(--black); color: var(--black); background-color: #BF8563; border-radius:10px;font-size: initial;"
                 }
             })
 
