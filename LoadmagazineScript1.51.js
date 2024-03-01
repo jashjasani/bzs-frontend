@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     window.saveOrDelete = (event) => {
         const target = event.target
         const name = target.getAttribute("name")
-        console.log(name,target,window.collections);
         const arry = window.collections.find(obj => obj.name == name)
         // Save
         if (target.innerText == "Specihern") {
