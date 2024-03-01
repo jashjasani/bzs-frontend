@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     window.collections = await loadCollections()
                     await renderData(data)
 
-                    window.productId = new URLSearchParams(window.location.href).productId
+                    window.productId = new URLSearchParams(window.location.search).get("productId")
                 })
         }
     }, 10)
