@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           }).then((res)=>{
             if(res.status == 200){
               const obj = { name : output.value , items : [], cover : window.productId.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}
-              obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+              obj.items.push(window.productId)
               window.collections.push(obj)
             }
           })
