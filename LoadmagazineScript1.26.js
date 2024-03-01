@@ -44,29 +44,29 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         } else if (target.innerText == "Gerettet") {
 
-            fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
-                      method : "PUT",
-                      headers : {
-                        Authorization : sessionStorage.getItem("auth")
-                      },
-                      body : JSON.stringify({
-                        name : name,
-                        update : {
-                          $pull : {
-                            items : productId
-                          }
+            fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+                method: "PUT",
+                headers: {
+                    Authorization: sessionStorage.getItem("auth")
+                },
+                body: JSON.stringify({
+                    name: name,
+                    update: {
+                        $pull: {
+                            items: productId
                         }
-                      })
-                    }).then((res)=>{
-                      // if it was deleted from database only then update the state
-                      if(res.status == 200){
-                        const index = arry.items.indexOf(productId);
-                        if (index > -1) { 
-                          arry.items.splice(index, 1); 
-                        }
-                        target.innerText = "Specihern"
-                      }
-                    })
+                    }
+                })
+            }).then((res) => {
+                // if it was deleted from database only then update the state
+                if (res.status == 200) {
+                    const index = arry.items.indexOf(productId);
+                    if (index > -1) {
+                        arry.items.splice(index, 1);
+                    }
+                    target.innerText = "Specihern"
+                }
+            })
 
 
         }
@@ -86,25 +86,27 @@ document.addEventListener("DOMContentLoaded", async function () {
             Link.appendChild(div)
 
 
-            let str = ``
 
-
-            for (let i=0;i<window.collections.length;i++) {
-                console.log(window.collections[i].items,window.productId,window.collections[i].items.includes(window.productId));
-                let includes = window.collections[i].items.includes(window.productId) ? "Gerettet" : "Specihern";
-                console.log(includes);
-                str += `
-                        <div style="display:flex; justify-content: space-between;">
-                            <div style="margin: 10px;">${window.collections[i].name}</div>
-                            <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
-                            border-radius: 10px; font-size:initial;" name="${window.collections[i].name}" onclick="saveOrDelete(event)">${includes}</button>
-                        </div>
-
-                    `
-            }
 
 
             Link.addEventListener("click", (event) => {
+
+                let str = ``
+
+
+                for (let i = 0; i < window.collections.length; i++) {
+
+                    console.log(includes);
+                    str += `
+                        <div style="display:flex; justify-content: space-between;">
+                            <div style="margin: 10px;">${window.collections[i].name}</div>
+                            <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
+                            border-radius: 10px; font-size:initial;" name="${window.collections[i].name}" onclick="saveOrDelete(event)">${window.collections[i].items.includes(window.productId) ? "Gerettet" : "Specihern"}</button>
+                        </div>
+
+                    `
+                }
+
                 Swal.fire({
                     showCloseButton: false,
                     showConfirmButton: false,
