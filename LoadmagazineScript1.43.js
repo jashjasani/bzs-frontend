@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 if (res.status == 200) {
                     arry.items.push(productId)
                     target.innerText = "Gerettet"
-                    target.style.setProperty("bacground" ,"rgb(164, 166, 124);")
+                    target.style.setProperty("background" ,"rgb(164, 166, 124);")
                 }
             })
 
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         arry.items.splice(index, 1);
                     }
                     target.innerText = "Specihern"
-                    target.style.setProperty("bacground" ,"var(--peru);")
+                    target.style.setProperty("background" ,"var(--peru);")
                 }
             })
 
