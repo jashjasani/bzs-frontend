@@ -124,13 +124,13 @@ async function renderData(data) {
               const it = event.target.parentElement.querySelectorAll(".collections")
               if(event.target.value == ''){
                 
-                for(let i =0;i<it.length;i++){
+                for(let i =0;i<it.length-1;i++){
                   it[i].style.display = "flex"
                   
                 }
                 
               }
-              for(let i=0;i<it.length;i++){
+              for(let i=0;i<it.length-1;i++){
                 if(!it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())){
                   it[i].style.display = "none"
                 }else if(it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase()) && it[i].style.display == "none") {
