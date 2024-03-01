@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         <div style="display:flex; justify-content: space-between;">
                             <div style="margin: 10px;">${i.name}</div>
                             <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
-                            border-radius: 10px; font-size:initial;" name="${i.name}" onclick="saveOrDelete()">${i.items.includes(window.productId) ? "Gerettet" : "Specihern"}</button>
+                            border-radius: 10px; font-size:initial;" name="${i.name}" onclick="saveOrDelete(event)">${i.items.includes(window.productId) ? "Gerettet" : "Specihern"}</button>
                         </div>
 
                     `
