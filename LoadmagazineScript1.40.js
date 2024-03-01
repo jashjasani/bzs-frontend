@@ -39,8 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 if (res.status == 200) {
                     arry.items.push(productId)
                     target.innerText = "Gerettet"
-                    target.style.bacgroundColor = ""
-                    target.style.bacgroundColor = "rgb(164, 166, 124)"
+                    target.style.bacground = "rgb(164, 166, 124);"
                 }
             })
 
@@ -68,8 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         arry.items.splice(index, 1);
                     }
                     target.innerText = "Specihern"
-                    target.style.bacgroundColor = ""
-                    target.style.bacgroundColor = "var(--peru);"
+                    target.style.bacground = "var(--peru);"
                 }
             })
 
@@ -91,8 +89,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             str += `
             <div style="display:flex; justify-content: space-between;">
                 <div style="margin: 10px;">${window.collections[i].name}</div>
-                <button style="margin: 10px; border: 2px solid var(--black); background-color: var(--peru); color: var(--black);
-                border-radius: 10px; font-size:initial; ${includes ? 'background: rgb(164, 166, 124);' : ''}"   name="${window.collections[i].name.trim()}"   onclick='saveOrDelete(event)'>${includes ? "Gerettet" : "Specihern"}</button>
+                <button style="margin: 10px; border: 2px solid var(--black); color: var(--black);
+                border-radius: 10px; font-size:initial; ${includes ? 'background: rgb(164, 166, 124);' : 'var(--peru);'}"   name="${window.collections[i].name.trim()}"   onclick='saveOrDelete(event)'>${includes ? "Gerettet" : "Specihern"}</button>
             </div>
             `
         }
