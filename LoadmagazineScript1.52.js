@@ -121,15 +121,43 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
+    window.searchFilter =(event)=>{
+        const it = event.target.parentElement.querySelectorAll(".collections")
+        if(event.target.value == ''){
+          
+          for(let i =0;i<it.length-1;i++){
+            it[i].style.display = "flex"
+            
+          }
+          
+        }
+        for(let i=0;i<it.length-1;i++){
+          if(!it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())){
+            it[i].style.display = "none"
+          }else if(it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase()) && it[i].style.display == "none") {
+            it[i].style.display = "flex"
+          }
+        }
+      }
+
+
+
     window.clickHandler = (event) => {
 
-        let str = ``
+        let str = `<input placeholder="Suchen..." style="background-color: #d9d3d0;
+        outline: none;
+        border: 1px solid #2b2a2a;
+        border-radius: 10px;
+        width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 10;" oninput="searchFilter(event)">`
 
 
         for (let i = 0; i < window.collections.length; i++) {
             let includes = window.collections[i].items.includes(window.productId)
             str += `
-            <div style="display:flex; justify-content: space-between;">
+            <div style="display:flex; justify-content: space-between;" class="collections">
                 <div style="margin: 10px;">${window.collections[i].name}</div>
                 <button style="margin: 10px; border: 2px solid var(--black); color: var(--black);
                 border-radius: 10px; font-size:initial; ${includes ? 'background-color: rgb(164, 166, 124);' : 'background-color:var(--peru);'}"   name="${window.collections[i].name.trim()}"   onclick='saveOrDelete(event)'>${includes ? "Gerettet" : "Specihern"}</button>
@@ -151,7 +179,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             html: `
         
             <div style="display: flex;flex-direction:column;overflow: auto;
-            scrollbar-width: none;">
+            scrollbar-width: none; height:350px;">
                 ${str}
             </div>            
             `,
