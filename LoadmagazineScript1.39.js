@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 if (res.status == 200) {
                     arry.items.push(productId)
                     target.innerText = "Gerettet"
+                    target.style.bacgroundColor = ""
                     target.style.bacgroundColor = "rgb(164, 166, 124)"
                 }
             })
@@ -67,6 +68,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         arry.items.splice(index, 1);
                     }
                     target.innerText = "Specihern"
+                    target.style.bacgroundColor = ""
                     target.style.bacgroundColor = "var(--peru);"
                 }
             })
