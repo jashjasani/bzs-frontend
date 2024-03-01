@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             html: `
         
             <div style="display: flex;flex-direction:column;overflow: auto;
-            scrollbar-width: none; height:350px;">
+            scrollbar-width: none; max-height:350px;">
                 ${str}
             </div>            
             `,
