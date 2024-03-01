@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     window.saveOrDelete = (event) => {
         const target = event.target
         const name = target.getAttribute("name")
-        const arry = collections.find(obj => obj.name == name)
+        const arry = window.collections.find(obj => obj.name == name)
         // Save
         if (target.innerText == "Specihern") {
 
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }).then((res) => {
                 // if it was deleted from database only then update the state
                 if (res.status == 200) {
-                    const index = arry.items.indexOf(productId);
+                    const index = arry.items.indexOf(window.productId);
                     if (index > -1) {
                         arry.items.splice(index, 1);
                     }
