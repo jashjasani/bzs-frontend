@@ -91,11 +91,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             for (let i=0;i<window.collections.length;i++) {
                 console.log(window.collections[i].items,window.productId,window.collections[i].items.includes(window.productId));
+                let includes = window.collections[i].items.includes(window.productId) ? "Gerettet" : "Specihern";
                 str += `
                         <div style="display:flex; justify-content: space-between;">
                             <div style="margin: 10px;">${window.collections[i].name}</div>
                             <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
-                            border-radius: 10px; font-size:initial;" name="${window.collections[i].name}" onclick="saveOrDelete(event)">${window.collections[i].items.includes(window.productId) ? "Gerettet" : "Specihern"}</button>
+                            border-radius: 10px; font-size:initial;" name="${window.collections[i].name}" onclick="saveOrDelete(event)">${includes}</button>
                         </div>
 
                     `
