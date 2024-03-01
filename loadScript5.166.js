@@ -106,8 +106,7 @@ async function renderData(data) {
 
         dropdown.addEventListener("click",(event)=>{
           event.preventDefault() // to stop link element from redirecting
-          
-          
+        
           // open dropdown 
           if(event.target.parentElement.querySelector(".container-mode")==null){
             // if there are any other open containers remove them
@@ -115,7 +114,8 @@ async function renderData(data) {
             const container = document.createElement("div")
             container.id = "container-main"
             container.className = "container-mode"
-            container.setAttribute("dropdown-key", new URLSearchParams(event.target.parentElement.href).get("productId"))
+            let url = new URL(event.target.parentElement.href)
+            container.setAttribute("dropdown-key", new URLSearchParams(url.search).get("productId"))
             const search = document.createElement("input")
             search.placeholder = "Suchen ..."
             search.className = "collection-search"
