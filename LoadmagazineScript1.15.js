@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const name = target.getAttribute("name")
         const arry = collections.find(obj => obj.name)
         // Save
-        if (target.innerText == "Save") {
+        if (target.innerText == "Specihern") {
 
             fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
                 method: "PUT",
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             })
 
 
-        } else if (target.innerText == "Saved") {
+        } else if (target.innerText == "Gerettet") {
 
             fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
                       method : "PUT",
