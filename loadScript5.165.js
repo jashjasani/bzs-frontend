@@ -115,7 +115,7 @@ async function renderData(data) {
             const container = document.createElement("div")
             container.id = "container-main"
             container.className = "container-mode"
-            container.setAttribute("dropdown-key", event.target.parentElement.href.split("?productId=")[1])
+            container.setAttribute("dropdown-key", new URLSearchParams(event.target.parentElement.href).get("productId"))
             const search = document.createElement("input")
             search.placeholder = "Suchen ..."
             search.className = "collection-search"
