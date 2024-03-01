@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
             Link.addEventListener("click", (event) => {
+                event.preventDefault()
 
                 let str = ``
 
