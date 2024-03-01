@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
-    window.createCollections = async(event)=>{
+    window.createCollection = async(event)=>{
 
         let output = await Swal.fire({
             title: "New Collection",
