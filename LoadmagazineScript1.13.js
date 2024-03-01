@@ -9,6 +9,70 @@ document.addEventListener("DOMContentLoaded", async function () {
         button.setAttribute('data-item-description', data.product.Monat + " " + data.product.Jahr + " " + data.product.Ausgabe);
     }
 
+    window.saveOrDelete = (event) => {
+        const target = event.target
+        const name = target.getAttribute("name")
+        const arry = collections.find(obj => obj.name)
+        // Save
+        if (target.innerText == "Save") {
+
+            fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+                method: "PUT",
+                headers: {
+                    Authorization: sessionStorage.getItem("auth")
+                },
+                body: JSON.stringify({
+                    name: name,
+                    update: {
+                        $addToSet: {
+                            items: productId
+                        },
+                        ...(!arry.hasOwnProperty("cover") ? {
+                            $set: { cover: document.querySelector(".product-img").src.split("/v1651695832/")[1] }
+
+                        } : {})
+                    }
+                })
+            }).then((res) => {
+                // if it was saved to database only then update the state
+                if (res.status == 200) {
+                    arry.items.push(productId)
+                    target.innerText = "Gerettet"
+                }
+            })
+
+
+        } else if (target.innerText == "Saved") {
+
+            fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
+                      method : "PUT",
+                      headers : {
+                        Authorization : sessionStorage.getItem("auth")
+                      },
+                      body : JSON.stringify({
+                        name : name,
+                        update : {
+                          $pull : {
+                            items : productId
+                          }
+                        }
+                      })
+                    }).then((res)=>{
+                      // if it was deleted from database only then update the state
+                      if(res.status == 200){
+                        const index = arry.items.indexOf(productId);
+                        if (index > -1) { 
+                          arry.items.splice(index, 1); 
+                        }
+                        target.innerText = "Specihern"
+                      }
+                    })
+
+
+        }
+
+
+    }
 
     async function addCollectionButton() {
         if (sessionStorage.getItem("auth")) {
@@ -25,12 +89,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             let str = ``
 
 
-            for (let i of window.collections){
-                str+=`
+            for (let i of window.collections) {
+                str += `
                         <div style="display:flex; justify-content: space-between;">
                             <div style="margin: 10px;">${i.name}</div>
                             <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
-                            border-radius: 10px; font-size:initial;">${i.items.includes(window.productId)? "Saved" : "Save"}</button>
+                            border-radius: 10px; font-size:initial;" name="${i.name}" onclick="saveOrDelete()">${i.items.includes(window.productId) ? "Gerettet" : "Specihern"}</button>
                         </div>
 
                     `
@@ -39,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             Link.addEventListener("click", (event) => {
                 Swal.fire({
-                    showCloseButton:false,
+                    showCloseButton: false,
                     showConfirmButton: false,
                     html: `
                 
@@ -190,7 +254,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     setTimeout(() => {
         var url = window.location.href;
-        
+
         var productId = url.split('?')[1];
         if (productId) {
             fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadProduct?' + productId)
@@ -199,7 +263,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     addSnipcartAttributes(data)
                     window.collections = await loadCollections()
                     await renderData(data)
-                   
+
                     window.productId = productId
                 })
         }
