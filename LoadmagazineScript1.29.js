@@ -74,6 +74,39 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     }
 
+
+
+    window.clickHandler = (event) => {
+
+        let str = ``
+
+
+        for (let i = 0; i < window.collections.length; i++) {
+            str += `
+                <div style="display:flex; justify-content: space-between;">
+                    <div style="margin: 10px;">${window.collections[i].name}</div>
+                    <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
+                    border-radius: 10px; font-size:initial;" name="${window.collections[i].name}" onclick="saveOrDelete(event)">${window.collections[i].items.includes(window.productId) ? "Gerettet" : "Specihern"}</button>
+                </div>
+
+            `
+        }
+
+        Swal.fire({
+            showCloseButton: false,
+            showConfirmButton: false,
+            html: `
+        
+            <div style="display: flex;flex-direction:column;overflow: auto;
+            scrollbar-width: none;">
+                ${str}
+            </div>            
+            `,
+            focusConfirm: false
+        })
+    }
+
+
     async function addCollectionButton() {
         if (sessionStorage.getItem("auth")) {
             const wrapper = document.getElementsByClassName("product-price-wrapper")[0]
@@ -84,41 +117,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             div.className = "button-text"
             div.innerText = "In Kollektion speichern"
             Link.appendChild(div)
-
-
-
-
-
-            Link.addEventListener("click", (event) => {
-                event.preventDefault()
-
-                let str = ``
-
-
-                for (let i = 0; i < window.collections.length; i++) {
-                    str += `
-                        <div style="display:flex; justify-content: space-between;">
-                            <div style="margin: 10px;">${window.collections[i].name}</div>
-                            <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
-                            border-radius: 10px; font-size:initial;" name="${window.collections[i].name}" onclick="saveOrDelete(event)">${window.collections[i].items.includes(window.productId) ? "Gerettet" : "Specihern"}</button>
-                        </div>
-
-                    `
-                }
-
-                Swal.fire({
-                    showCloseButton: false,
-                    showConfirmButton: false,
-                    html: `
-                
-                    <div style="display: flex;flex-direction:column;overflow: auto;
-                    scrollbar-width: none;">
-                        ${str}
-                    </div>            
-                    `,
-                    focusConfirm: false
-                })
-            })
+            Link.setAttribute("onclick", "clickHandler(event)")
             wrapper.appendChild(Link)
         }
     }
