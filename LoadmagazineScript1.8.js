@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
             for (let i of window.collections){
-                srt+=`
+                str+=`
                         <div style="display:flex; align-content: center;justify-content: center;">
                             <div style="margin: 10px;">${i.name}</div>
                             <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
