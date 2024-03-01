@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             Link.addEventListener("click", (event) => {
                 Swal.fire({
-                    confirmButtonText: "Done",
-                    showCloseButton: true,
+                    showCloseButton:false,
+                    showCloseButton: false,
                     html: `
                 
                     <div style="display: flex;flex-direction:column;overflow: auto;
