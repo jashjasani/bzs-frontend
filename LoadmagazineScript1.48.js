@@ -139,9 +139,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         str+=`
         <div style="display:flex; justify-content: space-between;">
-            
+
             <button style="margin: 10px; border: 2px solid var(--black); color: var(--black);
-            border-radius: 10px; font-size:initial; ${includes ? 'background-color: rgb(164, 166, 124);' : 'background-color:var(--peru);'}"   name="${window.collections[i].name.trim()}"   onclick='createCollection()'>+</button>
+            border-radius: 10px; font-size:initial; background-color:var(--peru);" onclick='createCollection()'>+</button>
             <div style="margin: 10px;">Kollektion erstellen</div>
         </div>
         `
