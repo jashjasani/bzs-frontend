@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 if (res.status == 200) {
                     arry.items.push(productId)
                     target.innerText = "Gerettet"
+                    target.style.bacground = "rgb(164, 166, 124)"
                 }
             })
 
@@ -65,6 +66,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         arry.items.splice(index, 1);
                     }
                     target.innerText = "Specihern"
+                    target.style.bacground = "var(--peru);"
                 }
             })
 
@@ -82,11 +84,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
         for (let i = 0; i < window.collections.length; i++) {
+            let includes = window.collections[i].items.includes(window.productId)
             str += `
                 <div style="display:flex; justify-content: space-between;">
                     <div style="margin: 10px;">${window.collections[i].name}</div>
                     <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
-                    border-radius: 10px; font-size:initial;" name="${window.collections[i].name}" onclick="saveOrDelete(event)">${window.collections[i].items.includes(window.productId) ? "Gerettet" : "Specihern"}</button>
+                    border-radius: 10px; font-size:initial; ${includes ? "background: rgb(164, 166, 124);" : ""} name="${window.collections[i].name}" onclick="saveOrDelete(event)">${includes ? "Gerettet" : "Specihern"}</button>
                 </div>
 
             `
