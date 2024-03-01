@@ -197,8 +197,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                 .then(resp => resp.json())
                 .then(async (data) => {
                     addSnipcartAttributes(data)
-                    await renderData(data)
                     window.collections = await loadCollections()
+                    await renderData(data)
+                   
                     window.productId = productId
                 })
         }
