@@ -90,12 +90,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
             for (let i of window.collections) {
-                console.log(i.items.includes(productId));
+                console.log(i.items,productId,i.items.includes(productId));
                 str += `
                         <div style="display:flex; justify-content: space-between;">
                             <div style="margin: 10px;">${i.name}</div>
                             <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
-                            border-radius: 10px; font-size:initial;" name="${i.name}" onclick="saveOrDelete(event)">${i.items.includes(window.productId) ? "Gerettet" : "Specihern"}</button>
+                            border-radius: 10px; font-size:initial;" name="${i.name}" onclick="saveOrDelete(event)">${i.items.includes(productId) ? "Gerettet" : "Specihern"}</button>
                         </div>
 
                     `
