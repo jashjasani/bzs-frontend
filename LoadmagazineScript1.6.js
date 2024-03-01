@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
 
-    async function addCollectionButton(){
+    async function addCollectionButton() {
         if (sessionStorage.getItem("auth")) {
             const wrapper = document.getElementsByClassName("product-price-wrapper")[0]
             const Link = document.createElement("a")
@@ -20,17 +20,43 @@ document.addEventListener("DOMContentLoaded", async function () {
             div.className = "button-text"
             div.innerText = "In Kollektion speichern"
             Link.appendChild(div)
-  
+
+
+            let str = ``
+
+
+            for (let i of window.collections){
+                srt+=`
+                        <div style="display:flex; align-content: center;justify-content: center;">
+                            <div style="margin: 10px;">${i.name}</div>
+                            <button style="margin: 10px; border: 2px solid var(--black);background-color: var(--peru);color:var(--black);
+                            border-radius: 10px; font-size:initial;">${i.items.includes(window.productId)? "Saved" : "Save"}</button>
+                        </div>
+
+                    `
+            }
+
+
             Link.addEventListener("click", (event) => {
-                Swal.fire()
-                console.log(window.collections);
+                Swal.fire({
+                    confirmButtonText: "Done",
+                    showCloseButton: true,
+                    html: `
+                
+                    <div style="display: flex;align-content: center;justify-content: center;flex-direction:column;overflow: auto;
+                    scrollbar-width: none; width:70%">
+                        ${str}
+                    </div>            
+                    `,
+                    focusConfirm: false
+                })
             })
             wrapper.appendChild(Link)
         }
     }
 
 
-    
+
 
     async function renderData(data) {
         const productHeading = document.getElementsByClassName("heading-2")[0];
@@ -55,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             priceIndicator.style.display = 'none';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.style.display = 'none';
-            
+
         } else {
             await addCollectionButton()
             const price = document.getElementsByClassName("price")[0];
@@ -64,9 +90,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             priceWrapper.style.display = "flex";
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.style.display = "flex";
-            
+
         }
-        
+
 
 
 
@@ -164,6 +190,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     setTimeout(() => {
         var url = window.location.href;
+        
         var productId = url.split('?')[1];
         if (productId) {
             fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadProduct?' + productId)
@@ -172,6 +199,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     addSnipcartAttributes(data)
                     await renderData(data)
                     window.collections = await loadCollections()
+                    window.productId = productId
                 })
         }
     }, 10)
