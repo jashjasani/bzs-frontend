@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             <div style="display:flex; justify-content: space-between;">
                 <div style="margin: 10px;">${window.collections[i].name}</div>
                 <button style="margin: 10px; border: 2px solid var(--black); color: var(--black);
-                border-radius: 10px; font-size:initial; ${includes ? 'background: rgb(164, 166, 124);' : 'var(--peru);'}"   name="${window.collections[i].name.trim()}"   onclick='saveOrDelete(event)'>${includes ? "Gerettet" : "Specihern"}</button>
+                border-radius: 10px; font-size:initial; ${includes ? 'background: rgb(164, 166, 124);' : 'background:var(--peru);'}"   name="${window.collections[i].name.trim()}"   onclick='saveOrDelete(event)'>${includes ? "Gerettet" : "Specihern"}</button>
             </div>
             `
         }
