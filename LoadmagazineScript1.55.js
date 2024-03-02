@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const name = target.getAttribute("name")
         const arry = window.collections.find(obj => obj.name == name)
         // Save
-        if (target.innerText == "Specihern") {
+        if (target.innerText == "Speichern") {
 
             fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
                 method: "PUT",
@@ -38,13 +38,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       
                 if (res.status == 200) {
                     arry.items.push(productId)
-                    target.innerText = "Gerettet"
+                    target.innerText = "Gespeichert"
                     target.style = "margin: 10px; border: 2px solid var(--black); color: var(--black); background-color: #A4A67C; border-radius:10px;font-size: initial;"
                 }
             })
 
 
-        } else if (target.innerText == "Gerettet") {
+        } else if (target.innerText == "Gespeichert") {
 
             fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
                 method: "PUT",
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     if (index > -1) {
                         arry.items.splice(index, 1);
                     }
-                    target.innerText = "Specihern"
+                    target.innerText = "Speichern"
                     target.style = "margin: 10px; border: 2px solid var(--black); color: var(--black); background-color: #BF8563; border-radius:10px;font-size: initial;"
                 }
             })
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             <div style="display:flex; justify-content: space-between;" class="collections">
                 <div style="margin: 10px;">${window.collections[i].name}</div>
                 <button style="margin: 10px; border: 2px solid var(--black); color: var(--black);
-                border-radius: 10px; font-size:initial; ${includes ? 'background-color: rgb(164, 166, 124);' : 'background-color:var(--peru);'}"   name="${window.collections[i].name.trim()}"   onclick='saveOrDelete(event)'>${includes ? "Gerettet" : "Specihern"}</button>
+                border-radius: 10px; font-size:initial; ${includes ? 'background-color: rgb(164, 166, 124);' : 'background-color:var(--peru);'}"   name="${window.collections[i].name.trim()}"   onclick='saveOrDelete(event)'>${includes ? "Gespeichert" : "Speichern"}</button>
             </div>
             `
         }

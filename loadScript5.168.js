@@ -101,7 +101,7 @@ async function renderData(data) {
         save = document.createElement("button");
         save.className = "btn-specihern"
         
-        save.innerText = collections.some(obj => obj.items.includes(q.SKU)) ? "Gerettet" : "Specihern" 
+        save.innerText = collections.some(obj => obj.items.includes(q.SKU)) ? "Gespeichert" : "Speichern" 
 
 
         dropdown.addEventListener("click",(event)=>{
@@ -197,9 +197,9 @@ async function renderData(data) {
                         
 
                         if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
-                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
+                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gespeichert"
                         } else {
-                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Specihern"
+                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Speichern"
                         }
                         document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
                           e.innerText = event.target.parentElement.childNodes[0].innerText
@@ -238,9 +238,9 @@ async function renderData(data) {
                         }
                         event.target.innerText = "+"
                         if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
-                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gerettet"
+                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gespeichert"
                         } else {
-                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Specihern"
+                          event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Speichern"
                         }
                       }
                     })
