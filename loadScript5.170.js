@@ -85,7 +85,7 @@ async function renderData(data) {
       var img = document.createElement("img");
       img.className = "product-img";
       img.src =
-        "https://res.cloudinary.com/wdy-bzs/image/upload/w_250,q_15/v1651695832/" +
+        "https://res.cloudinary.com/wdy-bzs/image/upload/w_250,q_35/v1651695832/" +
         q.Images;
       img.loading = imgCount <= 10 ? "eager" : "lazy";
       imgCount++;
