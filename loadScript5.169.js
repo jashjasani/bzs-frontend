@@ -85,7 +85,7 @@ async function renderData(data) {
       var img = document.createElement("img");
       img.className = "product-img";
       img.src =
-        "https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/" +
+        "https://res.cloudinary.com/wdy-bzs/image/upload/w_250,q_15/v1651695832/" +
         q.Images;
       img.loading = imgCount <= 10 ? "eager" : "lazy";
       imgCount++;
@@ -406,15 +406,12 @@ async function renderData(data) {
     }
     collection.append(fragment);
     list.prepend(collection);
-    pagination();
+    await pagination();
     const lastQuery = getC("lastQuery");
     if (lastQuery == "") {
       fetch(
         "https://bildzeitschrift.netlify.app/.netlify/functions/randomize"
-      ).then((resp) => {
-        resp.json();
-
-      });
+      ).catch()
     }
   }
 
