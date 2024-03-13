@@ -158,8 +158,7 @@ function renderPlans(plans, is_active,sub_id){
                 </div>
                 <div class="subs-wrap-inner">
                     <p class="subs-p">${plans[i].description}</p>
-                    <span>Renews on : ${plans[i].end_date}</span>
-                    <span>${plans[i].cancel_at_end ? "Cancelled from next month" : ""}</span>
+                    <span>${plans[i].cancel_at_end ? "Cancelled from next month" : `Renews on : ${plans[i].end_date}`}</span>
                 </div>
             </div>`
             active.insertAdjacentHTML("beforeend", html)
