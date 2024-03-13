@@ -137,8 +137,8 @@ function renderPlans(plans, is_active,sub_id){
     const active = subs_wrap[0]
     const available = subs_wrap[1]
 
-    active.innerHTML = "<h2>Dein aktuelles Abo</h2>"
-    available.innerHTML = "<h2>Weitere Abonnements</h2>"
+    active.innerHTML = "<h2 class='subs-head'>Dein aktuelles Abo</h2>"
+    available.innerHTML = "<h2 class='subs-head'>Weitere Abonnements</h2>"
     for(let i=0;i<plans.length; i++){
 
         
