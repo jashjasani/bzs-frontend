@@ -84,7 +84,7 @@ window.cancelPlan = async (sub_id) => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        cancelButton : "No don't cancel",
+        cancelButtonText : "No",
         confirmButtonText: "Yes cancel"
       })
     if(confirmation.isConfirmed){
@@ -159,7 +159,7 @@ function renderPlans(plans, is_active,sub_id){
                 <div class="subs-wrap-inner">
                     <p class="subs-p">${plans[i].description}</p>
                     <span>Renews on : ${plans[i].end_date}</span>
-                    <span>${plans[i].cancel_at_end ? "Cancelled from nextt month" : ""}</span>
+                    <span>${plans[i].cancel_at_end ? "Cancelled from next month" : ""}</span>
                 </div>
             </div>`
             active.insertAdjacentHTML("beforeend", html)
