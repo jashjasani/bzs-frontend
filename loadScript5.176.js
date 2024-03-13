@@ -59,7 +59,7 @@ async function renderData(data) {
     } 
     collection = document.createElement("div");
     collection.className = "w-dyn-items w-row";
-    let collections 
+    let collections, plan
     if(sessionStorage.getItem("auth") != null){
       collections = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
         method : "GET",
@@ -68,10 +68,8 @@ async function renderData(data) {
         },
       })
       collections = await collections.json()
-      console.log(collections);
       collections = collections.collections
-      window.plan = collections.subscription
-      console.log(collections);
+      plan = collections.subscription
       sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
     }
     let imgCount = 0;
