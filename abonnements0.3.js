@@ -214,7 +214,10 @@ function renderPlans(plans, is_active,sub_id){
             current_plan["end_date"] = new Date(plan.end_date * 1000).toLocaleString()
             current_plan["sub_id"] = plan.subscription
             if(plan.hasOwnProperty("downgrade")){
-                current_plan["downgraded"] = true
+                current_plan["downgraded"] = plan.downgraded
+            }
+            if(plan.hasOwnProperty("cancel_at_end")){
+                current_plan["cancel_at_end"] = plan.cancel_at_end
             }
             renderPlans(PLANS,true, plan.subscription)
         
