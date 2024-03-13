@@ -195,7 +195,7 @@ function renderPlans(plans, is_active,sub_id){
         {name : "Inspiration", price : 8 , active : false , description : "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id : "price_1OqG9PSA2e71Dz91HaJFV0xb"}
     ]
     document.addEventListener("DOMContentLoaded", async()=>{
-        Swal.showLoading
+        Swal.showLoading()
             let result  = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/subscription", {
             method: "GET",
             headers: {
