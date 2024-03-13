@@ -113,7 +113,7 @@ window.cancelPlan = async (sub_id) => {
                                 return obj.name == plan.plan
                             })
                             current_plan.active = true
-                            current_plan["end_date"] = new Date(plan.end_date * 1000).toString()
+                            current_plan["end_date"] = new Date(plan.end_date * 1000).toLocaleString()
                             current_plan["sub_id"] = plan.subscription
                             if(plan.hasOwnProperty("downgrade")){
                                 current_plan["downgraded"] = true
