@@ -8,7 +8,7 @@ window.downgradeOrUpgrade = async (sub_id) => {
         confirmButtonText: "Yes, switch it!"
       }).then((result) => {
         if (result.isConfirmed) {
-
+            Swal.showLoading()
             fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/subscription?upgrade=true&sub=${sub_id}`,{
                 method : "PUT",
                 headers: {
@@ -44,9 +44,11 @@ window.downgradeOrUpgrade = async (sub_id) => {
                             renderPlans(PLANS,true,plan.subscription)
                         }
                     })
+                    
                 }
                 
             })
+            Swal.close()
         }
       });
     
@@ -63,6 +65,7 @@ window.createCheckout = async (price_id) => {
         confirmButtonText: "proceed to checkout"
       })
     if(confirmation.isConfirmed){
+        Swal.showLoading()
         let checkout = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/create_checkout?price_id=${price_id}`, {
             method : "GET",
             headers : {
@@ -195,15 +198,14 @@ function renderPlans(plans, is_active,sub_id){
         {name : "Inspiration", price : 8 , active : false , description : "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id : "price_1OqG9PSA2e71Dz91HaJFV0xb"}
     ]
     document.addEventListener("DOMContentLoaded", async()=>{
-        Swal.showLoading()
+        
             let result  = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/subscription", {
             method: "GET",
             headers: {
                 Authorization: sessionStorage.getItem("auth"),
             },
         })
-        if(result.ok){
-            
+        if(result.ok){  
             const active_plan = await result.json()
             if(active_plan.plan){
                 const plan = active_plan.plan
@@ -226,7 +228,6 @@ function renderPlans(plans, is_active,sub_id){
             }
 
         }
-        Swal.close()
     })
     
 })().then()
