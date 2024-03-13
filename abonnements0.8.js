@@ -8,7 +8,7 @@ window.downgradeOrUpgrade = async (sub_id) => {
         confirmButtonText: "Yes, switch it!"
       }).then((result) => {
         if (result.isConfirmed) {
-            swal.showLoading();
+            Swal.showLoading();
             fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/subscription?upgrade=true&sub=${sub_id}`,{
                 method : "PUT",
                 headers: {
@@ -16,7 +16,7 @@ window.downgradeOrUpgrade = async (sub_id) => {
                 },
             }).then((res)=>{
                 if(res.ok){
-
+                    
                     fetch("https://bildzeitschrift.netlify.app/.netlify/functions/subscription", {
                         method: "GET",
                         headers: {
@@ -41,6 +41,7 @@ window.downgradeOrUpgrade = async (sub_id) => {
                             }if(plan.hasOwnProperty("cancel_at_end")){
                                 current_plan["cancel_at_end"] = true
                             }
+                            Swal.close()
                             renderPlans(PLANS,true,plan.subscription)
                         }
                     })
@@ -63,7 +64,7 @@ window.createCheckout = async (price_id) => {
         confirmButtonText: "proceed to checkout"
       })
     if(confirmation.isConfirmed){
-        swal.showLoading();
+        Swal.showLoading();
         let checkout = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/create_checkout?price_id=${price_id}`, {
             method : "GET",
             headers : {
@@ -71,6 +72,7 @@ window.createCheckout = async (price_id) => {
             }
         })
         let response = await checkout.json()
+        Swal.close()
         location.assign(response.checkout_link)
     }
 
@@ -88,7 +90,7 @@ window.cancelPlan = async (sub_id) => {
         confirmButtonText: "Yes cancel"
       })
     if(confirmation.isConfirmed){
-        swal.showLoading();
+        Swal.showLoading();
         let response = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/subscription?sub_id=${sub_id}`, {
             method : "DELETE",
             headers : {
@@ -96,6 +98,7 @@ window.cancelPlan = async (sub_id) => {
             }
         })
         if(response.status == 200){
+            Swal.close()
             fetch("https://bildzeitschrift.netlify.app/.netlify/functions/subscription", {
                         method: "GET",
                         headers: {
@@ -189,7 +192,7 @@ function renderPlans(plans, is_active,sub_id){
 }
 
 (async ()=>{
-
+    Swal.showLoading()
     let PLANS = [
         {name : "Starter", price : 5, active : false, description : "Das Starter Abo erlaubt es dir, den Filter zur Gänze zu nutzen und somit das Archiv bis ins letzte Details filtern zu können.", price_id : "price_1OsJmuSA2e71Dz91jqdMYH0V" }, 
         {name : "Inspiration", price : 8 , active : false , description : "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id : "price_1OqG9PSA2e71Dz91HaJFV0xb"}
@@ -202,7 +205,7 @@ function renderPlans(plans, is_active,sub_id){
     })
     if(result.ok){
 
-
+        Swal.close()
         const active_plan = await result.json()
         if(active_plan.plan){
             const plan = active_plan.plan
