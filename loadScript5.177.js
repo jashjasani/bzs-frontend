@@ -68,8 +68,9 @@ async function renderData(data) {
         },
       })
       collections = await collections.json()
-      collections = collections.collections
       plan = collections.subscription
+      collections = collections.collections
+      
       sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
     }
     let imgCount = 0;
