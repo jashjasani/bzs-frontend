@@ -97,7 +97,7 @@ async function renderData(data) {
 
 
       // check if logged in 
-      if(sessionStorage.getItem("auth") && plan.end_date > Math.floor(Date.now()/1000)){
+      if(sessionStorage.getItem("auth") && plan != null && plan.end_date > Math.floor(Date.now()/1000)){
         dropdown = document.createElement("button");
         dropdown.className = "btn-specihern left-btn"
         dropdown.innerText = "..."
