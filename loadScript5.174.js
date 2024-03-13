@@ -68,9 +68,11 @@ async function renderData(data) {
         },
       })
       collections = await collections.json()
+      console.log(collections);
+      collections = collections.collections
       window.plan = collections.subscription
-
-      sessionStorage.setItem("collections", JSON.stringify(Array.from(collections.collections)))
+      console.log(collections);
+      sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
     }
     let imgCount = 0;
     for (q of data.magazines) {
