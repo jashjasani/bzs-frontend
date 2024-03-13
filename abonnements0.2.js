@@ -41,7 +41,7 @@ window.downgradeOrUpgrade = async (sub_id) => {
                             }if(plan.hasOwnProperty("cancel_at_end")){
                                 current_plan["cancel_at_end"] = true
                             }
-                            renderPlans(PLANS,true)
+                            renderPlans(PLANS,true,plan.subscription)
                         }
                     })
                 }
@@ -120,7 +120,7 @@ window.cancelPlan = async (sub_id) => {
                             }if(plan.hasOwnProperty("cancel_at_end")){
                                 current_plan["cancel_at_end"] = true
                             }
-                            renderPlans(PLANS,true)
+                            renderPlans(PLANS,true,plan.subscription)
                         }
                     })
         }
