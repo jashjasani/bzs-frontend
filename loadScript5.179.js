@@ -69,6 +69,7 @@ async function renderData(data) {
       })
       collections = await collections.json()
       plan = collections.subscription
+      window.plans = plan || []
       collections = collections.collections
       
       sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
@@ -827,6 +828,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       ";path=/;expires=" +
       cookieExpire.toUTCString();
   }
+  loadFData();
+  console.log(plans);
+
+
+
 
   const individualReset = document.getElementsByClassName(
     "reset-btn w-inline-block"
@@ -870,5 +876,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     
   });
-  loadFData();
+  
+
+
+
+
 });
