@@ -194,36 +194,39 @@ function renderPlans(plans, is_active,sub_id){
         {name : "Starter", price : 5, active : false, description : "Das Starter Abo erlaubt es dir, den Filter zur Gänze zu nutzen und somit das Archiv bis ins letzte Details filtern zu können.", price_id : "price_1OsJmuSA2e71Dz91jqdMYH0V" }, 
         {name : "Inspiration", price : 8 , active : false , description : "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id : "price_1OqG9PSA2e71Dz91HaJFV0xb"}
     ]
-    Swal.showLoading()
-    let result  = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/subscription", {
-        method: "GET",
-        headers: {
-            Authorization: sessionStorage.getItem("auth"),
-        },
-    })
-    if(result.ok){
-        
-        const active_plan = await result.json()
-        if(active_plan.plan){
-            const plan = active_plan.plan
-            let current_plan =  PLANS.find((obj)=>{
-                return obj.name == plan.plan
-            })
-            current_plan.active = true
-            current_plan["end_date"] = new Date(plan.end_date * 1000).toLocaleString()
-            current_plan["sub_id"] = plan.subscription
-            if(plan.hasOwnProperty("downgrade")){
-                current_plan["downgraded"] = plan.downgraded
-            }
-            if(plan.hasOwnProperty("cancel_at_end")){
-                current_plan["cancel_at_end"] = plan.cancel_at_end
-            }
-            renderPlans(PLANS,true, plan.subscription)
+    document.addEventListener("DOMContentLoaded", async()=>{
+        Swal.showLoading
+            let result  = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/subscription", {
+            method: "GET",
+            headers: {
+                Authorization: sessionStorage.getItem("auth"),
+            },
+        })
+        if(result.ok){
+            
+            const active_plan = await result.json()
+            if(active_plan.plan){
+                const plan = active_plan.plan
+                let current_plan =  PLANS.find((obj)=>{
+                    return obj.name == plan.plan
+                })
+                current_plan.active = true
+                current_plan["end_date"] = new Date(plan.end_date * 1000).toLocaleString()
+                current_plan["sub_id"] = plan.subscription
+                if(plan.hasOwnProperty("downgrade")){
+                    current_plan["downgraded"] = plan.downgraded
+                }
+                if(plan.hasOwnProperty("cancel_at_end")){
+                    current_plan["cancel_at_end"] = plan.cancel_at_end
+                }
+                renderPlans(PLANS,true, plan.subscription)
 
-        }else {
-            renderPlans(PLANS, false)
+            }else {
+                renderPlans(PLANS, false)
+            }
+
         }
-
-    }
-    Swal.close()
+        Swal.close()
+    })
+    
 })().then()
