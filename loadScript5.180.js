@@ -828,8 +828,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       ";path=/;expires=" +
       cookieExpire.toUTCString();
   }
-  loadFData();
-  console.log(plans);
+  await loadFData();
 
 
 
