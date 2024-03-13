@@ -69,7 +69,7 @@ async function renderData(data) {
       })
       collections = await collections.json()
       plan = collections.subscription
-      window.plans = plan || []
+      window.plans = plan || null
       collections = collections.collections
       
       sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
@@ -89,7 +89,7 @@ async function renderData(data) {
       var img = document.createElement("img");
       img.className = "product-img";
       img.src =
-        "https://res.cloudinary.com/wdy-bzs/image/upload/w_250/v1651695832/" +
+        "https://res.cloudinary.com/wdy-bzs/image/upload/q_15/v1651695832/" +
         q.Images;
       img.loading = imgCount <= 10 ? "eager" : "lazy";
       imgCount++;
@@ -829,6 +829,15 @@ document.addEventListener("DOMContentLoaded", async function () {
       cookieExpire.toUTCString();
   }
   await loadFData();
+  if(plans != null && plans.end_date>Math.floor(Date.now()/1000) && plans.plan != "Inspiration"){
+    let dropdowns = document.querySelectorAll(".w-dropdown-toggle")
+    for(let i=7;i<dropdowns.length; i++){
+      let node = dropdowns[i].cloneNode(true)
+      dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
+    }
+
+
+  }
 
 
 
