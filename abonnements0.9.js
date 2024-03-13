@@ -192,7 +192,7 @@ function renderPlans(plans, is_active,sub_id){
 }
 
 (async ()=>{
-    Swal.showLoading()
+    
     let PLANS = [
         {name : "Starter", price : 5, active : false, description : "Das Starter Abo erlaubt es dir, den Filter zur Gänze zu nutzen und somit das Archiv bis ins letzte Details filtern zu können.", price_id : "price_1OsJmuSA2e71Dz91jqdMYH0V" }, 
         {name : "Inspiration", price : 8 , active : false , description : "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id : "price_1OqG9PSA2e71Dz91HaJFV0xb"}
@@ -204,8 +204,7 @@ function renderPlans(plans, is_active,sub_id){
         },
     })
     if(result.ok){
-
-        Swal.close()
+        Swal.showLoading()
         const active_plan = await result.json()
         if(active_plan.plan){
             const plan = active_plan.plan
@@ -222,7 +221,7 @@ function renderPlans(plans, is_active,sub_id){
                 current_plan["cancel_at_end"] = plan.cancel_at_end
             }
             renderPlans(PLANS,true, plan.subscription)
-        
+            Swal.close()
         }else {
             renderPlans(PLANS, false)
         }
