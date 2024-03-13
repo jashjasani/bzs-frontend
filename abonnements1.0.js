@@ -8,7 +8,7 @@ window.downgradeOrUpgrade = async (sub_id) => {
         confirmButtonText: "Yes, switch it!"
       }).then((result) => {
         if (result.isConfirmed) {
-            Swal.showLoading();
+
             fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/subscription?upgrade=true&sub=${sub_id}`,{
                 method : "PUT",
                 headers: {
@@ -41,7 +41,6 @@ window.downgradeOrUpgrade = async (sub_id) => {
                             }if(plan.hasOwnProperty("cancel_at_end")){
                                 current_plan["cancel_at_end"] = true
                             }
-                            Swal.close()
                             renderPlans(PLANS,true,plan.subscription)
                         }
                     })
@@ -64,7 +63,6 @@ window.createCheckout = async (price_id) => {
         confirmButtonText: "proceed to checkout"
       })
     if(confirmation.isConfirmed){
-        Swal.showLoading();
         let checkout = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/create_checkout?price_id=${price_id}`, {
             method : "GET",
             headers : {
@@ -90,7 +88,7 @@ window.cancelPlan = async (sub_id) => {
         confirmButtonText: "Yes cancel"
       })
     if(confirmation.isConfirmed){
-        Swal.showLoading();
+
         let response = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/subscription?sub_id=${sub_id}`, {
             method : "DELETE",
             headers : {
@@ -98,7 +96,6 @@ window.cancelPlan = async (sub_id) => {
             }
         })
         if(response.status == 200){
-            Swal.close()
             fetch("https://bildzeitschrift.netlify.app/.netlify/functions/subscription", {
                         method: "GET",
                         headers: {
@@ -204,7 +201,7 @@ function renderPlans(plans, is_active,sub_id){
         },
     })
     if(result.ok){
-        Swal.showLoading()
+
         const active_plan = await result.json()
         if(active_plan.plan){
             const plan = active_plan.plan
@@ -221,7 +218,7 @@ function renderPlans(plans, is_active,sub_id){
                 current_plan["cancel_at_end"] = plan.cancel_at_end
             }
             renderPlans(PLANS,true, plan.subscription)
-            Swal.close()
+
         }else {
             renderPlans(PLANS, false)
         }
