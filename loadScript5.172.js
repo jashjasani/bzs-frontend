@@ -68,6 +68,8 @@ async function renderData(data) {
         },
       })
       collections = await collections.json()
+      window.plan = collections.subscription
+
       sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
     }
     let imgCount = 0;
@@ -94,7 +96,7 @@ async function renderData(data) {
 
 
       // check if logged in 
-      if(sessionStorage.getItem("auth")){
+      if(sessionStorage.getItem("auth") && window.plan.end_date > Math.floor(Date.now()/1000)){
         dropdown = document.createElement("button");
         dropdown.className = "btn-specihern left-btn"
         dropdown.innerText = "..."
