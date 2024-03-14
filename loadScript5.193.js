@@ -798,6 +798,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   let currentLocation = window.location.href;
   const observer = new MutationObserver((mutationList) => {
+    console.log("Hello");
     handleMutation();
   });
 
