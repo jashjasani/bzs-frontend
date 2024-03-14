@@ -69,7 +69,7 @@ async function renderData(data) {
       })
       collections = await collections.json()
       plan = collections.subscription
-      window.plans = plan || null
+      globalThis.plans = plan || null
       collections = collections.collections
       
       sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
@@ -794,7 +794,7 @@ async function loadFData(e) {
           }
         });
     }
-  }, 100);
+  }, 10);
 }
 document.addEventListener("DOMContentLoaded", async function () {
   let sort_random = "true";
@@ -831,7 +831,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   console.time("Fetching data")
   await loadFData();
   console.timeEnd("Fetching data")
-  if(plans == null || plans.end_date<Math.floor(Date.now()/1000) || plans.plan != "Inspiration"){
+  if(globalThis.plans == null || globalThis.plans.end_date<Math.floor(Date.now()/1000) || globalThis.plans.plan != "Inspiration"){
     let dropdowns = document.querySelectorAll(".w-dropdown-toggle")
     for(let i=7;i<dropdowns.length; i++){
       let node = dropdowns[i].cloneNode(true)
