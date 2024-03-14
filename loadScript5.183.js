@@ -835,7 +835,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let dropdowns = document.querySelectorAll(".w-dropdown-toggle")
     for(let i=7;i<dropdowns.length; i++){
       let node = dropdowns[i].cloneNode(true)
-      node.style.color = "darkgray"
+      node.style.color = "rgba(43, 42, 42, 0.5)";
       dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
     }
 
