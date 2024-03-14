@@ -69,7 +69,7 @@ async function renderData(data) {
       })
       collections = await collections.json()
       plan = collections.subscription
-      globalThis.plans = plan || null
+      window.plans = plan || null
       collections = collections.collections
       
       sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
@@ -736,7 +736,7 @@ async function loadFData(e) {
           getQuery
       )
         .then((resp) => resp.json())
-        .then((data) => {
+        .then(async (data) => {
           if (data.count == 0) {
 
             const colList = document.getElementsByClassName(
@@ -759,7 +759,7 @@ async function loadFData(e) {
             )[0];
             pagination.style.display = "none";
           } else {
-            renderData(data);
+            await renderData(data);
 
             if (data.currentPage > data.pageCount) {
               const button = document.getElementsByClassName(
@@ -778,7 +778,7 @@ async function loadFData(e) {
           getC("randomOrder")
       )
         .then((resp) => resp.json())
-        .then((data) => {
+        .then(async (data) => {
 
           if (data.count == 0) {
 
@@ -790,7 +790,7 @@ async function loadFData(e) {
               document.getElementsByClassName("no-results-wrapper")[0];
             noResultsFound.style.display = "block";
           } else {
-            renderData(data);
+            await renderData(data);
           }
         });
     }
@@ -831,7 +831,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   console.time("Fetching data")
   await loadFData();
   console.timeEnd("Fetching data")
-  if(globalThis.plans == null || globalThis.plans.end_date<Math.floor(Date.now()/1000) || globalThis.plans.plan != "Inspiration"){
+  if(plans == null || plans.end_date<Math.floor(Date.now()/1000) || plans.plan != "Inspiration"){
     let dropdowns = document.querySelectorAll(".w-dropdown-toggle")
     for(let i=7;i<dropdowns.length; i++){
       let node = dropdowns[i].cloneNode(true)
