@@ -798,6 +798,22 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
+  let currentLocation = window.location.href;
+  const observer = new MutationObserver((mutationList) => {
+    if (currentLocation !== window.location.href) {
+      // location changed!
+      currentLocation = window.location.href;
+      console.log("URL changed to:", currentLocation);
+      // Perform any additional actions or updates based on the new URL
+    }
+  });
+
+  // Start observing the document object
+  observer.observe(document, { childList: true, subtree: true });
+
+
+
+
 
   // Example async function
   
@@ -806,16 +822,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     "reset-btn w-inline-block"
   );
   for (x of individualReset) {
-    x.addEventListener("mouseup", setTimeout(async ()=>{
-      await loadFData()
-    },100));
+    x.addEventListener("mouseup",loadFData);
   }
 
   const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
   for (s of selectAllBtn) {
-    s.addEventListener("mouseup", setTimeout(async ()=>{
-      await loadFData()
-    },100));
+    s.addEventListener("mouseup", loadFData);
   }
   const checkboxWrappers = document.getElementsByClassName(
     "checkbox-element-wrapper"
@@ -828,10 +840,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
   resetAllButton.href = "#";
   for (q of checkboxWrappers) {
-    q.addEventListener("mouseup", setTimeout(async ()=>{
-      console.log("Hello");
-      await loadFData()
-    },100));
+    q.addEventListener("mouseup", loadFData);
   }
   const search = document.getElementsByClassName("search-field w-input")[0];
 
