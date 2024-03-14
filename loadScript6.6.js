@@ -68,7 +68,6 @@ async function renderData(data) {
         },
       })
       collections = await collections.json()
-      console.log("Plans defined");
       plan = collections.subscription || null
       collections = collections.collections
       
@@ -699,14 +698,18 @@ async function loadFData(e) {
     }
   
     document.cookie = "lastQuery=" + queryCookie;
-    console.time("Fetching data from netlify")
+    
     try {
       let data;
       if (url.split("?").length > 1) {
         const randomNumber = getC("randomNumber");
         const sortToggle = getC("sort_random");
         const response = await fetch(
-          `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?randomNumber=${randomNumber}&sort_toggle=${sortToggle}&${getQuery}`
+          `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?randomNumber=${randomNumber}&sort_toggle=${sortToggle}&${getQuery}`,{
+            headers: {
+              Authorization : sessionStorage.getItem("auth")
+            }
+          }
         );
         data = await response.json();
       } else {
