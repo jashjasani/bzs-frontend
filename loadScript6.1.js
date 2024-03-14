@@ -752,7 +752,7 @@ async function loadFData(e) {
           for(let j=10;j<single_dropdowns.length; j++){
             const node = single_dropdowns[j].cloneNode(true)
             node.style.color = "rgba(43, 42, 42, 0.5)";
-            single_dropdowns[i].parentElement.replaceChild(node, single_dropdowns[j])
+            single_dropdowns[j].parentElement.replaceChild(node, single_dropdowns[j])
           }
         }
       }
