@@ -683,7 +683,8 @@ async function loadFData(e) {
       )[0].value = String(currentUrl.searchParams.get("search")));
     }
   }
-  await (async () => {
+  setTimeout(async ()=>{
+    await (async () => {
     const url = window.location.href;
     const getQuery = url.split("?")[1];
     let queryCookie = "";
@@ -761,7 +762,8 @@ async function loadFData(e) {
       console.error("Error:", error);
     } 
 
-  })();
+    })()
+  },100);
 }
 document.addEventListener("DOMContentLoaded", async function () {
   let sort_random = "true";
