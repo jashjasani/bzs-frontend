@@ -746,6 +746,7 @@ async function loadFData(e) {
           const single_dropdowns = document.querySelectorAll(".filter-dropdown.single")
           for(let i=7;i<dropdowns.length; i++){
             const node = dropdowns[i].cloneNode(true)
+            node.removeChild(node.querySelector(".w-checkbox-input.w-checkbox-input--inputType-custom.checkbox"))
             node.style.color = "rgba(43, 42, 42, 0.5)";
             dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
           }
