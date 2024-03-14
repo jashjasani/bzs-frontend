@@ -684,118 +684,68 @@ async function loadFData(e) {
     }
   }
   await (async () => {
-    // const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
-    // for (x of individualReset) {
-    //     x.addEventListener("mouseup", loadFData);
-    // }
-    // const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
-    // for (s of selectAllBtn) {
-    //     s.addEventListener("mouseup", loadFData);
-    // }
-    // const checkboxWrappers = document.getElementsByClassName('checkbox-element-wrapper')
-    // const checkboxSingleElements = document.getElementsByClassName('filter-dropdown single')
-    // const resetAllButton = document.getElementsByClassName('reset-all-btn')[0];
-    // resetAllButton.href = new URL(document.baseURI).origin + "/archiv"
-    // resetAllButton.addEventListener("mouseup", loadFData);
-    // for (q of checkboxWrappers) {
-    //     q.addEventListener("mouseup", loadFData)
-    // }
-    // for (s of checkboxSingleElements) {
-    //     s.addEventListener('mouseup', loadFData);
-    // }
-    var url = window.location.href;
-    var getQuery = url.split("?")[1];
-
-    var queryCookie = "";
+    const url = window.location.href;
+    const getQuery = url.split("?")[1];
+    let queryCookie = "";
+  
     if (getQuery) {
-      if (url.split("?")[1].includes("page")) {
-        if (getQuery.split("&").length > 1) ;
-        var queries = getQuery.split("&");
-      
-        for (i = 1; i < queries.length; i++) {
-          if (i != queries.length - 1) {
-            queryCookie += queries[i] + "&";
-          } else {
-            queryCookie += queries[i];
-          }
-        }
+      if (getQuery.includes("page")) {
+        const queries = getQuery.split("&");
+        queryCookie = queries.slice(1).join("&");
       } else {
-        queryCookie += getQuery;
+        queryCookie = getQuery;
       }
     }
+  
     document.cookie = "lastQuery=" + queryCookie;
-
-    if (url.split("?").length > 1) {
-
-      fetch(
-        "https://bildzeitschrift.netlify.app/.netlify/functions/loadData?" +
-          "randomNumber=" +
-          getC("randomNumber") +
-          "&sort_toggle=" +
-          getC("sort_random") +
-          "&" +
-          getQuery
-      )
-        .then((resp) => resp.json())
-        .then(async (data) => {
-          if (data.count == 0) {
-
-            const colList = document.getElementsByClassName(
-              "w-dyn-items w-row"
-            )[0];
-            colList.style.display = "none";
-            const resCount =
-              document.getElementsByClassName("results-count")[0];
-            resCount.innerHTML = "";
-            const span = document.createElement("span");
-            span.textContent = data.count + " Ergebnisse von ";
-            const span2 = document.createElement("span");
-            span2.textContent = data.totalCount;
-            resCount.append(span, span2);
-            const noResultsFound =
-              document.getElementsByClassName("no-results-wrapper")[0];
-            noResultsFound.style.display = "block";
-            const pagination = document.getElementsByClassName(
-              "w-pagination-wrapper pagination"
-            )[0];
-            pagination.style.display = "none";
-          } else {
-            await renderData(data);
-
-            if (data.currentPage > data.pageCount) {
-              const button = document.getElementsByClassName(
-                "pagination-page-button w-inline-block"
-              )[0];
-              button.click();
-            }
-          }
-        });
-    } else {
-      fetch(
-        "https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1" +
-          "&sort_toggle=" +
-          getC("sort_random") +
-          "&randomOrder=" +
-          getC("randomOrder")
-      )
-        .then((resp) => resp.json())
-        .then(async (data) => {
-
-          if (data.count == 0) {
-
-            const colList = document.getElementsByClassName(
-              "w-dyn-items w-row"
-            )[0];
-            colList.style.display = "none";
-            const noResultsFound =
-              document.getElementsByClassName("no-results-wrapper")[0];
-            noResultsFound.style.display = "block";
-          } else {
-            await renderData(data);
-          }
-        });
+  
+    try {
+      let data;
+      if (url.split("?").length > 1) {
+        const randomNumber = getC("randomNumber");
+        const sortToggle = getC("sort_random");
+        const response = await fetch(
+          `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?randomNumber=${randomNumber}&sort_toggle=${sortToggle}&${getQuery}`
+        );
+        data = await response.json();
+      } else {
+        const sortToggle = getC("sort_random");
+        const randomOrder = getC("randomOrder");
+        const response = await fetch(
+          `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle=${sortToggle}&randomOrder=${randomOrder}`
+        );
+        data = await response.json();
+      }
+  
+      if (data.count === 0) {
+        const colList = document.getElementsByClassName("w-dyn-items w-row")[0];
+        colList.style.display = "none";
+  
+        const resCount = document.getElementsByClassName("results-count")[0];
+        resCount.innerHTML = "";
+        const span = document.createElement("span");
+        span.textContent = `${data.count} Ergebnisse von `;
+        const span2 = document.createElement("span");
+        span2.textContent = data.totalCount;
+        resCount.append(span, span2);
+  
+        const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
+        noResultsFound.style.display = "block";
+  
+        const pagination = document.getElementsByClassName("w-pagination-wrapper pagination")[0];
+        pagination.style.display = "none";
+      } else {
+        await renderData(data);
+  
+        if (data.currentPage > data.pageCount) {
+          const button = document.getElementsByClassName("pagination-page-button w-inline-block")[0];
+          button.click();
+        }
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  })()
+  })();
 }
 document.addEventListener("DOMContentLoaded", async function () {
   let sort_random = "true";
