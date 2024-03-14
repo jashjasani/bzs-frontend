@@ -803,7 +803,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (currentLocation !== window.location.href) {
       // location changed!
       console.log("URL changed");
-      loadFData().catch()
+     
       // Perform any additional actions or updates based on the new URL
     }
   });
