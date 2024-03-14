@@ -69,8 +69,7 @@ async function renderData(data) {
       })
       collections = await collections.json()
       console.log("Plans defined");
-      plan = collections.subscription
-      window.plans = plan || null
+      plan = collections.subscription || null
       collections = collections.collections
       
       sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
@@ -418,6 +417,7 @@ async function renderData(data) {
         "https://bildzeitschrift.netlify.app/.netlify/functions/randomize"
       ).catch()
     }
+    return plan
   }
 
   async function pagination() {
@@ -735,17 +735,31 @@ async function loadFData(e) {
         const pagination = document.getElementsByClassName("w-pagination-wrapper pagination")[0];
         pagination.style.display = "none";
       } else {
-        await renderData(data);
+        let plan = await renderData(data);
   
         if (data.currentPage > data.pageCount) {
           const button = document.getElementsByClassName("pagination-page-button w-inline-block")[0];
           button.click();
         }
+        if(plan == null || plan.end_date<Math.floor(Date.now()/1000) || plan.plan != "Inspiration"){
+          const dropdowns = document.querySelectorAll(".w-dropdown-toggle")
+          const single_dropdowns = document.querySelectorAll(".filter-dropdown.single")
+          for(let i=7;i<dropdowns.length; i++){
+            const node = dropdowns[i].cloneNode(true)
+            node.style.color = "rgba(43, 42, 42, 0.5)";
+            dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
+          }
+          for(let j=10;j<single_dropdowns.length; j++){
+            const node = single_dropdowns[j].cloneNode(true)
+            node.style.color = "rgba(43, 42, 42, 0.5)";
+            single_dropdowns[i].parentElement.replaceChild(node, single_dropdowns[j])
+          }
+        }
       }
     } catch (error) {
       console.error("Error:", error);
-    }
-    console.timeEnd("Fetching data from netlify")
+    } 
+
   })();
 }
 document.addEventListener("DOMContentLoaded", async function () {
@@ -780,37 +794,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       ";path=/;expires=" +
       cookieExpire.toUTCString();
   }
-  console.time("Fetching data")
   await loadFData();
-  console.timeEnd("Fetching data")
-  console.log("Plans used");
-  if(plans == null || plans.end_date<Math.floor(Date.now()/1000) || plans.plan != "Inspiration"){
-    let dropdowns = document.querySelectorAll(".w-dropdown-toggle")
-    for(let i=7;i<dropdowns.length; i++){
-      let node = dropdowns[i].cloneNode(true)
-      node.style.color = "rgba(43, 42, 42, 0.5)";
-      dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
-    }
-
-
-  }
-
-
-
-
-  let currentLocation = window.location.href;
-  const observer = new MutationObserver((mutationList) => {
-    if (currentLocation !== window.location.href) {
-      // location changed!
-      console.log("URL changed");
-     
-      // Perform any additional actions or updates based on the new URL
-    }
-  });
-
-  // Start observing the document object
-  observer.observe(document, { childList: true, subtree: true });
-
 
 
 
@@ -818,30 +802,30 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Example async function
   
 
-  // const individualReset = document.getElementsByClassName(
-  //   "reset-btn w-inline-block"
-  // );
-  // for (x of individualReset) {
-  //   x.addEventListener("mouseup",loadFData);
-  // }
+  const individualReset = document.getElementsByClassName(
+    "reset-btn w-inline-block"
+  );
+  for (x of individualReset) {
+    x.addEventListener("mouseup",loadFData);
+  }
 
-  // const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
-  // for (s of selectAllBtn) {
-  //   s.addEventListener("mouseup", loadFData);
-  // }
-  // const checkboxWrappers = document.getElementsByClassName(
-  //   "checkbox-element-wrapper"
-  // );
+  const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
+  for (s of selectAllBtn) {
+    s.addEventListener("mouseup", loadFData);
+  }
+  const checkboxWrappers = document.getElementsByClassName(
+    "checkbox-element-wrapper"
+  );
   const resetAllButton = document.getElementsByClassName("reset-all-btn")[0];
 
   resetAllButton.addEventListener("mouseup", () => {
     let currentUrl = new URL(window.location.href);
     window.location.assign(currentUrl.origin + currentUrl.pathname);
   });
-  // resetAllButton.href = "#";
-  // for (q of checkboxWrappers) {
-  //   q.addEventListener("mouseup", loadFData);
-  // }
+  resetAllButton.href = "#";
+  for (q of checkboxWrappers) {
+    q.addEventListener("mouseup", loadFData);
+  }
   const search = document.getElementsByClassName("search-field w-input")[0];
 
   sortToggle.addEventListener("click", () => {
