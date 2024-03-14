@@ -698,7 +698,7 @@ async function loadFData(e) {
     }
   
     document.cookie = "lastQuery=" + queryCookie;
-  
+    console.time("Fetching data from netlify")
     try {
       let data;
       if (url.split("?").length > 1) {
@@ -745,6 +745,7 @@ async function loadFData(e) {
     } catch (error) {
       console.error("Error:", error);
     }
+    console.timeEnd("Fetching data from netlify")
   })();
 }
 document.addEventListener("DOMContentLoaded", async function () {
@@ -796,64 +797,41 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
-  setTimeout(function (){
-    let currentLocation = window.location.href;
-    const observer = new MutationObserver((mutationList) => {
-      console.log("Hello");
-      handleMutation();
-    });
 
-    async function handleMutation() {
-      if (currentLocation !== window.location.href) {
-        // Location changed!
-        currentLocation = window.location.href;
-        console.log("URL changed to:", currentLocation);
-
-        // Perform any additional asynchronous actions or updates based on the new URL
-        const result = await someAsyncFunction(currentLocation);
-        console.log("Async function result:", result);
-      }
-    }
-    async function someAsyncFunction(url) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(`Processed URL: ${url}`);
-        }, 1000);
-      });
-    }
-
-    // Start observing the document object
-    console.log("Obrserver set");
-    observer.observe(document, { childList: true, subtree: true });
-  },1000)
 
   // Example async function
   
 
-  // const individualReset = document.getElementsByClassName(
-  //   "reset-btn w-inline-block"
-  // );
-  // for (x of individualReset) {
-  //   x.addEventListener("mouseup", loadFData);
-  // }
+  const individualReset = document.getElementsByClassName(
+    "reset-btn w-inline-block"
+  );
+  for (x of individualReset) {
+    x.addEventListener("mouseup", setTimeout(async ()=>{
+      await loadFData()
+    },50));
+  }
 
-  // const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
-  // for (s of selectAllBtn) {
-  //   s.addEventListener("mouseup", loadFData);
-  // }
-  // const checkboxWrappers = document.getElementsByClassName(
-  //   "checkbox-element-wrapper"
-  // );
-  // const resetAllButton = document.getElementsByClassName("reset-all-btn")[0];
+  const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
+  for (s of selectAllBtn) {
+    s.addEventListener("mouseup", setTimeout(async ()=>{
+      await loadFData()
+    },50));
+  }
+  const checkboxWrappers = document.getElementsByClassName(
+    "checkbox-element-wrapper"
+  );
+  const resetAllButton = document.getElementsByClassName("reset-all-btn")[0];
 
-  // resetAllButton.addEventListener("mouseup", () => {
-  //   let currentUrl = new URL(window.location.href);
-  //   window.location.assign(currentUrl.origin + currentUrl.pathname);
-  // });
-  // resetAllButton.href = "#";
-  // for (q of checkboxWrappers) {
-  //   q.addEventListener("mouseup", loadFData);
-  // }
+  resetAllButton.addEventListener("mouseup", () => {
+    let currentUrl = new URL(window.location.href);
+    window.location.assign(currentUrl.origin + currentUrl.pathname);
+  });
+  resetAllButton.href = "#";
+  for (q of checkboxWrappers) {
+    q.addEventListener("mouseup", setTimeout(async ()=>{
+      await loadFData()
+    },50));
+  }
   const search = document.getElementsByClassName("search-field w-input")[0];
 
   sortToggle.addEventListener("click", () => {
