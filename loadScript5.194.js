@@ -796,36 +796,39 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
-  let currentLocation = window.location.href;
-  const observer = new MutationObserver((mutationList) => {
-    console.log("Hello");
-    handleMutation();
-  });
+  setTimeout(function (){
+    let currentLocation = window.location.href;
+    const observer = new MutationObserver((mutationList) => {
+      console.log("Hello");
+      handleMutation();
+    });
 
-  async function handleMutation() {
-    if (currentLocation !== window.location.href) {
-      // Location changed!
-      currentLocation = window.location.href;
-      console.log("URL changed to:", currentLocation);
+    async function handleMutation() {
+      if (currentLocation !== window.location.href) {
+        // Location changed!
+        currentLocation = window.location.href;
+        console.log("URL changed to:", currentLocation);
 
-      // Perform any additional asynchronous actions or updates based on the new URL
-      const result = await someAsyncFunction(currentLocation);
-      console.log("Async function result:", result);
+        // Perform any additional asynchronous actions or updates based on the new URL
+        const result = await someAsyncFunction(currentLocation);
+        console.log("Async function result:", result);
+      }
     }
-  }
+    async function someAsyncFunction(url) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(`Processed URL: ${url}`);
+        }, 1000);
+      });
+    }
 
-  // Start observing the document object
-  console.log("Obrserver set");
-  observer.observe(document, { childList: true, subtree: true });
+    // Start observing the document object
+    console.log("Obrserver set");
+    observer.observe(document, { childList: true, subtree: true });
+  },1000)
 
   // Example async function
-  async function someAsyncFunction(url) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(`Processed URL: ${url}`);
-      }, 1000);
-    });
-  }
+  
 
   // const individualReset = document.getElementsByClassName(
   //   "reset-btn w-inline-block"
