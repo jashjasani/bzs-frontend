@@ -746,12 +746,12 @@ async function loadFData(e) {
           const single_dropdowns = document.querySelectorAll(".filter-dropdown.single")
           for(let i=7;i<dropdowns.length; i++){
             const node = dropdowns[i].cloneNode(true)
-            node.childNodes[0].removeChild(node.childNodes[0].childNodes[1])
             node.style.color = "rgba(43, 42, 42, 0.5)";
             dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
           }
           for(let j=10;j<single_dropdowns.length; j++){
             const node = single_dropdowns[j].cloneNode(true)
+            node.childNodes[0].removeChild(node.childNodes[0].childNodes[1])
             node.style.color = "rgba(43, 42, 42, 0.5)";
             single_dropdowns[j].parentElement.replaceChild(node, single_dropdowns[j])
           }
