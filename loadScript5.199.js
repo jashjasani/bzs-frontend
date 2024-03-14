@@ -802,8 +802,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   const observer = new MutationObserver((mutationList) => {
     if (currentLocation !== window.location.href) {
       // location changed!
-      currentLocation = window.location.href;
-      console.log("URL changed to:", currentLocation);
+      console.log("URL changed");
+      loadFData().catch()
       // Perform any additional actions or updates based on the new URL
     }
   });
@@ -818,30 +818,30 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Example async function
   
 
-  const individualReset = document.getElementsByClassName(
-    "reset-btn w-inline-block"
-  );
-  for (x of individualReset) {
-    x.addEventListener("mouseup",loadFData);
-  }
+  // const individualReset = document.getElementsByClassName(
+  //   "reset-btn w-inline-block"
+  // );
+  // for (x of individualReset) {
+  //   x.addEventListener("mouseup",loadFData);
+  // }
 
-  const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
-  for (s of selectAllBtn) {
-    s.addEventListener("mouseup", loadFData);
-  }
-  const checkboxWrappers = document.getElementsByClassName(
-    "checkbox-element-wrapper"
-  );
+  // const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
+  // for (s of selectAllBtn) {
+  //   s.addEventListener("mouseup", loadFData);
+  // }
+  // const checkboxWrappers = document.getElementsByClassName(
+  //   "checkbox-element-wrapper"
+  // );
   const resetAllButton = document.getElementsByClassName("reset-all-btn")[0];
 
   resetAllButton.addEventListener("mouseup", () => {
     let currentUrl = new URL(window.location.href);
     window.location.assign(currentUrl.origin + currentUrl.pathname);
   });
-  resetAllButton.href = "#";
-  for (q of checkboxWrappers) {
-    q.addEventListener("mouseup", loadFData);
-  }
+  // resetAllButton.href = "#";
+  // for (q of checkboxWrappers) {
+  //   q.addEventListener("mouseup", loadFData);
+  // }
   const search = document.getElementsByClassName("search-field w-input")[0];
 
   sortToggle.addEventListener("click", () => {
