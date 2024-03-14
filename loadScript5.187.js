@@ -683,7 +683,7 @@ async function loadFData(e) {
       )[0].value = String(currentUrl.searchParams.get("search")));
     }
   }
-  setTimeout(async () => {
+  await (async () => {
     // const individualReset = document.getElementsByClassName("reset-btn w-inline-block");
     // for (x of individualReset) {
     //     x.addEventListener("mouseup", loadFData);
@@ -795,7 +795,7 @@ async function loadFData(e) {
           }
         });
     }
-  }, 10);
+  })()
 }
 document.addEventListener("DOMContentLoaded", async function () {
   let sort_random = "true";
