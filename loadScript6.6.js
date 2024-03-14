@@ -716,7 +716,11 @@ async function loadFData(e) {
         const sortToggle = getC("sort_random");
         const randomOrder = getC("randomOrder");
         const response = await fetch(
-          `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle=${sortToggle}&randomOrder=${randomOrder}`
+          `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle=${sortToggle}&randomOrder=${randomOrder}`,{
+            headers : {
+              Authorization : sessionStorage.getItem("auth")
+            }
+          }
         );
         data = await response.json();
       }
