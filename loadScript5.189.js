@@ -796,31 +796,40 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
-
-  const individualReset = document.getElementsByClassName(
-    "reset-btn w-inline-block"
-  );
-  for (x of individualReset) {
-    x.addEventListener("mouseup", loadFData);
-  }
-
-  const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
-  for (s of selectAllBtn) {
-    s.addEventListener("mouseup", loadFData);
-  }
-  const checkboxWrappers = document.getElementsByClassName(
-    "checkbox-element-wrapper"
-  );
-  const resetAllButton = document.getElementsByClassName("reset-all-btn")[0];
-
-  resetAllButton.addEventListener("mouseup", () => {
-    let currentUrl = new URL(window.location.href);
-    window.location.assign(currentUrl.origin + currentUrl.pathname);
+  let currentLocation = window.location.href;
+  const observer = new MutationObserver(async (mutationList) => {
+    if (currentLocation !== window.location.href) {
+      // location changed!
+      currentLocation = window.location.href;
+      await loadFData()
+      // Perform any additional actions or updates based on the new URL
+    }
   });
-  resetAllButton.href = "#";
-  for (q of checkboxWrappers) {
-    q.addEventListener("mouseup", loadFData);
-  }
+
+  // const individualReset = document.getElementsByClassName(
+  //   "reset-btn w-inline-block"
+  // );
+  // for (x of individualReset) {
+  //   x.addEventListener("mouseup", loadFData);
+  // }
+
+  // const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
+  // for (s of selectAllBtn) {
+  //   s.addEventListener("mouseup", loadFData);
+  // }
+  // const checkboxWrappers = document.getElementsByClassName(
+  //   "checkbox-element-wrapper"
+  // );
+  // const resetAllButton = document.getElementsByClassName("reset-all-btn")[0];
+
+  // resetAllButton.addEventListener("mouseup", () => {
+  //   let currentUrl = new URL(window.location.href);
+  //   window.location.assign(currentUrl.origin + currentUrl.pathname);
+  // });
+  // resetAllButton.href = "#";
+  // for (q of checkboxWrappers) {
+  //   q.addEventListener("mouseup", loadFData);
+  // }
   const search = document.getElementsByClassName("search-field w-input")[0];
 
   sortToggle.addEventListener("click", () => {
