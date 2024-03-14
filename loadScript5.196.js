@@ -808,14 +808,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   for (x of individualReset) {
     x.addEventListener("mouseup", setTimeout(async ()=>{
       await loadFData()
-    },50));
+    },100));
   }
 
   const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
   for (s of selectAllBtn) {
     s.addEventListener("mouseup", setTimeout(async ()=>{
       await loadFData()
-    },50));
+    },100));
   }
   const checkboxWrappers = document.getElementsByClassName(
     "checkbox-element-wrapper"
@@ -830,7 +830,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   for (q of checkboxWrappers) {
     q.addEventListener("mouseup", setTimeout(async ()=>{
       await loadFData()
-    },50));
+    },100));
   }
   const search = document.getElementsByClassName("search-field w-input")[0];
 
