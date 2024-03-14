@@ -829,6 +829,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   resetAllButton.href = "#";
   for (q of checkboxWrappers) {
     q.addEventListener("mouseup", setTimeout(async ()=>{
+      console.log("Hello");
       await loadFData()
     },100));
   }
