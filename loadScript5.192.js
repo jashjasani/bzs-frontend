@@ -814,6 +814,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   // Start observing the document object
+  console.log("Obrserver set");
   observer.observe(document, { childList: true, subtree: true });
 
   // Example async function
