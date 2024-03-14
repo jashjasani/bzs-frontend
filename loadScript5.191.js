@@ -797,15 +797,33 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
   let currentLocation = window.location.href;
-  const observer = new MutationObserver(async (mutationList) => {
-    if (currentLocation !== window.location.href) {
-      // location changed!
-      currentLocation = window.location.href;
-      console.log("Location changed");
-      await loadFData()
-      // Perform any additional actions or updates based on the new URL
-    }
+  const observer = new MutationObserver((mutationList) => {
+    handleMutation();
   });
+
+  async function handleMutation() {
+    if (currentLocation !== window.location.href) {
+      // Location changed!
+      currentLocation = window.location.href;
+      console.log("URL changed to:", currentLocation);
+
+      // Perform any additional asynchronous actions or updates based on the new URL
+      const result = await someAsyncFunction(currentLocation);
+      console.log("Async function result:", result);
+    }
+  }
+
+  // Start observing the document object
+  observer.observe(document, { childList: true, subtree: true });
+
+  // Example async function
+  async function someAsyncFunction(url) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(`Processed URL: ${url}`);
+      }, 1000);
+    });
+  }
 
   // const individualReset = document.getElementsByClassName(
   //   "reset-btn w-inline-block"
