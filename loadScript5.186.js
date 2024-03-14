@@ -68,6 +68,7 @@ async function renderData(data) {
         },
       })
       collections = await collections.json()
+      console.log("Plans defined");
       plan = collections.subscription
       window.plans = plan || null
       collections = collections.collections
@@ -831,6 +832,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   console.time("Fetching data")
   await loadFData();
   console.timeEnd("Fetching data")
+  console.log("Plans used");
   if(plans == null || plans.end_date<Math.floor(Date.now()/1000) || plans.plan != "Inspiration"){
     let dropdowns = document.querySelectorAll(".w-dropdown-toggle")
     for(let i=7;i<dropdowns.length; i++){
