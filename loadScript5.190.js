@@ -801,6 +801,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (currentLocation !== window.location.href) {
       // location changed!
       currentLocation = window.location.href;
+      console.log("Location changed");
       await loadFData()
       // Perform any additional actions or updates based on the new URL
     }
