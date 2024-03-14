@@ -828,11 +828,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       ";path=/;expires=" +
       cookieExpire.toUTCString();
   }
+  console.time("Fetching data")
   await loadFData();
-  if(plans != null && plans.end_date>Math.floor(Date.now()/1000) && plans.plan != "Inspiration"){
+  console.timeEnd("Fetching data")
+  if(plans == null || plans.end_date<Math.floor(Date.now()/1000) || plans.plan != "Inspiration"){
     let dropdowns = document.querySelectorAll(".w-dropdown-toggle")
     for(let i=7;i<dropdowns.length; i++){
       let node = dropdowns[i].cloneNode(true)
+      node.style.color = "darkgray"
       dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
     }
 
