@@ -827,12 +827,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     "checkbox-element-wrapper"
   );
   const resetAllButton = document.getElementsByClassName("reset-all-btn")[0];
-
-  resetAllButton.addEventListener("mouseup", () => {
-    let currentUrl = new URL(window.location.href);
-    window.location.assign(currentUrl.origin + currentUrl.pathname);
-  });
-  resetAllButton.href = "#";
+  if(resetAllButton){
+    resetAllButton.addEventListener("mouseup", () => {
+      let currentUrl = new URL(window.location.href);
+      window.location.assign(currentUrl.origin + currentUrl.pathname);
+    });
+    resetAllButton.href = "#";
+  }
+  
   for (q of checkboxWrappers) {
     q.addEventListener("mouseup", loadFData);
   }
