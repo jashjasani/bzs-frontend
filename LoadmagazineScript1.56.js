@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
     async function addCollectionButton() {
-        if (sessionStorage.getItem("auth")) {
+        if (sessionStorage.getItem("auth") && subscription!= null) {
             const wrapper = document.getElementsByClassName("product-price-wrapper")[0]
             const Link = document.createElement("a")
             Link.className = "button w-inline-block"
@@ -345,7 +345,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                 .then(resp => resp.json())
                 .then(async (data) => {
                     addSnipcartAttributes(data)
-                    window.collections = await loadCollections()
+                    let response = await loadCollections()
+                    window.collections = response.collections
+                    window.subscription = response.subscription
                     await renderData(data)
 
                     window.productId = new URLSearchParams(window.location.search).get("productId")
