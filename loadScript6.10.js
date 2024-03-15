@@ -36,7 +36,7 @@ async function renderData(data) {
     noResultsFound.style.display = "none";
 
     const resultsCount = document.getElementsByClassName("results-count")[0];
-    
+
     const replaceResultsCount = document.createElement("div");
     replaceResultsCount.className = "results-count";
     const span = document.createElement("span");
@@ -51,18 +51,18 @@ async function renderData(data) {
 
     //grabbing collection elements to later add fragment
     const list = document.getElementsByClassName("w-dyn-list")[0];
-    
+
     var collection;
     if (document.getElementsByClassName("w-dyn-items w-row")[0]) {
       collection = document.getElementsByClassName("w-dyn-items w-row")[0];
       collection.remove()
-    } 
+    }
     collection = document.createElement("div");
     collection.className = "w-dyn-items w-row";
     let collections, plan
-    if(sessionStorage.getItem("auth") != null){
-      collections = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
-        method : "GET",
+    if (sessionStorage.getItem("auth") != null) {
+      collections = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+        method: "GET",
         headers: {
           Authorization: sessionStorage.getItem("auth"),
         },
@@ -70,7 +70,7 @@ async function renderData(data) {
       collections = await collections.json()
       plan = collections.subscription || null
       collections = collections.collections
-      
+
       sessionStorage.setItem("collections", JSON.stringify(Array.from(collections)))
     }
     let imgCount = 0;
@@ -97,23 +97,23 @@ async function renderData(data) {
 
 
       // check if logged in 
-      if(sessionStorage.getItem("auth") && plan != null && plan.end_date > Math.floor(Date.now()/1000)){
+      if (sessionStorage.getItem("auth") && plan != null && plan.end_date > Math.floor(Date.now() / 1000)) {
         dropdown = document.createElement("button");
         dropdown.className = "btn-specihern left-btn"
         dropdown.innerText = "..."
         save = document.createElement("button");
         save.className = "btn-specihern"
-        
-        save.innerText = collections.some(obj => obj.items.includes(q.SKU)) ? "Gespeichert" : "Speichern" 
+
+        save.innerText = collections.some(obj => obj.items.includes(q.SKU)) ? "Gespeichert" : "Speichern"
 
 
-        dropdown.addEventListener("click",(event)=>{
+        dropdown.addEventListener("click", (event) => {
           event.preventDefault() // to stop link element from redirecting
-        
+
           // open dropdown 
-          if(event.target.parentElement.querySelector(".container-mode")==null){
+          if (event.target.parentElement.querySelector(".container-mode") == null) {
             // if there are any other open containers remove them
-            if(document.querySelector("#container-main")!=null) document.querySelector("#container-main").remove()
+            if (document.querySelector("#container-main") != null) document.querySelector("#container-main").remove()
             const container = document.createElement("div")
             container.id = "container-main"
             container.className = "container-mode"
@@ -123,20 +123,20 @@ async function renderData(data) {
             search.placeholder = "Suchen ..."
             search.className = "collection-search"
 
-            search.addEventListener("input",(event)=>{
+            search.addEventListener("input", (event) => {
               const it = event.target.parentElement.querySelectorAll(".collections")
-              if(event.target.value == ''){
-                
-                for(let i =0;i<it.length-1;i++){
+              if (event.target.value == '') {
+
+                for (let i = 0; i < it.length - 1; i++) {
                   it[i].style.display = "flex"
-                  
+
                 }
-                
+
               }
-              for(let i=0;i<it.length-1;i++){
-                if(!it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())){
+              for (let i = 0; i < it.length - 1; i++) {
+                if (!it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())) {
                   it[i].style.display = "none"
-                }else if(it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase()) && it[i].style.display == "none") {
+                } else if (it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase()) && it[i].style.display == "none") {
                   it[i].style.display = "flex"
                 }
               }
@@ -144,103 +144,104 @@ async function renderData(data) {
 
             container.appendChild(search)
 
-            if(sessionStorage.getItem("collections")){
+            if (sessionStorage.getItem("collections")) {
               let collections = JSON.parse(sessionStorage.getItem("collections"))
-              for(let i =0;i<collections.length;i++){
+              for (let i = 0; i < collections.length; i++) {
                 const parentDiv = document.createElement("div")
                 parentDiv.className = "collections"
                 const childDiv = document.createElement("div")
                 childDiv.className = "collection-name"
                 childDiv.style.marginLeft = "10px"
-                childDiv.innerText = collections[i].name 
+                childDiv.innerText = collections[i].name
                 const btn = document.createElement("button")
                 btn.className = "collection-btn"
                 btn.style.visibility = "visible"
                 btn.innerText = collections[i].items.includes(event.target.parentElement.href.split("?productId=")[1]) ? "saved" : "+"
-                btn.addEventListener("click", (event)=>{
+                btn.addEventListener("click", (event) => {
                   event.target
-                  .parentElement
-                  .parentElement
-                  .parentElement
-                  .querySelector(".btn-specihern.left-btn")
-                  .innerText = collections[i].name 
+                    .parentElement
+                    .parentElement
+                    .parentElement
+                    .querySelector(".btn-specihern.left-btn")
+                    .innerText = collections[i].name
 
                   // save an item to collection
-                  if(event.target.innerText == "+"){
-                    
+                  if (event.target.innerText == "+") {
+
                     var arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
-                    
-                    fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
-                      method : "PUT",
-                      headers : {
-                        Authorization : sessionStorage.getItem("auth")
+
+                    fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+                      method: "PUT",
+                      headers: {
+                        Authorization: sessionStorage.getItem("auth")
                       },
-                      body : JSON.stringify({
-                        name : event.target.parentElement.childNodes[0].innerText,
-                        update : {
-                          $addToSet : {
-                            items : event.target.parentElement.parentElement.getAttribute("dropdown-key")
+                      body: JSON.stringify({
+                        name: event.target.parentElement.childNodes[0].innerText,
+                        update: {
+                          $addToSet: {
+                            items: event.target.parentElement.parentElement.getAttribute("dropdown-key")
                           },
-                          ...( !arry.hasOwnProperty("cover") ? { $set : {cover : event.target.parentElement.parentElement.parentElement.querySelector(".product-img").src.split("/v1651695832/")[1] }
-                            
+                          ...(!arry.hasOwnProperty("cover") ? {
+                            $set: { cover: event.target.parentElement.parentElement.parentElement.querySelector(".product-img").src.split("/v1651695832/")[1] }
+
                           } : {})
                         }
                       })
-                    }).then((res)=> {
+                    }).then((res) => {
                       // if it was saved to database only then update the state
-                      if(res.status == 200) {
+                      if (res.status == 200) {
                         arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
-                        if (arry.hasOwnProperty("cover")){
+                        if (arry.hasOwnProperty("cover")) {
                           arry["cover"] = event.target.parentElement.parentElement.parentElement.querySelector(".product-img").src.split("/v1651695832/")[1]
                         }
-                          arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
+                        arry.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
                         event.target.innerText = "saved"
                         sessionStorage.setItem("collections", JSON.stringify(collections))
 
-                        
 
-                        if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
+
+                        if (collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))) {
                           event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gespeichert"
                         } else {
                           event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Speichern"
                         }
-                        document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
+                        document.querySelectorAll(".btn-specihern.left-btn").forEach((e) => {
                           e.innerText = event.target.parentElement.childNodes[0].innerText
                         })
                       }
                     })
-                    
+
 
 
                   }
                   // delete an item from collection 
-                  else{
-                    
-                    fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
-                      method : "PUT",
-                      headers : {
-                        Authorization : sessionStorage.getItem("auth")
+                  else {
+
+                    fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+                      method: "PUT",
+                      headers: {
+                        Authorization: sessionStorage.getItem("auth")
                       },
-                      body : JSON.stringify({
-                        name : event.target.parentElement.childNodes[0].innerText,
-                        update : {
-                          $pull : {
-                            items : event.target.parentElement.parentElement.getAttribute("dropdown-key")
+                      body: JSON.stringify({
+                        name: event.target.parentElement.childNodes[0].innerText,
+                        update: {
+                          $pull: {
+                            items: event.target.parentElement.parentElement.getAttribute("dropdown-key")
                           }
                         }
                       })
-                    }).then((res)=>{
+                    }).then((res) => {
                       // if it was deleted from database only then update the state
-                      if(res.status == 200){
+                      if (res.status == 200) {
                         let arry = collections.find(obj => obj.name == event.target.parentElement.childNodes[0].innerText)
                         const index = arry.items.indexOf(event.target.parentElement.parentElement.getAttribute("dropdown-key"));
-                        
-                        if (index > -1) { 
-                          arry.items.splice(index, 1); 
+
+                        if (index > -1) {
+                          arry.items.splice(index, 1);
                           sessionStorage.setItem("collections", JSON.stringify(collections))
                         }
                         event.target.innerText = "+"
-                        if(collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))){
+                        if (collections.some(obj => obj.items.includes(event.target.parentElement.parentElement.getAttribute("dropdown-key")))) {
                           event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Gespeichert"
                         } else {
                           event.target.parentElement.parentElement.parentElement.querySelector(".btn-specihern").innerText = "Speichern"
@@ -248,13 +249,13 @@ async function renderData(data) {
                       }
                     })
 
-                    
+
                   }
 
 
-                  
 
-                  
+
+
 
                 })
                 parentDiv.appendChild(childDiv)
@@ -272,43 +273,43 @@ async function renderData(data) {
             btn.className = "collection-btn"
             btn.style.visibility = "visible"
 
-            btn.addEventListener("click",async(event)=>{
+            btn.addEventListener("click", async (event) => {
 
               let output = await Swal.fire({
-                  title: "New Collection",
-                  input: "text",
-                  inputLabel: "Name",
-                  inputPlaceholder: "Name deiner neuen Kollektion",
-                  confirmButtonText: "Create",
-                  inputValidator: (value) => {
-                      if (!value) {
-                          return "Name cannot be empty";
-                      }
-                  },
+                title: "New Collection",
+                input: "text",
+                inputLabel: "Name",
+                inputPlaceholder: "Name deiner neuen Kollektion",
+                confirmButtonText: "Create",
+                inputValidator: (value) => {
+                  if (!value) {
+                    return "Name cannot be empty";
+                  }
+                },
               });
               let collections = JSON.parse(sessionStorage.getItem("collections"))
               // check if collection already exists
-              if(!collections.some(obj => obj.name == output.value) && output.value!= undefined){
+              if (!collections.some(obj => obj.name == output.value) && output.value != undefined) {
                 // create new collection in database 
                 fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
-                  method:"POST",
-                  headers : {
-                    Authorization : sessionStorage.getItem("auth")
-                  }, 
+                  method: "POST",
+                  headers: {
+                    Authorization: sessionStorage.getItem("auth")
+                  },
                   body: JSON.stringify({
-                    name : output.value,
-                    item : event.target.parentElement.parentElement.getAttribute("dropdown-key")
+                    name: output.value,
+                    item: event.target.parentElement.parentElement.getAttribute("dropdown-key")
                   })
-                }).then((res)=>{
-                  if(res.status == 200){
-                    const obj = { name : output.value , items : [], cover: event.target.parentElement.parentElement.getAttribute("dropdown-key").replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}
+                }).then((res) => {
+                  if (res.status == 200) {
+                    const obj = { name: output.value, items: [], cover: event.target.parentElement.parentElement.getAttribute("dropdown-key").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "") }
                     obj.items.push(event.target.parentElement.parentElement.getAttribute("dropdown-key"))
                     document.getElementById(`${event.target.parentElement.parentElement.getAttribute("dropdown-key")}`).querySelector(".btn-specihern").innerText = "Gerettet"
-                    document.querySelectorAll(".btn-specihern.left-btn").forEach((e)=>{
+                    document.querySelectorAll(".btn-specihern.left-btn").forEach((e) => {
                       e.innerText = output.value
                     })
-                    
-    
+
+
                     collections.push(obj)
                     sessionStorage.setItem("collections", JSON.stringify(collections))
 
@@ -316,11 +317,11 @@ async function renderData(data) {
                   }
                 })
 
-                
-                
+
+
               }
 
-    
+
 
 
 
@@ -336,45 +337,45 @@ async function renderData(data) {
             createCollection.appendChild(label)
             container.appendChild(createCollection)
 
-            container.addEventListener("click",(event)=>{
+            container.addEventListener("click", (event) => {
               event.preventDefault()
             })
 
-            event.target.insertAdjacentElement("afterend",container)
-            
-          } 
+            event.target.insertAdjacentElement("afterend", container)
+
+          }
           // to close dropdown
           else {
             event.target.parentElement.querySelector(".container-mode").remove()
           }
 
-          
+
         })
 
-        document.addEventListener("click",(event)=>{
-          if(!event.target.closest("#container-main") && document.querySelector("#container-main")!=null && event.target.className != "btn-specihern left-btn"){
+        document.addEventListener("click", (event) => {
+          if (!event.target.closest("#container-main") && document.querySelector("#container-main") != null && event.target.className != "btn-specihern left-btn") {
             document.querySelector("#container-main").remove()
           }
         })
 
 
-        save.addEventListener("click",(event)=>{
+        save.addEventListener("click", (event) => {
           event.preventDefault()
         })
 
 
 
-        productImgWrapper.addEventListener("mouseover",()=>{
+        productImgWrapper.addEventListener("mouseover", () => {
           dropdown.style.visibility = "visible"
           save.style.visibility = "visible"
         })
 
-        productImgWrapper.addEventListener("mouseout",()=>{
+        productImgWrapper.addEventListener("mouseout", () => {
           dropdown.style.visibility = "hidden"
           save.style.visibility = "hidden"
         })
       }
-      
+
 
 
       //product titel creation
@@ -427,17 +428,17 @@ async function renderData(data) {
         "w-pagination-wrapper pagination"
       )[0];
       paginationWrapper.remove();
-    } 
+    }
     paginationWrapper = document.createElement("div");
     paginationWrapper.className = "w-pagination-wrapper pagination";
     paginationWrapper.style.display = "flex";
-  
+
 
     const pageCount = data.pageCount;
     const currentPage = data.currentPage || 1;
-   
+
     const lastQuery = getC("lastQuery");
-    
+
     const pageFragment = document.createDocumentFragment();
     if (currentPage != 1) {
       if (currentPage > 10) {
@@ -485,10 +486,10 @@ async function renderData(data) {
         const pageDiv = document.createElement("div");
         pageDiv.textContent = i;
         pageButton.className = "pagination-page-button w-inline-block";
-       
+
         if (lastQuery != "") pageButton.href = "?page=" + i + ("&" + lastQuery);
         else pageButton.href = "?page=" + i;
-       
+
         pageButton.append(pageDiv);
         pageFragment.append(pageButton);
         if (i == currentPage) {
@@ -504,13 +505,13 @@ async function renderData(data) {
           const pageDiv = document.createElement("div");
           pageDiv.textContent = i;
           pageButton.className = "pagination-page-button w-inline-block";
-         
+
           if (lastQuery != "") {
             pageButton.href = "?page=" + i + ("&" + lastQuery);
           } else {
             pageButton.href = "?page=" + i;
           }
-      ;
+          ;
           pageButton.append(pageDiv);
           pageFragment.append(pageButton);
           if (i == currentPage) {
@@ -553,7 +554,7 @@ async function renderData(data) {
         for (i = 0; i < 3; i++) {
           const pageButton = document.createElement("a");
           const pageDiv = document.createElement("div");
-          
+
           pageDiv.textContent = j;
           pageButton.className = "pagination-page-button w-inline-block";
           if (lastQuery != "")
@@ -619,7 +620,7 @@ async function renderData(data) {
       }
     }
     if (currentPage != pageCount) {
-  
+
       const rightArrowButton = document.createElement("a");
       rightArrowButton.className =
         "w-pagination-right pagination-button-next keep-params 10xarrow";
@@ -682,95 +683,95 @@ async function loadFData(e) {
       )[0].value = String(currentUrl.searchParams.get("search")));
     }
   }
-  setTimeout(async ()=>{
+  setTimeout(async () => {
     await (async () => {
-    const url = window.location.href;
-    const getQuery = url.split("?")[1];
-    let queryCookie = "";
-  
-    if (getQuery) {
-      if (getQuery.includes("page")) {
-        const queries = getQuery.split("&");
-        queryCookie = queries.slice(1).join("&");
-      } else {
-        queryCookie = getQuery;
+      const url = window.location.href;
+      const getQuery = url.split("?")[1];
+      let queryCookie = "";
+
+      if (getQuery) {
+        if (getQuery.includes("page")) {
+          const queries = getQuery.split("&");
+          queryCookie = queries.slice(1).join("&");
+        } else {
+          queryCookie = getQuery;
+        }
       }
-    }
-  
-    document.cookie = "lastQuery=" + queryCookie;
-    
-    try {
-      let data;
-      if (url.split("?").length > 1) {
-        const randomNumber = getC("randomNumber");
-        const sortToggle = getC("sort_random");
-        const response = await fetch(
-          `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?randomNumber=${randomNumber}&sort_toggle=${sortToggle}&${getQuery}`,{
+
+      document.cookie = "lastQuery=" + queryCookie;
+
+      try {
+        let data;
+        if (url.split("?").length > 1) {
+          const randomNumber = getC("randomNumber");
+          const sortToggle = getC("sort_random");
+          const response = await fetch(
+            `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?randomNumber=${randomNumber}&sort_toggle=${sortToggle}&${getQuery}`, {
             headers: {
-              Authorization : sessionStorage.getItem("auth")
+              Authorization: sessionStorage.getItem("auth")
             }
           }
-        );
-        data = await response.json();
-      } else {
-        const sortToggle = getC("sort_random");
-        const randomOrder = getC("randomOrder");
-        const response = await fetch(
-          `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle=${sortToggle}&randomOrder=${randomOrder}`,{
-            headers : {
-              Authorization : sessionStorage.getItem("auth")
+          );
+          data = await response.json();
+        } else {
+          const sortToggle = getC("sort_random");
+          const randomOrder = getC("randomOrder");
+          const response = await fetch(
+            `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle=${sortToggle}&randomOrder=${randomOrder}`, {
+            headers: {
+              Authorization: sessionStorage.getItem("auth")
             }
           }
-        );
-        data = await response.json();
-      }
-  
-      if (data.count === 0) {
-        const colList = document.getElementsByClassName("w-dyn-items w-row")[0];
-        colList.style.display = "none";
-  
-        const resCount = document.getElementsByClassName("results-count")[0];
-        resCount.innerHTML = "";
-        const span = document.createElement("span");
-        span.textContent = `${data.count} Ergebnisse von `;
-        const span2 = document.createElement("span");
-        span2.textContent = data.totalCount;
-        resCount.append(span, span2);
-  
-        const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
-        noResultsFound.style.display = "block";
-  
-        const pagination = document.getElementsByClassName("w-pagination-wrapper pagination")[0];
-        pagination.style.display = "none";
-      } else {
-        let plan = await renderData(data);
-  
-        if (data.currentPage > data.pageCount) {
-          const button = document.getElementsByClassName("pagination-page-button w-inline-block")[0];
-          button.click();
+          );
+          data = await response.json();
         }
-        if(plan == null || plan.end_date<Math.floor(Date.now()/1000) || plan.plan != "Inspiration"){
-          const dropdowns = document.querySelectorAll(".w-dropdown-toggle")
-          const single_dropdowns = document.querySelectorAll(".filter-dropdown.single")
-          for(let i=7;i<dropdowns.length; i++){
-            const node = dropdowns[i].cloneNode(true)
-            node.style.color = "rgba(43, 42, 42, 0.5)";
-            dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
+
+        if (data.count === 0) {
+          const colList = document.getElementsByClassName("w-dyn-items w-row")[0];
+          colList.style.display = "none";
+
+          const resCount = document.getElementsByClassName("results-count")[0];
+          resCount.innerHTML = "";
+          const span = document.createElement("span");
+          span.textContent = `${data.count} Ergebnisse von `;
+          const span2 = document.createElement("span");
+          span2.textContent = data.totalCount;
+          resCount.append(span, span2);
+
+          const noResultsFound = document.getElementsByClassName("no-results-wrapper")[0];
+          noResultsFound.style.display = "block";
+
+          const pagination = document.getElementsByClassName("w-pagination-wrapper pagination")[0];
+          pagination.style.display = "none";
+        } else {
+          let plan = await renderData(data);
+
+          if (data.currentPage > data.pageCount) {
+            const button = document.getElementsByClassName("pagination-page-button w-inline-block")[0];
+            button.click();
           }
-          for(let j=10;j<single_dropdowns.length; j++){
-            const node = single_dropdowns[j].cloneNode(true)
-            node.childNodes[0].removeChild(node.childNodes[0].childNodes[1])
-            node.style.color = "rgba(43, 42, 42, 0.5)";
-            single_dropdowns[j].parentElement.replaceChild(node, single_dropdowns[j])
+          if (plan == null || plan.end_date < Math.floor(Date.now() / 1000) || plan.plan != "Inspiration") {
+            const dropdowns = document.querySelectorAll(".w-dropdown-toggle")
+            const single_dropdowns = document.querySelectorAll(".filter-dropdown.single")
+            for (let i = 7; i < dropdowns.length; i++) {
+              const node = dropdowns[i].cloneNode(true)
+              node.style.color = "rgba(43, 42, 42, 0.5)";
+              dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
+            }
+            for (let j = 10; j < single_dropdowns.length; j++) {
+              const node = single_dropdowns[j].cloneNode(true)
+              node.childNodes[0].removeChild(node.childNodes[0].childNodes[1])
+              node.style.color = "rgba(43, 42, 42, 0.5)";
+              single_dropdowns[j].parentElement.replaceChild(node, single_dropdowns[j])
+            }
           }
         }
+      } catch (error) {
+        console.error("Error:", error);
       }
-    } catch (error) {
-      console.error("Error:", error);
-    } 
 
     })()
-  },100);
+  }, 100);
 }
 document.addEventListener("DOMContentLoaded", async function () {
   let sort_random = "true";
@@ -810,13 +811,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
   // Example async function
-  
+
 
   const individualReset = document.getElementsByClassName(
     "reset-btn w-inline-block"
   );
   for (x of individualReset) {
-    x.addEventListener("mouseup",loadFData);
+    x.addEventListener("mouseup", loadFData);
   }
 
   const selectAllBtn = document.getElementsByClassName("dropdown-btn-wrapper");
@@ -827,14 +828,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     "checkbox-element-wrapper"
   );
   const resetAllButton = document.getElementsByClassName("reset-all-btn")[0];
-  if(resetAllButton){
-    resetAllButton.addEventListener("mouseup", () => {
-      let currentUrl = new URL(window.location.href);
-      window.location.assign(currentUrl.origin + currentUrl.pathname);
-    });
-    resetAllButton.href = "#";
-  }
-  
+
+  resetAllButton.addEventListener("mouseup", () => {
+    let currentUrl = new URL(window.location.href);
+    window.location.assign(currentUrl.origin + currentUrl.pathname);
+  });
+  resetAllButton.href = "#";
+
+
   for (q of checkboxWrappers) {
     q.addEventListener("mouseup", loadFData);
   }
@@ -851,12 +852,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
   search.addEventListener("keypress", (event) => {
-    if(event.key == "Enter"){
+    if (event.key == "Enter") {
       loadFData(event);
     }
-    
+
   });
-  
+
 
 
 
