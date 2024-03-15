@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
+    let subscription
     let collections = await fetch(
         "https://bildzeitschrift.netlify.app/.netlify/functions/collection",
         {
@@ -9,6 +10,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     );
     collections = await collections.json();
+    subscription = collections.subscription
+    collections = collections.collections
     sessionStorage.setItem("collections", JSON.stringify(collections));
 
     function sortArrAndAppend(args, array, grid) {
@@ -202,12 +205,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     };
 
-    window.changeCover = async (name,cover)=>{
-        fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection",{
-            method : "PUT",
-            headers : {
-                Authorization : sessionStorage.getItem("auth")
-            },body: JSON.stringify({
+    window.changeCover = async (name, cover) => {
+        fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+            method: "PUT",
+            headers: {
+                Authorization: sessionStorage.getItem("auth")
+            }, body: JSON.stringify({
                 name: name,
                 update: {
                     $set: {
@@ -215,41 +218,41 @@ document.addEventListener("DOMContentLoaded", async function () {
                     },
                 },
             }),
-        }).then((res)=>{
-            if(res.ok){
+        }).then((res) => {
+            if (res.ok) {
                 const changes = document.querySelectorAll(`[name='${name}']`)
                 changes[0].querySelector("img").src = changes[0].querySelector("img").src.split("images")[0] + cover
-                changes[1].setAttribute("cover",cover)
-                changes[2].setAttribute("cover",cover)
+                changes[1].setAttribute("cover", cover)
+                changes[2].setAttribute("cover", cover)
                 Swal.close()
             }
         })
-        
+
     }
 
     window.newFunction = async (name) => {
-        let collection = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/collection?name=${name}`,{
-            method : "GET",
-            headers : {
-                Authorization : sessionStorage.getItem("auth")
+        let collection = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/collection?name=${name}`, {
+            method: "GET",
+            headers: {
+                Authorization: sessionStorage.getItem("auth")
             }
         })
         let str = ''
-        if(collection.ok){
-           
+        if (collection.ok) {
+
             collection = await collection.json()
             console.log(collection);
-            for (i of collection.collection.items){
-                str += `<img src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/images/${i.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}" onclick="changeCover('${name}','images/${i.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}')">`
+            for (i of collection.collection.items) {
+                str += `<img src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/images/${i.replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}" onclick="changeCover('${name}','images/${i.replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}')">`
             }
-            
+
         }
         let output = await Swal.fire({
             title: "Change your cover image",
             showCancelButton: true,
-            showConfirmButton:false,
+            showConfirmButton: false,
             cancelButtonText: "Cancel",
-            width:899,
+            width: 899,
             html: `
             
                 <div class="flex-container">
@@ -263,19 +266,33 @@ document.addEventListener("DOMContentLoaded", async function () {
     const grid = document.querySelector(".w-layout-grid.collections_grid");
     let str = ``;
     for (let i = 0; i < collections.length; i++) {
-        str += `
-        <div id="w-node-e8b86883-e4ee-3e9f-6cb2-5bcaff841f2e-0588ddf5" class="collection_item_wrap" randid="${i}" name="${collections[i].name}">
-            <a class="ind-item" href="/deine-kollektion?name=${collections[i].name}" style="width:100%;">
-                <img src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/${collections[i].cover}" loading="lazy" sizes="(max-width: 479px) 89vw, (max-width: 767px) 85vw, 86vw" srcset="" alt="" class="collection_main_img">
-                <div class="collection_name_wrap">
-                    <div class="collection_name">${collections[i].name}</div>
+        if (subscription != null) {
+            str += `
+                <div id="w-node-e8b86883-e4ee-3e9f-6cb2-5bcaff841f2e-0588ddf5" class="collection_item_wrap" randid="${i}" name="${collections[i].name}">
+                    <a class="ind-item" href="/deine-kollektion?name=${collections[i].name}" style="width:100%;">
+                        <img src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/${collections[i].cover}" loading="lazy" sizes="(max-width: 479px) 89vw, (max-width: 767px) 85vw, 86vw" srcset="" alt="" class="collection_main_img">
+                        <div class="collection_name_wrap">
+                            <div class="collection_name">${collections[i].name}</div>
+                        </div>
+                        <a class="edit_collection w-inline-block" onclick="editPopup(event)" name="${collections[i].name}" cover="${collections[i].cover}" description="${collections[i].description}">
+                            <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="" name="${collections[i].name}" cover="${collections[i].cover}" description="${collections[i].description}">
+                        </a>
+                    </a>
                 </div>
-                <a class="edit_collection w-inline-block" onclick="editPopup(event)" name="${collections[i].name}" cover="${collections[i].cover}" description="${collections[i].description}">
-                    <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="" name="${collections[i].name}" cover="${collections[i].cover}" description="${collections[i].description}">
-                </a>
-            </a>
-        </div>
-        `;
+                `;
+        } else {
+            str += `
+                <div id="w-node-e8b86883-e4ee-3e9f-6cb2-5bcaff841f2e-0588ddf5" class="collection_item_wrap" randid="${i}" name="${collections[i].name}">
+                    <a class="ind-item" href="/deine-kollektion?name=${collections[i].name}" style="width:100%;">
+                        <img src="https://res.cloudinary.com/wdy-bzs/image/upload/q_10/v1651695832/${collections[i].cover}" loading="lazy" sizes="(max-width: 479px) 89vw, (max-width: 767px) 85vw, 86vw" srcset="" alt="" class="collection_main_img">
+                        <div class="collection_name_wrap">
+                            <div class="collection_name">${collections[i].name}</div>
+                        </div>
+                    </a>
+                </div>
+                `;
+        }
+
     }
     grid.insertAdjacentHTML("beforeend", str);
     document.querySelector(".produvt-img-wrapper.w-inline-block").remove();
@@ -284,84 +301,86 @@ document.addEventListener("DOMContentLoaded", async function () {
         .getElementById("Filter-Kollektionen")
     filter.value = ""
     filter.addEventListener("change", (event) => {
-            const grid = document.querySelector(
-                ".w-layout-grid.collections_grid"
-            );
-            let array = Array.from(grid.children);
-            console.log(array);
-            sortArrAndAppend(event.target.value, array, grid);
-        });
-
-    document.querySelector(".button.new-collection.w-inline-block").addEventListener("click",async function () {
-        const output = await Swal.fire({
-            title: "New collection",
-            showCancelButton: true,
-            confirmButtonText: "Save",
-        
-            showCloseButton: true,
-            html: `
-            </div>
-            <div class="input-group">
-            <label for="name" class="input-label">Name*</label>
-            <input type="text" id="swal-input1" name="name" placeholder="Enter collection name" class="input-field">
-            </div>
-
-            <div class="input-group">
-            <label for="description" class="input-label">Description</label>
-            <textarea id="swal-input2" name="description" rows="9" placeholder="Enter collection description" class="input-field"></textarea>
-            </div>
-    
-            `,
-            focusConfirm: false,
-            preConfirm: () => {
-                return [
-                    document.querySelector("#swal-input1").value,
-                    document.querySelector("#swal-input2").value,
-                ];
-            },
-        });
-        if(output.isConfirmed){
-            fetch(
-                "https://bildzeitschrift.netlify.app/.netlify/functions/collection",
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: sessionStorage.getItem("auth"),
-                    },
-                    body: JSON.stringify({
-                        name: output.value[0].trim(),
-                        description: output.value[1].trim(),
-                    }),
-                }
-            ).then((res) => {
-                if (res.ok) {
-                    const grid = document.querySelector(
-                        ".w-layout-grid.collections_grid"
-                    );
-                    let array = Array.from(grid.children);
-                    const div = document.createElement("div");
-                    div.className = "collection_item_wrap";
-                    div.setAttribute("randid", document.querySelectorAll("[randid]").length);
-                    div.setAttribute("name", output.value[0].trim());
-                    div.innerHTML = `
-                                        <a class="ind-item" href="/deine-kollektion?name=${output.value[0].trim()}" style="width:100%;">
-                                        <img src="" loading="lazy" sizes="(max-width: 479px) 89vw, (max-width: 767px) 85vw, 86vw" srcset="" alt="" class="collection_main_img">
-                                        <div class="collection_name_wrap">
-                                            <div class="collection_name">${output.value[0].trim()}</div>
-                                        </div>
-                                        <a class="edit_collection w-inline-block" onclick="editPopup(event)" name="${output.value[0].trim()}" cover="" description="${output.value[1].trim()}">
-                                            <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="" name="${output.value[0].trim()}" cover="" description="${output.value[1].trim()}">
-                                        </a>
-                                        </a>
-                        `;
-                    array.push(div);
-                    const value = document.getElementById(
-                        "Filter-Kollektionen"
-                    ).value;
-                    sortArrAndAppend(value, array, grid);
-                }
-            });
-        }
-        
+        const grid = document.querySelector(
+            ".w-layout-grid.collections_grid"
+        );
+        let array = Array.from(grid.children);
+        console.log(array);
+        sortArrAndAppend(event.target.value, array, grid);
     });
+    if (subscription != null) {
+        document.querySelector(".button.new-collection.w-inline-block").addEventListener("click", async function () {
+            const output = await Swal.fire({
+                title: "New collection",
+                showCancelButton: true,
+                confirmButtonText: "Save",
+
+                showCloseButton: true,
+                html: `
+                </div>
+                <div class="input-group">
+                <label for="name" class="input-label">Name*</label>
+                <input type="text" id="swal-input1" name="name" placeholder="Enter collection name" class="input-field">
+                </div>
+    
+                <div class="input-group">
+                <label for="description" class="input-label">Description</label>
+                <textarea id="swal-input2" name="description" rows="9" placeholder="Enter collection description" class="input-field"></textarea>
+                </div>
+        
+                `,
+                focusConfirm: false,
+                preConfirm: () => {
+                    return [
+                        document.querySelector("#swal-input1").value,
+                        document.querySelector("#swal-input2").value,
+                    ];
+                },
+            });
+            if (output.isConfirmed) {
+                fetch(
+                    "https://bildzeitschrift.netlify.app/.netlify/functions/collection",
+                    {
+                        method: "POST",
+                        headers: {
+                            Authorization: sessionStorage.getItem("auth"),
+                        },
+                        body: JSON.stringify({
+                            name: output.value[0].trim(),
+                            description: output.value[1].trim(),
+                        }),
+                    }
+                ).then((res) => {
+                    if (res.ok) {
+                        const grid = document.querySelector(
+                            ".w-layout-grid.collections_grid"
+                        );
+                        let array = Array.from(grid.children);
+                        const div = document.createElement("div");
+                        div.className = "collection_item_wrap";
+                        div.setAttribute("randid", document.querySelectorAll("[randid]").length);
+                        div.setAttribute("name", output.value[0].trim());
+                        div.innerHTML = `
+                                            <a class="ind-item" href="/deine-kollektion?name=${output.value[0].trim()}" style="width:100%;">
+                                            <img src="" loading="lazy" sizes="(max-width: 479px) 89vw, (max-width: 767px) 85vw, 86vw" srcset="" alt="" class="collection_main_img">
+                                            <div class="collection_name_wrap">
+                                                <div class="collection_name">${output.value[0].trim()}</div>
+                                            </div>
+                                            <a class="edit_collection w-inline-block" onclick="editPopup(event)" name="${output.value[0].trim()}" cover="" description="${output.value[1].trim()}">
+                                                <img src="https://assets-global.website-files.com/6235c6aa0b614c4ab6ba68bb/65d3097fa566affb7bf94719_Edit-Square.svg" loading="lazy" alt="" name="${output.value[0].trim()}" cover="" description="${output.value[1].trim()}">
+                                            </a>
+                                            </a>
+                            `;
+                        array.push(div);
+                        const value = document.getElementById(
+                            "Filter-Kollektionen"
+                        ).value;
+                        sortArrAndAppend(value, array, grid);
+                    }
+                });
+            }
+
+        });
+    }
+
 });
