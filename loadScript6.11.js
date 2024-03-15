@@ -154,6 +154,7 @@ async function renderData(data) {
                 childDiv.style.marginLeft = "10px"
                 childDiv.innerText = collections[i].name
                 const btn = document.createElement("button")
+                console.log(btn);
                 btn.className = "collection-btn"
                 btn.style.visibility = "visible"
                 btn.innerText = collections[i].items.includes(event.target.parentElement.href.split("?productId=")[1]) ? "saved" : "+"
