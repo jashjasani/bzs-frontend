@@ -3,8 +3,6 @@ window.downgradeOrUpgrade = async (sub_id) => {
     Swal.fire({
         title: "Are you sure you want to switch plan?",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
         confirmButtonText: "Yes, switch it!"
       }).then((result) => {
         if (result.isConfirmed) {
@@ -60,8 +58,6 @@ window.createCheckout = async (price_id) => {
     let confirmation = await Swal.fire({
         title: "Are you sure you want to buy this plan?",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
         confirmButtonText: "proceed to checkout"
       })
     if(confirmation.isConfirmed){
@@ -85,8 +81,6 @@ window.cancelPlan = async (sub_id) => {
     let confirmation = await Swal.fire({
         title: "Are you sure you want to cancel this plan?",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
         cancelButtonText : "No",
         confirmButtonText: "Yes cancel"
       })
