@@ -799,6 +799,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   if (sort_random == "false") {
     sortToggle.click();
+  } if(selection_excluding == "false"){
+    selectionExclude.click()
   }
 
   const currentTime = new Date().getTime();
