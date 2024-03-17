@@ -755,7 +755,7 @@ async function loadFData(e) {
           if (plan == null || plan.end_date < Math.floor(Date.now() / 1000) || plan.plan != "Inspiration") {
             const dropdowns = document.querySelectorAll(".w-dropdown-toggle")
             const single_dropdowns = document.querySelectorAll(".filter-dropdown.single")
-            for (let i = 7; i < dropdowns.length; i++) {
+            for (let i = 6; i < dropdowns.length; i++) {
               const node = dropdowns[i].cloneNode(true)
               node.style.color = "rgba(43, 42, 42, 0.5)";
               dropdowns[i].parentElement.replaceChild(node, dropdowns[i])
