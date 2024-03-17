@@ -57,29 +57,22 @@ document.addEventListener("DOMContentLoaded", async () => {
             for (let i = 0; i < orders.length; i++) {
                 const date = new Date(orders[i].date);
 
-                string += `<div id="w-node-_3cc087e9-0c02-0309-866d-d4426da106df-fca4f9b2" class="orders-grid-div ${
-                    i == orders.length - 1 ? "is-bottom" : ""
-                }"><div class="orders-grid-txt">${date
-                    .getDate()
-                    .toString()
-                    .padStart(2, "0")} ${date.toLocaleString("de-DE", {
-                    month: "long",
-                })} ${date.getFullYear()}</div></div>`;
-                string += `<div id="w-node-e2dc63ca-cfb7-5742-9a08-db5b4d56f4c3-fca4f9b2" class="orders-grid-div ${
-                    i == orders.length - 1 ? "is-bottom" : ""
-                }"><div class="orders-grid-txt">${
-                    orders[i].invoice_details
-                }</div></div>`;
-                string += `<div id="w-node-_124d6d36-72fc-24b0-c5f3-94fb8f36a298-fca4f9b2" class="orders-grid-div ${
-                    i == orders.length - 1 ? "is-bottom" : ""
-                }"><div class="orders-grid-txt">€ ${
-                    orders[i].total
-                }</div></div>`;
-                string += `<div id="w-node-_160f0ee6-77f7-6901-1803-eb60995699de-fca4f9b2" class="orders-grid-div is-last ${
-                    i == orders.length - 1 ? "is-bottom" : ""
-                }"><a href="#" token=${
-                    orders[i].order_id
-                } class="orders-grid-txt is-link" onclick="printPDF(event)">Rechnung herunterladen</a></div>`;
+                string += `<div id="w-node-_3cc087e9-0c02-0309-866d-d4426da106df-fca4f9b2" class="orders-grid-div ${i == orders.length - 1 ? "is-bottom" : ""
+                    }"><div class="orders-grid-txt">${date
+                        .getDate()
+                        .toString()
+                        .padStart(2, "0")} ${date.toLocaleString("de-DE", {
+                            month: "long",
+                        })} ${date.getFullYear()}</div></div>`;
+                string += `<div id="w-node-e2dc63ca-cfb7-5742-9a08-db5b4d56f4c3-fca4f9b2" class="orders-grid-div ${i == orders.length - 1 ? "is-bottom" : ""
+                    }"><div class="orders-grid-txt">${orders[i].invoice_details
+                    }</div></div>`;
+                string += `<div id="w-node-_124d6d36-72fc-24b0-c5f3-94fb8f36a298-fca4f9b2" class="orders-grid-div ${i == orders.length - 1 ? "is-bottom" : ""
+                    }"><div class="orders-grid-txt">€ ${orders[i].total
+                    }</div></div>`;
+                string += `<div id="w-node-_160f0ee6-77f7-6901-1803-eb60995699de-fca4f9b2" class="orders-grid-div is-last ${i == orders.length - 1 ? "is-bottom" : ""
+                    }"><a href="${orders[i].hasOwnProperty("invoice_url") ? orders[i].invoice_url : "#"}" token=${orders[i].order_id
+                    } class="orders-grid-txt is-link" ${ !orders[i].invoice_url ? `onclick='printPDF(event)'` : null}>Rechnung herunterladen</a></div>`;
             }
             string += "</div>";
             document.querySelector(".loading").style.display = "none";
@@ -98,19 +91,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             for (let i = 0; i < orders.length; i++) {
                 const date = new Date(orders[i].date);
 
-                string += `<div id="w-node-_3cc087e9-0c02-0309-866d-d4426da106df-fca4f9b2" class="orders-grid-div ${
-                    i == orders.length - 1 ? "is-bottom" : ""
-                }"><div class="orders-grid-txt">${date
-                    .getDate()
-                    .toString()
-                    .padStart(2, "0")} ${date.toLocaleString("de-DE", {
-                    month: "long",
-                })} ${date.getFullYear()}</div></div>`;
-                string += `<div id="w-node-_160f0ee6-77f7-6901-1803-eb60995699de-fca4f9b2" class="orders-grid-div is-last ${
-                    i == orders.length - 1 ? "is-bottom" : ""
-                }"><a href="#" token=${
-                    orders[i].order_id
-                } class="orders-grid-txt is-link" onclick="printPDF(event)">Rechnung herunterladen</a></div>`;
+                string += `<div id="w-node-_3cc087e9-0c02-0309-866d-d4426da106df-fca4f9b2" class="orders-grid-div ${i == orders.length - 1 ? "is-bottom" : ""
+                    }"><div class="orders-grid-txt">${date
+                        .getDate()
+                        .toString()
+                        .padStart(2, "0")} ${date.toLocaleString("de-DE", {
+                            month: "long",
+                        })} ${date.getFullYear()}</div></div>`;
+                string += `<div id="w-node-_160f0ee6-77f7-6901-1803-eb60995699de-fca4f9b2" class="orders-grid-div is-last ${i == orders.length - 1 ? "is-bottom" : ""
+                    }"><a href="${orders[i].hasOwnProperty("invoice_url") ? orders[i].invoice_url : "#"}" token=${orders[i].order_id
+                    } class="orders-grid-txt is-link" ${ !orders[i].invoice_url ? `onclick='printPDF(event)'` : null}>Rechnung herunterladen</a></div>`;
             }
             string += "</div>";
             document.querySelector(".loading").style.display = "none";
