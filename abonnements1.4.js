@@ -6,7 +6,7 @@ window.downgradeOrUpgrade = async (sub_id) => {
         confirmButtonText: "Yes, switch it!"
       }).then((result) => {
         if (result.isConfirmed) {
-            Swal.showLoading()
+
             fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/subscription?upgrade=true&sub=${sub_id}`,{
                 method : "PUT",
                 headers: {
@@ -46,7 +46,6 @@ window.downgradeOrUpgrade = async (sub_id) => {
                 }
                 
             })
-            Swal.close()
         }
       });
     
@@ -61,7 +60,6 @@ window.createCheckout = async (price_id) => {
         confirmButtonText: "proceed to checkout"
       })
     if(confirmation.isConfirmed){
-        Swal.showLoading()
         let checkout = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/create_checkout?price_id=${price_id}`, {
             method : "GET",
             headers : {
@@ -69,7 +67,6 @@ window.createCheckout = async (price_id) => {
             }
         })
         let response = await checkout.json()
-        Swal.close()
         location.assign(response.checkout_link)
     }
 

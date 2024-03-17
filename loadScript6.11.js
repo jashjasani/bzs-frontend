@@ -705,8 +705,9 @@ async function loadFData(e) {
         if (url.split("?").length > 1) {
           const randomNumber = getC("randomNumber");
           const sortToggle = getC("sort_random");
+          const selection_exclude = getC("selection_excluding")
           const response = await fetch(
-            `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?randomNumber=${randomNumber}&sort_toggle=${sortToggle}&${getQuery}`, {
+            `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?randomNumber=${randomNumber}&sort_toggle=${sortToggle}&selectExcl=${selection_exclude}&${getQuery}`, {
             headers: {
               Authorization: sessionStorage.getItem("auth")
             }
@@ -716,8 +717,9 @@ async function loadFData(e) {
         } else {
           const sortToggle = getC("sort_random");
           const randomOrder = getC("randomOrder");
+          const selection_exclude = getC("selection_excluding")
           const response = await fetch(
-            `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle=${sortToggle}&randomOrder=${randomOrder}`, {
+            `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle=${sortToggle}&selectExcl=${selection_exclude}&randomOrder=${randomOrder}`, {
             headers: {
               Authorization: sessionStorage.getItem("auth")
             }
@@ -775,7 +777,10 @@ async function loadFData(e) {
 }
 document.addEventListener("DOMContentLoaded", async function () {
   let sort_random = "true";
+  let selection_excluding = "false"
   const sortToggle = document.getElementsByClassName("random-switch")[0];
+  const selectionExclude = document.getElementsByClassName("random-switch")[1];
+
   const toggle = document.getElementsByClassName("toggle")[0];
 
   if (getC("sort_random") != "") {
@@ -783,6 +788,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   } else {
     document.cookie = "sort_random=" + sort_random + ";";
   }
+
+
+  if(getC("selection_exclude")!= ""){
+    selection_excluding = getC("selection_exclude")
+  } else {
+    document.cookie = "selection_exclude=" +  selection_excluding + ";"
+  }
+
 
   if (sort_random == "false") {
     sortToggle.click();
@@ -824,6 +837,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   for (s of selectAllBtn) {
     s.addEventListener("mouseup", loadFData);
   }
+
+  const singleDropdown = document.querySelectorAll(".filter-dropdown.single")
+  for(ind of singleDropdown){
+    ind.addEventListener("mouseup", loadFData)
+  }
   const checkboxWrappers = document.getElementsByClassName(
     "checkbox-element-wrapper"
   );
@@ -848,6 +866,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       sort_random = "false";
     }
     document.cookie = "sort_random=" + sort_random + ";";
+    loadFData();
+  });
+
+  selectionExclude.addEventListener("click", () => {
+    if (selection_excluding == "false") {
+      selection_excluding = "true";
+    } else {
+      selection_excluding = "false";
+    }
+    document.cookie = "sort_random=" + selection_excluding + ";";
     loadFData();
   });
 
