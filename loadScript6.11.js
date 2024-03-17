@@ -705,7 +705,7 @@ async function loadFData(e) {
         if (url.split("?").length > 1) {
           const randomNumber = getC("randomNumber");
           const sortToggle = getC("sort_random");
-          const selection_exclude = getC("selection_excluding")
+          const selection_exclude = getC("selection_exclude")
           const response = await fetch(
             `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?randomNumber=${randomNumber}&sort_toggle=${sortToggle}&selectExcl=${selection_exclude}&${getQuery}`, {
             headers: {
