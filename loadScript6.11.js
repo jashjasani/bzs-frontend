@@ -717,7 +717,7 @@ async function loadFData(e) {
         } else {
           const sortToggle = getC("sort_random");
           const randomOrder = getC("randomOrder");
-          const selection_exclude = getC("selection_excluding")
+          const selection_exclude = getC("selection_exclude")
           const response = await fetch(
             `https://bildzeitschrift.netlify.app/.netlify/functions/loadData?page=1&sort_toggle=${sortToggle}&selectExcl=${selection_exclude}&randomOrder=${randomOrder}`, {
             headers: {
