@@ -875,7 +875,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       selection_excluding = "false";
     }
-    document.cookie = "sort_random=" + selection_excluding + ";";
+    document.cookie = "selection_exclude=" + selection_excluding + ";";
     loadFData();
   });
 
