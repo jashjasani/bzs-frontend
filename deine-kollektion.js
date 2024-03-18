@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
             for(let i=0;i<res.items.length;i++){
                 const img = res.items[i].replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")
                 str+= `<a href="https://www.bildzeitschrift.com/magazine?productId=${res.items[i]}" class="item-link w-inline-block" randid=${i} name="${res.items[i]}">
-                <img src="${preimage+img}"  loading="lazy" sizes="(max-width: 479px) 86vw, (max-width: 767px) 40vw, (max-width: 991px) 27vw, 21vw" alt="" srcset="${preimage+img} 500w, ${preimage+img} 800w,${preimage+img} 1080w, ${preimage+img} 1536w," class="single-collection-img"></a>`
+                <img src="${preimage+img}"  style="height: -webkit-fill-available;" loading="lazy" sizes="(max-width: 479px) 86vw, (max-width: 767px) 40vw, (max-width: 991px) 27vw, 21vw" alt="" srcset="${preimage+img} 500w, ${preimage+img} 800w,${preimage+img} 1080w, ${preimage+img} 1536w," class="single-collection-img"></a>`
             }
             document.querySelector(".produvt-img-wrapper.w-inline-block").remove();
             wrapper.insertAdjacentHTML("beforeend", str);
@@ -85,18 +85,19 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         }
     }
 
-    window.makePresentation = function makePresentation(){
+    const makePresentation = function makePresentation(event){
+        event.preventDefault()
         let imgs = document.querySelectorAll(".single-collection-img")
         let str = ``
         
         for(i of imgs){
-            str+= `<section style="height: 100vh;background: black;" data-background-color="black">
+            str+= `<section style="height: 100vh;background: black; width:100%" data-background-color="black">
                         <img style="margin-top:0;" src="${i.src}">
                    </section>`
         }
         const reveal_div = `
                             <div class="reveal">
-                                <div class="slides" style="background: black;">
+                                <div class="slides" style="background: black; width:100%">
                                     ${str}
                                 </div>
                             </div>
@@ -104,9 +105,9 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         document.body.insertAdjacentHTML("afterbegin",reveal_div)
         let deck = new Reveal({
             touch : true,
-            loop : true,
             embedded: false,
             help : true,
+            width : "100%",
             keyboard : {
                 27 : ()=>{
                     deck.destroy()
@@ -115,10 +116,16 @@ document.addEventListener("DOMContentLoaded", async ()=>{
             }
 
         })
+        deck.configure({
+            touch : true,
+            help:true,
+            controls : true,
+        })
         deck.initialize().then()
     }
 
-
+    const presentationBtn = document.querySelector(".presentation-mode")
+    presentationBtn.addEventListener("click",makePresentation)
     const filter = document.querySelector("#Filter-Kollektionen")
     filter.value = ""
     filter.addEventListener("change", ()=>{
