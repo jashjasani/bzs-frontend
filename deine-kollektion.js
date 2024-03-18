@@ -85,6 +85,38 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         }
     }
 
+    window.makePresentation = function makePresentation(){
+        let imgs = document.querySelectorAll(".single-collection-img")
+        let str = ``
+        
+        for(i of imgs){
+            str+= `<section style="height: 100vh;background: black;" data-background-color="black">
+                        <img style="margin-top:0;" src="${i.src}">
+                   </section>`
+        }
+        const reveal_div = `
+                            <div class="reveal">
+                                <div class="slides" style="background: black;">
+                                    ${str}
+                                </div>
+                            </div>
+                            ` 
+        document.body.insertAdjacentHTML("afterbegin",reveal_div)
+        let deck = new Reveal({
+            touch : true,
+            loop : true,
+            embedded: false,
+            help : true,
+            keyboard : {
+                27 : ()=>{
+                    deck.destroy()
+                    document.querySelector(".reveal").remove()
+                }
+            }
+
+        })
+        deck.initialize().then()
+    }
 
 
     const filter = document.querySelector("#Filter-Kollektionen")

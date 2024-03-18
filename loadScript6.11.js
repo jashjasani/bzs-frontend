@@ -97,7 +97,7 @@ async function renderData(data) {
 
 
       // check if logged in 
-      if (sessionStorage.getItem("auth") && plan != null && plan.end_date > Math.floor(Date.now() / 1000)) {
+      if (sessionStorage.getItem("auth") && plan != null && plan.end_date > Math.floor(Date.now() / 1000) && plan.plan == "Inspiration") {
         dropdown = document.createElement("button");
         dropdown.className = "btn-specihern left-btn"
         dropdown.innerText = "..."
@@ -752,7 +752,7 @@ async function loadFData(e) {
             const button = document.getElementsByClassName("pagination-page-button w-inline-block")[0];
             button.click();
           }
-          if (plan == null || plan.end_date < Math.floor(Date.now() / 1000) || plan.plan != "Inspiration") {
+          if (plan == null || plan.end_date < Math.floor(Date.now() / 1000) ) {
             const dropdowns = document.querySelectorAll(".w-dropdown-toggle")
             const single_dropdowns = document.querySelectorAll(".filter-dropdown.single")
             for (let i = 6; i < dropdowns.length; i++) {

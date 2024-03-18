@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jashjasani/BzsScriptFinal/issues"
   },
-  "homepage": "https://github.com/jashjasani/BzsScriptFinal#readme"
+  "homepage": "https://github.com/jashjasani/BzsScriptFinal#readme",
+  "dependencies": {
+    "reveal.js": "^5.0.5"
+  }
 }

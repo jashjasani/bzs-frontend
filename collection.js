@@ -224,7 +224,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 changes[0].querySelector("img").src = changes[0].querySelector("img").src.split("images")[0] + cover
                 changes[1].setAttribute("cover", cover)
                 changes[2].setAttribute("cover", cover)
-                Swal.close()
             }
         })
 
@@ -266,7 +265,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const grid = document.querySelector(".w-layout-grid.collections_grid");
     let str = ``;
     for (let i = 0; i < collections.length; i++) {
-        if (subscription != null) {
+        if (subscription != null && subscription.plan == "Inspiration") {
             str += `
                 <div id="w-node-e8b86883-e4ee-3e9f-6cb2-5bcaff841f2e-0588ddf5" class="collection_item_wrap" randid="${i}" name="${collections[i].name}">
                     <a class="ind-item" href="/deine-kollektion?name=${collections[i].name}" style="width:100%;">
@@ -308,7 +307,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log(array);
         sortArrAndAppend(event.target.value, array, grid);
     });
-    if (subscription != null) {
+    if (subscription != null && subscription.plan == "Inspiration") {
         document.querySelector(".button.new-collection.w-inline-block").addEventListener("click", async function () {
             const output = await Swal.fire({
                 title: "New collection",
