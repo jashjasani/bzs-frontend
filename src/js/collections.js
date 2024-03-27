@@ -96,12 +96,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                 </div>
                 <div class="input-group">
                 <label for="name" class="input-label">Name*</label>
-                <input value="${name}" type="text" id="swal-input1" name="name" placeholder="Enter collection name" class="input-field">
+                <input value="${name}" type="text" id="swal-input1" name="name" placeholder="Name deiner Kollektion" class="input-field">
                 </div>
 
                 <div class="input-group">
-                <label for="description" class="input-label">Description</label>
-                <textarea id="swal-input2" name="description" rows="9" placeholder="Enter collection description" class="input-field">${description}</textarea>
+                <label for="description" class="input-label">Beschreibung</label>
+                <textarea id="swal-input2" name="description" rows="9" placeholder="Hier kannst du eine Beschreibung deiner Kollektion eintragen" class="input-field">${description}</textarea>
                 </div>
         
                 `,
@@ -313,19 +313,19 @@ document.addEventListener("DOMContentLoaded", async function () {
             const output = await Swal.fire({
                 title: "Neue Kollektion",
                 showCancelButton: true,
-                confirmButtonText: "Erstellen",
+                cancelButtonText: "Erstellen",
                 showCloseButton: true,
-                cancelButtonText : "Abbrechen",
+                confirmButtonText : "Abbrechen",
                 html: `
                 </div>
                 <div class="input-group">
                 <label for="name" class="input-label">Name*</label>
-                <input type="text" id="swal-input1" name="name" placeholder="Enter collection name" class="input-field">
+                <input type="text" id="swal-input1" name="name" placeholder="Name deiner Kollektion" class="input-field">
                 </div>
     
                 <div class="input-group">
-                <label for="description" class="input-label">Description</label>
-                <textarea id="swal-input2" name="description" rows="9" placeholder="Enter collection description" class="input-field"></textarea>
+                <label for="description" class="input-label">Beschreibung</label>
+                <textarea id="swal-input2" name="description" rows="9" placeholder="Hier kannst du eine Beschreibung deiner Kollektion eintragen" class="input-field"></textarea>
                 </div>
         
                 `,
@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     ];
                 },
             });
-            if (output.isConfirmed) {
+            if (output.isDismissed && output.dismiss == "cancel") {
                 fetch(
                     "https://bildzeitschrift.netlify.app/.netlify/functions/collection",
                     {
