@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const output = await Swal.fire({
             title: "Kollektion bearbeiten",
             showCancelButton: true,
-            confirmButtonText: "Save",
-            cancelButtonText: "Delete Collection",
+            confirmButtonText: "Speichern",
+            cancelButtonText: "Kollektion löschen",
             showCloseButton: true,
             html: `
             
