@@ -75,15 +75,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         const description = event.target.getAttribute("description") || "";
         console.log(name);
         const output = await Swal.fire({
-            title: "Edit collection",
+            title: "Kollektion bearbeiten",
             showCancelButton: true,
-            confirmButtonText: "Save",
-            cancelButtonText: "Delete Collection",
+            confirmButtonText: "Speichern",
+            cancelButtonText: "Kollektion löschen",
             showCloseButton: true,
             html: `
             
                 <div class="input-group">
-                    <label for="name" class="input-label">Cover Image</label>
+                    <label for="name" class="input-label">Titelbild</label>
                     <div style="width:fit-content;">
                     <div style="position:relative;">
                         <a href="#" style="position: absolute;top: 70%;left: 80%; background-color: #D9D3D0BF;border: 2px solid #2b2a2a; border-radius: 30%;" onclick="newFunction('${name.toString()}')">
@@ -248,10 +248,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         }
         let output = await Swal.fire({
-            title: "Change your cover image",
+            title: "Titelbild auswählen",
             showCancelButton: true,
             showConfirmButton: false,
-            cancelButtonText: "Cancel",
+            cancelButtonText: "Abbrechen",
             width: 899,
             html: `
             
@@ -311,10 +311,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (subscription != null && subscription.plan == "Inspiration") {
         document.querySelector(".button.new-collection.w-inline-block").addEventListener("click", async function () {
             const output = await Swal.fire({
-                title: "New collection",
+                title: "Neue Kollektion",
                 showCancelButton: true,
-                confirmButtonText: "Save",
-
+                confirmButtonText: "Erstellen",
                 showCloseButton: true,
                 html: `
                 </div>

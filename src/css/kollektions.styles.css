@@ -114,3 +114,11 @@
     height: auto;
     margin: 5px;
 }
+.swal2-html-container::-webkit-scrollbar{
+    display: none;
+}
+
+.swal2-html-container {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;  
+}
