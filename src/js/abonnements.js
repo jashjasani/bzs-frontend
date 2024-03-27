@@ -34,7 +34,8 @@ window.downgradeOrUpgrade = async (sub_id) => {
                             })
                             current_plan.active = true
                             let date = new Date(plan.end_date * 1000)
-                            current_plan["end_date"] = String(date.getDate()).padStart(2, '0') + String(date.getMonth() + 1).padStart(2, '0') + String(date.getFullYear()).slice(-2)
+                            current_plan["end_date"] = String(date.getDate()).padStart(2, '0') + "/" +
+                                String(date.getMonth() + 1).padStart(2, '0') + "/" + String(date.getFullYear()).slice(-2)
                             current_plan["sub_id"] = plan.subscription
                             if (plan.hasOwnProperty("downgrade")) {
                                 current_plan["downgraded"] = true
@@ -111,7 +112,8 @@ window.cancelPlan = async (sub_id) => {
                     })
                     current_plan.active = true
                     let date = new Date(plan.end_date * 1000)
-                    current_plan["end_date"] = String(date.getDate()).padStart(2, '0') + String(date.getMonth() + 1).padStart(2, '0') + String(date.getFullYear()).slice(-2)
+                    current_plan["end_date"] = String(date.getDate()).padStart(2, '0') + "/" +
+                        String(date.getMonth() + 1).padStart(2, '0') + "/" + String(date.getFullYear()).slice(-2)
                     current_plan["sub_id"] = plan.subscription
                     if (plan.hasOwnProperty("downgrade")) {
                         current_plan["downgraded"] = true
@@ -208,7 +210,8 @@ function renderPlans(plans, is_active, sub_id) {
                 })
                 current_plan.active = true
                 let date = new Date(plan.end_date * 1000)
-                current_plan["end_date"] = String(date.getDate()).padStart(2, '0') + String(date.getMonth() + 1).padStart(2, '0') + String(date.getFullYear()).slice(-2)
+                current_plan["end_date"] = String(date.getDate()).padStart(2, '0') + "/" +
+                        String(date.getMonth() + 1).padStart(2, '0') + "/" + String(date.getFullYear()).slice(-2)
                 current_plan["sub_id"] = plan.subscription
                 if (plan.hasOwnProperty("downgrade")) {
                     current_plan["downgraded"] = plan.downgraded
