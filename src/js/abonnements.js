@@ -172,7 +172,7 @@ function renderPlans(plans, is_active, sub_id) {
                     </div>
                     <a  onclick=${is_active ? `downgradeOrUpgrade('${sub_id}')` :
                     `createCheckout('${plans[i].price_id}')`} class="button subs-change w-inline-block" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;">
-                        <div class="button-text subs">${is_active ? "Abo wechseln " : "Choose this plan"
+                        <div class="button-text subs">${is_active ? "Abo wechseln " : "Wählen Sie diesen Plan"
                 }</div>
                     </a>
                 </div>

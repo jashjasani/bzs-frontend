@@ -21,7 +21,7 @@ function renderPlans(n,t,i){var a,e=document.querySelectorAll(".subs-wrap"),s=e[
                         <span class="price-span" data-moz-translations-id="0">€ ${n[e].price},00</span> / Monat
                     </div>
                     <a  onclick=${t?`downgradeOrUpgrade('${i}')`:`createCheckout('${n[e].price_id}')`} class="button subs-change w-inline-block" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;">
-                        <div class="button-text subs">${t?"Abo wechseln ":"Choose this plan"}</div>
+                        <div class="button-text subs">${t?"Abo wechseln ":"Wählen Sie diesen Plan"}</div>
                     </a>
                 </div>
                 <div class="subs-wrap-inner">
