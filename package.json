@@ -1,11 +1,12 @@
 {
   "name": "bzsscriptfinal",
   "version": "1.0.0",
-  "description": "",
   "main": "LoadmagazineScript.js",
   "scripts": {
+    "build" : "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jashjasani/BzsScriptFinal.git"
@@ -17,6 +18,9 @@
   },
   "homepage": "https://github.com/jashjasani/BzsScriptFinal#readme",
   "dependencies": {
-    "reveal.js": "^5.0.5"
-  }
+    "reveal.js": "^5.0.5",
+    "uglify-js": "^3.17.4"
+  },
+  "keywords": [],
+  "description": ""
 }
