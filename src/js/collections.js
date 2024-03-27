@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const output = await Swal.fire({
             title: "Kollektion bearbeiten",
             showCancelButton: true,
-            confirmButtonText: "Speichern",
-            cancelButtonText: "Kollektion löschen",
+            cancelButtonText: "Speichern",
+            confirmButtonText: "Kollektion löschen",
             showCloseButton: true,
             html: `
             
@@ -113,7 +113,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 ];
             },
         });
-        console.log(output);
         if (output.isConfirmed) {
             fetch(
                 "https://bildzeitschrift.netlify.app/.netlify/functions/collection",
@@ -184,7 +183,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     }
                 }
             });
-        } else if (output.isDismissed && output.dismiss == "cancel") {
+        } else if (output.isConfirmed) {
             fetch(
                 `https://bildzeitschrift.netlify.app/.netlify/functions/collection?name=${name}`,
                 {
@@ -313,9 +312,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             const output = await Swal.fire({
                 title: "Neue Kollektion",
                 showCancelButton: true,
-                cancelButtonText: "Erstellen",
+                confirmButtonText: "Erstellen",
                 showCloseButton: true,
-                confirmButtonText : "Abbrechen",
+                cancelButtonText : "Abbrechen",
                 html: `
                 </div>
                 <div class="input-group">
@@ -337,7 +336,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     ];
                 },
             });
-            if (output.isDismissed && output.dismiss == "cancel") {
+            if (output.isConfirmed) {
                 fetch(
                     "https://bildzeitschrift.netlify.app/.netlify/functions/collection",
                     {
