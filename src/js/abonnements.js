@@ -3,10 +3,10 @@ window.downgradeOrUpgrade = async (sub_id) => {
     Swal.fire({
         title: "Möchtest du dein Abonnement wirklich wechseln?",
         showCancelButton: true,
-        confirmButtonText: "Abbrechen",
-        cancelButtonText: "Ja, wechseln"
+        confirmButtonText: "Ja, wechseln",
+        cancelButtonText: "Abbrechen"
     }).then((result) => {
-        if (result.isDismissed && result.hasOwnProperty("dismiss") && result.dismiss == "cancel") {
+        if (result.isConfirmed) {
 
             fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/subscription?upgrade=true&sub=${sub_id}`, {
                 method: "PUT",
