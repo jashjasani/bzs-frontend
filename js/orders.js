@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else {
             document.querySelector(".loading-data-img").style.display = "none";
             document.querySelector(".product-title").innerText =
-                "keine Befehle";
+                "keine Bestellungen vorhanden";
         }
     }
 });

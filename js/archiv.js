@@ -277,11 +277,12 @@ async function renderData(data) {
             btn.addEventListener("click", async (event) => {
 
               let output = await Swal.fire({
-                title: "New Collection",
+                title: "Neue Kollektion",
                 input: "text",
                 inputLabel: "Name",
                 inputPlaceholder: "Name deiner neuen Kollektion",
-                confirmButtonText: "Create",
+                confirmButtonText: "Erstellen",
+                showCloseButton : true,
                 inputValidator: (value) => {
                   if (!value) {
                     return "Name cannot be empty";

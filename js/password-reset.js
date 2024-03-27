@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             Swal.fire({
                 position: "center",
                 icon : "error",
-                title: "Password and confirm password don't match.",
+                title: "Passwort und Bestätigungspasswort stimmen nicht überein",
                 showConfirmButton: false,
                 timer: 1500,
             });
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: "Password changed succesfully.",
+                        title: "Passwort wurde erfolgreich zurückgesetzt",
                         showConfirmButton: false,
                         timer: 2000,
                     });

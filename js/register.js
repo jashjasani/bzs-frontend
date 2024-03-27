@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             Swal.fire({
                 position: "center",
                 icon: "error",
-                title: "Passwords do not match!!",
+                title: "Passwort und Bestätigungspasswort stimmen nicht überein",
                 showConfirmButton: false,
                 timer: 1500
             });

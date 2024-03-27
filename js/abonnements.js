@@ -1,11 +1,12 @@
 
 window.downgradeOrUpgrade = async (sub_id) => {
     Swal.fire({
-        title: "Are you sure you want to switch plan?",
+        title: "Möchtest du dein Abonnement wirklich wechseln?",
         showCancelButton: true,
-        confirmButtonText: "Yes, switch it!"
+        confirmButtonText: "Abbrechen",
+        cancelButtonText: "Ja, wechseln"
       }).then((result) => {
-        if (result.isConfirmed) {
+        if (result.isDismissed && result.hasOwnProperty("dismiss") &&result.dismiss == "cancel") {
 
             fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/subscription?upgrade=true&sub=${sub_id}`,{
                 method : "PUT",
@@ -55,9 +56,10 @@ window.downgradeOrUpgrade = async (sub_id) => {
 window.createCheckout = async (price_id) => {
 
     let confirmation = await Swal.fire({
-        title: "Are you sure you want to buy this plan?",
+        title: "Möchtest du dieses Abonnement bestellen?",
         showCancelButton: true,
-        confirmButtonText: "proceed to checkout"
+        confirmButtonText: "Ja, weiter zur Bestellung",
+        cancelButtonText : "Abbrechen"
       })
     if(confirmation.isConfirmed){
         let checkout = await fetch(`https://bildzeitschrift.netlify.app/.netlify/functions/create_checkout?price_id=${price_id}`, {
@@ -76,10 +78,10 @@ window.createCheckout = async (price_id) => {
 window.cancelPlan = async (sub_id) => {
 
     let confirmation = await Swal.fire({
-        title: "Are you sure you want to cancel this plan?",
+        title: "Bist du sicher, dass du dieses Abonnement kündigen möchtest?",
         showCancelButton: true,
-        cancelButtonText : "No",
-        confirmButtonText: "Yes cancel"
+        cancelButtonText : "Nein",
+        confirmButtonText: "Ja, sofort kündigen"
       })
     if(confirmation.isConfirmed){
 
@@ -152,7 +154,7 @@ function renderPlans(plans, is_active,sub_id){
                 </div>
                 <div class="subs-wrap-inner">
                     <p class="subs-p">${plans[i].description}</p>
-                    <span>${plans[i].cancel_at_end ? "Cancelled from next month" : `Renews on : ${plans[i].end_date}`}</span>
+                    <span>${plans[i].cancel_at_end ? "Gekündigt" : `Verlängert sich am : ${plans[i].end_date}`}</span>
                 </div>
             </div>`
             active.insertAdjacentHTML("beforeend", html)
@@ -162,12 +164,12 @@ function renderPlans(plans, is_active,sub_id){
                 <div class="subs-wrap-inner">
                     <h3 class="subs-head">${plans[i].name}</h3>
                     <div>
-                        <span class="price-span" data-moz-translations-id="0">€ ${plans[i].price},00</span> / month
+                        <span class="price-span" data-moz-translations-id="0">€ ${plans[i].price},00</span> / Monat
                     </div>
                     <a  onclick=${is_active ? `downgradeOrUpgrade('${sub_id}')` : 
                     `createCheckout('${plans[i].price_id}')`} class="button subs-change w-inline-block" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;">
                         <div class="button-text subs">${
-                            is_active ? "Switch to " + plans[i].name : "Choose this plan"
+                            is_active ? "Abo wechseln " : "Choose this plan"
                         }</div>
                     </a>
                 </div>

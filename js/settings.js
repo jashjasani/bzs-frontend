@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
 document.addEventListener("DOMContentLoaded", async (event)=>{
     async function isValidZip(zip, countryCode) {
         try{
@@ -160,7 +158,7 @@ document.addEventListener("DOMContentLoaded", async (event)=>{
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Password & Confirm Password do not match.",
+                    title: "Passwort und Bestätigungspasswort stimmen nicht überein",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -183,7 +181,7 @@ document.addEventListener("DOMContentLoaded", async (event)=>{
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: "Password updated successfully",
+                        title: "Passwort wurde erfolgreich zurückgesetzt",
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -212,4 +210,3 @@ document.addEventListener("DOMContentLoaded", async (event)=>{
     //     console.log(e.message);
     // }
 })
-</script>

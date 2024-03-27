@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if(sessionStorage.getItem("auth")!=null){
         Swal.fire({
             position: "center",
-            title: "You are already logged in.",
+            title: "Du bist bereits eingeloggt.",
             showConfirmButton: false,
             timer: 1500
         }); 
-        this.location.replace("/dein-account");
+        this.location.replace("/archiv");
     }
     
 
@@ -43,16 +43,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Login successful",
+                    title: "Anmeldung erfolgreich",
                     showConfirmButton: false,
                     timer: 1500
                 });
-                location.replace("/dein-account")
+                location.replace("/archiv")
             } else if(res.status==403){
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Invalid credentials",
+                    title: "Ungültige Anmeldeinformationen",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 Swal.fire({
                     position: "center",
                     icon: "info",
-                    title: "You need to verify the email before you can login.",
+                    title: "Sie müssen die E-Mail-Adresse bestätigen, bevor Sie sich anmelden können.",
                     showConfirmButton: false,
                     timer: 1500
                 });

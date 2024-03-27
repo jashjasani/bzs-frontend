@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
         if (res.status == 200) {
             Swal.fire({
                 position: "center",
-                title: "You are already logged in. Change your password from dein-account.",
+                title: "Du bist bereits eingeloggt.",
                 showConfirmButton: false,
                 timer: 2000,
             });
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "You would have recieved an email with password reset link on your registered mail.",
+                    title: "Eine E-Mail mit Link zum Zurücksetzen des Passworts wurde an dich gesendet.",
                     showConfirmButton: false,
                     timer: null,
                 });
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "No account with given mail.",
+                    title: "Kein Konto mit angegebener E-Mail.",
                     showConfirmButton: false,
                     timer: 1500,
                 });

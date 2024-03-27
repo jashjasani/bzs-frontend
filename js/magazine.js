@@ -82,11 +82,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     window.createCollection = async(event)=>{
 
         let output = await Swal.fire({
-            title: "New Collection",
+            title: "Neue Kollektion",
             input: "text",
             inputLabel: "Name",
             inputPlaceholder: "Name deiner neuen Kollektion",
-            confirmButtonText: "Create",
+            confirmButtonText: "Erstellen",
             inputValidator: (value) => {
                 if (!value) {
                     return "Name cannot be empty";
