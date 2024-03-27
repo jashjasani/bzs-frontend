@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const output = await Swal.fire({
             title: "Kollektion bearbeiten",
             showCancelButton: true,
-            cancelButtonText: "Speichern",
-            confirmButtonText: "Kollektion löschen",
+            confirmButtonText: "Save",
+            cancelButtonText: "Delete Collection",
             showCloseButton: true,
             html: `
             
@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 ];
             },
         });
+        console.log(output);
         if (output.isConfirmed) {
             fetch(
                 "https://bildzeitschrift.netlify.app/.netlify/functions/collection",
@@ -183,7 +184,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     }
                 }
             });
-        } else if (output.isConfirmed) {
+        } else if (output.isDismissed && output.dismiss == "cancel") {
             fetch(
                 `https://bildzeitschrift.netlify.app/.netlify/functions/collection?name=${name}`,
                 {
@@ -247,10 +248,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         }
         let output = await Swal.fire({
-            title: "Titelbild auswählen",
+            title: "Change your cover image",
             showCancelButton: true,
             showConfirmButton: false,
-            cancelButtonText: "Abbrechen",
+            cancelButtonText: "Cancel",
             width: 899,
             html: `
             
@@ -312,9 +313,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             const output = await Swal.fire({
                 title: "Neue Kollektion",
                 showCancelButton: true,
-                confirmButtonText: "Erstellen",
-                showCloseButton: true,
+                confirmButtonText: "Speichern",
                 cancelButtonText : "Abbrechen",
+                showCloseButton: true,
                 html: `
                 </div>
                 <div class="input-group">
