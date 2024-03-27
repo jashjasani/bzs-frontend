@@ -315,6 +315,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 showCancelButton: true,
                 confirmButtonText: "Erstellen",
                 showCloseButton: true,
+                cancelButtonText : "Abbrechen",
                 html: `
                 </div>
                 <div class="input-group">
