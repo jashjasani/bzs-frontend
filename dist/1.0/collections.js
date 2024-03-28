@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded",async function(){var t;let a=await 
                         </div>
                     </a>
                 </div>
-                `;e.insertAdjacentHTML("beforeend",l),document.querySelector(".produvt-img-wrapper.w-inline-block").remove();e=document.getElementById("Filter-Kollektionen");e.value="",e.addEventListener("change",e=>{var t=document.querySelector(".w-layout-grid.collections_grid"),i=Array.from(t.children);console.log(i),n(e.target.value,i,t)}),null!=t&&"Inspiration"==t.plan&&document.querySelector(".button.new-collection.w-inline-block").addEventListener("click",async function(){const a=await Swal.fire({title:"Neue Kollektion",showCancelButton:!0,confirmButtonText:"Speichern",cancelButtonText:"Abbrechen",showCloseButton:!0,html:`
+                `;e.insertAdjacentHTML("beforeend",l),document.querySelector(".produvt-img-wrapper.w-inline-block").remove();e=document.getElementById("Filter-Kollektionen");e.value="",e.addEventListener("change",e=>{var t=document.querySelector(".w-layout-grid.collections_grid"),i=Array.from(t.children);console.log(i),n(e.target.value,i,t)}),null!=t&&"Inspiration"==t.plan&&document.querySelector(".button-collection.new-collection.w-inline-block").addEventListener("click",async function(){const a=await Swal.fire({title:"Neue Kollektion",showCancelButton:!0,confirmButtonText:"Speichern",cancelButtonText:"Abbrechen",showCloseButton:!0,html:`
                 </div>
                 <div class="input-group">
                 <label for="name" class="input-label">Name*</label>

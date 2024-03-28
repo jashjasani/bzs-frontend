@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         sortArrAndAppend(event.target.value, array, grid);
     });
     if (subscription != null && subscription.plan == "Inspiration") {
-        document.querySelector(".button.new-collection.w-inline-block").addEventListener("click", async function () {
+        document.querySelector(".button-collection.new-collection.w-inline-block").addEventListener("click", async function () {
             const output = await Swal.fire({
                 title: "Neue Kollektion",
                 showCancelButton: true,
