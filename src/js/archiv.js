@@ -862,7 +862,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     q.addEventListener("mouseup", loadFData);
   }
   const search = document.getElementsByClassName("search-field w-input")[0];
+  search.addEventListener("keypress", (event) => {
+    if (event.key == "Enter") {
+      loadFData(event);
+    }
 
+  });
   sortToggle.addEventListener("click", () => {
     if (sort_random == "false") {
       sort_random = "true";
@@ -882,16 +887,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.cookie = "selection_exclude=" + selection_excluding + ";";
     loadFData();
   });
-
-  search.addEventListener("keypress", (event) => {
-    if (event.key == "Enter") {
-      loadFData(event);
-    }
-
-  });
-
-
-
-
 
 });
