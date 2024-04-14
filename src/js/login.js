@@ -17,12 +17,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let form = document.getElementById("email-form");
     form.addEventListener("submit", handlerCallback, true);
     async function handlerCallback(event) {
-        
+        await event.preventDefault();
+        await event.stopPropagation();
         let loginBtn = document.getElementById("login-btn")
         loginBtn.value = "Einen Moment bitte..."
         loginBtn.style.backgroundColor = "#82736b"
-        event.preventDefault();
-        event.stopPropagation();
+        
         const email = document.getElementById("email").value;
         const password = document.getElementById("Passwort").value;
         
