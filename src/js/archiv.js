@@ -786,7 +786,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let sort_random = "true";
   let selection_excluding = "false"
   const sortToggle = document.getElementsByClassName("random-switch")[0];
-  const selectionExclude = document.getElementsByClassName("random-switch")[1];
+  // const selectionExclude = document.getElementsByClassName("random-switch")[1];
 
   const toggle = document.getElementsByClassName("toggle")[0];
   
@@ -803,18 +803,19 @@ document.addEventListener("DOMContentLoaded", async function () {
       })
     })
   }
-  if(getC("selection_exclude")!= ""){
-    selection_excluding = getC("selection_exclude")
-  } else {
-    document.cookie = "selection_exclude=" +  selection_excluding + ";"
-  }
+  // if(getC("selection_exclude")!= ""){
+  //   selection_excluding = getC("selection_exclude")
+  // } else {
+  //   document.cookie = "selection_exclude=" +  selection_excluding + ";"
+  // }
 
 
   if (sort_random == "false") {
     sortToggle.click();
-  } if(selection_excluding == "true"){
-    selectionExclude.click()
-  }
+  } 
+  // if(selection_excluding == "true"){
+  //   selectionExclude.click()
+  // }
 
   const currentTime = new Date().getTime();
   const cookieExpire = new Date(currentTime + 600000);
@@ -889,14 +890,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     loadFData();
   });
 
-  selectionExclude.addEventListener("click", () => {
-    if (selection_excluding == "false") {
-      selection_excluding = "true";
-    } else {
-      selection_excluding = "false";
-    }
-    document.cookie = "selection_exclude=" + selection_excluding + ";";
-    loadFData();
-  });
+  // selectionExclude.addEventListener("click", () => {
+  //   if (selection_excluding == "false") {
+  //     selection_excluding = "true";
+  //   } else {
+  //     selection_excluding = "false";
+  //   }
+  //   document.cookie = "selection_exclude=" + selection_excluding + ";";
+  //   loadFData();
+  // });
 
 });
