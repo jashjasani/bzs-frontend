@@ -687,11 +687,6 @@ async function loadFData(e) {
   }
   setTimeout(async () => {
     await (async () => {
-      if(document.querySelectorAll(".tag_wrap").length>0){
-        document.querySelectorAll(".tag_wrap")[document.querySelectorAll(".tag_wrap").length-1].addEventListener("click", ()=>{
-          loadFData()
-        })
-      }
       const url = window.location.href;
       const getQuery = url.split("?")[1];
       let queryCookie = "";
@@ -789,7 +784,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let selection_excluding = "false"
   const sortToggle = document.getElementsByClassName("random-switch")[0];
   // const selectionExclude = document.getElementsByClassName("random-switch")[1];
-  console.log(document.querySelectorAll(".tag_wrap"));
+  document.querySelector(".results-tag_wrapper").addEventListener("mouseup", loadFData)
   const toggle = document.getElementsByClassName("toggle")[0];
   
   if (getC("sort_random") != "") {
@@ -831,10 +826,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       cookieExpire.toUTCString();
   }
   await loadFData();
-  const tags = document.getElementsByClassName("tag_wrap")
-  for(t of tags){
-    t.addEventListener("mouseup", loadFData)
-  }
+  
   
 
 
