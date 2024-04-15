@@ -760,6 +760,8 @@ async function loadFData(e) {
             button.click();
           }
           if (plan == null || plan.end_date < Math.floor(Date.now() / 1000) ) {
+            const search = document.getElementsByClassName("search-field w-input")[0];
+            search.remove()
             const dropdowns = document.querySelectorAll(".w-dropdown-toggle")
             const single_dropdowns = document.querySelectorAll(".filter-dropdown.single")
             for (let i = 6; i < dropdowns.length; i++) {
@@ -796,13 +798,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.cookie = "sort_random=" + sort_random + ";";
   }
 
-  if(document.querySelectorAll(".tag_wrap").length>0){
-    document.querySelectorAll(".tag_wrap").forEach((e)=>{
-      e.addEventListener("click", ()=>{
-        loadFData()
-      })
-    })
-  }
+  
   // if(getC("selection_exclude")!= ""){
   //   selection_excluding = getC("selection_exclude")
   // } else {
@@ -835,7 +831,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       cookieExpire.toUTCString();
   }
   await loadFData();
-
+  if(document.querySelectorAll(".tag_wrap").length>0){
+    document.querySelectorAll(".tag_wrap").forEach((e)=>{
+      console.log(e);
+      e.addEventListener("click", ()=>{
+        loadFData()
+      })
+    })
+  }
 
 
 
