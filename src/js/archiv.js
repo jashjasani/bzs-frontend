@@ -688,7 +688,7 @@ async function loadFData(e) {
   setTimeout(async () => {
     await (async () => {
       if(document.querySelectorAll(".tag_wrap").length>0){
-        document.querySelectorAll(".tag_wrap")[document.querySelectorAll(".tag_wrap").length-1].addEventListener("mouseup", ()=>{
+        document.querySelectorAll(".tag_wrap")[document.querySelectorAll(".tag_wrap").length-1].addEventListener("click", ()=>{
           loadFData()
         })
       }
@@ -789,7 +789,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let selection_excluding = "false"
   const sortToggle = document.getElementsByClassName("random-switch")[0];
   // const selectionExclude = document.getElementsByClassName("random-switch")[1];
-
+  console.log(document.querySelectorAll(".tag_wrap"));
   const toggle = document.getElementsByClassName("toggle")[0];
   
   if (getC("sort_random") != "") {
