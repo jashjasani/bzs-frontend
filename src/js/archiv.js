@@ -789,14 +789,20 @@ document.addEventListener("DOMContentLoaded", async function () {
   const selectionExclude = document.getElementsByClassName("random-switch")[1];
 
   const toggle = document.getElementsByClassName("toggle")[0];
-
+  
   if (getC("sort_random") != "") {
     sort_random = getC("sort_random");
   } else {
     document.cookie = "sort_random=" + sort_random + ";";
   }
 
-
+  if(document.querySelectorAll(".tag_wrap")){
+    document.querySelectorAll(".tag_wrap").forEach((e)=>{
+      e.addEventListener("click", ()=>{
+        loadFData()
+      })
+    })
+  }
   if(getC("selection_exclude")!= ""){
     selection_excluding = getC("selection_exclude")
   } else {
