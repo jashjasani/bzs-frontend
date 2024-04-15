@@ -831,13 +831,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       cookieExpire.toUTCString();
   }
   await loadFData();
-  if(document.querySelectorAll(".tag_wrap").length>0){
-    document.querySelectorAll(".tag_wrap").forEach((e)=>{
-      console.log(e);
-      e.addEventListener("click", ()=>{
-        loadFData()
+  let tags = document.querySelectorAll(".tag_wrap")
+  if(tags.length>0){
+    for(let i=0;i<tags.length;i++){
+      tags[i].addEventListener("click", async ()=>{
+        await loadFData()
       })
-    })
+    }
   }
 
 
