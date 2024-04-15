@@ -687,9 +687,11 @@ async function loadFData(e) {
   }
   setTimeout(async () => {
     await (async () => {
-      document.querySelectorAll(".tag_wrap")[document.querySelectorAll(".tag_wrap").length-1].addEventListener("click", ()=>{
-        loadFData()
-      })
+      if(document.querySelectorAll(".tag_wrap")){
+        document.querySelectorAll(".tag_wrap")[document.querySelectorAll(".tag_wrap").length-1].addEventListener("click", ()=>{
+          loadFData()
+        })
+      }
       const url = window.location.href;
       const getQuery = url.split("?")[1];
       let queryCookie = "";
