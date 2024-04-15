@@ -688,7 +688,7 @@ async function loadFData(e) {
   setTimeout(async () => {
     await (async () => {
       if(document.querySelectorAll(".tag_wrap").length>0){
-        document.querySelectorAll(".tag_wrap")[document.querySelectorAll(".tag_wrap").length-1].addEventListener("click", ()=>{
+        document.querySelectorAll(".tag_wrap")[document.querySelectorAll(".tag_wrap").length-1].addEventListener("mouseup", ()=>{
           loadFData()
         })
       }
@@ -831,14 +831,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       cookieExpire.toUTCString();
   }
   await loadFData();
-  let tags = document.querySelectorAll(".tag_wrap")
-  if(tags.length>0){
-    for(let i=0;i<tags.length;i++){
-      tags[i].addEventListener("click", async ()=>{
-        await loadFData()
-      })
-    }
+  const tags = document.getElementsByClassName("tag_wrap")
+  for(t of tags){
+    t.addEventListener("mouseup", loadFData)
   }
+  
 
 
 
