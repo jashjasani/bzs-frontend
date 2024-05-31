@@ -1,23 +1,13 @@
 document.addEventListener("DOMContentLoaded", async function (event) {
     // check if user is already logged in
-    fetch("https://bildzeitschrift.netlify.app/.netlify/functions/check", {
-        method: "GET",
-        headers : {
-            "Authorization" : sessionStorage.getItem("auth")
-        }
-    }).then((res) => {
-        if (res.status == 200) {
-            Swal.fire({
+    if(sessionStorage.getItem("auth")){
+        Swal.fire({
                 position: "center",
-                title: "Du bist bereits eingeloggt.",
+                title: "You are already logged in.",
                 showConfirmButton: false,
-                timer: 2000,
-            });
-            setTimeout(() => {
-                this.location.replace("/dein-account");
-            }, 2000);
-        }
-    });
+                timer: 1500
+            }); 
+    }
 
     let form = document.getElementById("pass-form");
     form.addEventListener("submit", handlerCallback, true);

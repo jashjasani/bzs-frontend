@@ -9,23 +9,14 @@
 //     }
 //   }
 document.addEventListener("DOMContentLoaded", function (event) {
-
-    fetch("https://bildzeitschrift.netlify.app/.netlify/functions/check", {
-        method : "GET",
-        headers : {
-            "Authorization" : sessionStorage.getItem("auth")
-        }
-    }).then((res)=>{
-        if(res.status==200){
-            Swal.fire({
+    if(sessionStorage.getItem("auth")){
+        Swal.fire({
                 position: "center",
                 title: "You are already logged in.",
                 showConfirmButton: false,
                 timer: 1500
             }); 
-            //this.location.replace("/dein-account")
-        }
-    })
+    }
 
     let form = document.getElementById("email-form");
     form.addEventListener("submit", handlerCallback, true);
