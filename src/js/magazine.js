@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (regExp.test(data.product.Preis) || data.product.Preis == 0) {
             await addCollectionButton()
             const priceIndicator = document.getElementsByClassName("price-wrapper")[0];
-            priceIndicator.style.display = 'flex';
+            priceIndicator.style.display = 'none';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.getElementsByClassName("button-text")[0].innerText = "Kontakt for preis"
             addButton.addEventListener("click", async (event)=>{
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         }
                     })
                     await Swal.fire({
-                        title: "Kontaktformular",
+                        title: "Anfrage",
                         input: "text",
                         inputLabel: "E-Mail",
                         inputPlaceholder: "johndoe@gmail.com",
