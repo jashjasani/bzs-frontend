@@ -228,7 +228,59 @@ document.addEventListener("DOMContentLoaded", async function () {
             const priceIndicator = document.getElementsByClassName("price-wrapper")[0];
             priceIndicator.style.display = 'none';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
-            addButton.style.display = 'none';
+            addButton.getElementsByClassName("button-text")[0].innerText = "Kontakt for preis"
+            addButton.addEventListener("click", async (event)=>{
+                event.preventDefault()
+                let output = null
+                if(sessionStorage.getItem("auth")==null){
+                    output = await Swal.fire({
+                        title: "Kontaktformular",
+                        input: "text",
+                        inputLabel: "E-Mail",
+                        inputPlaceholder: "johndoe@gmail.com",
+                        confirmButtonText: "Anfrage senden",
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return "E-Mail darf nicht leer sein";
+                            }
+                        },
+                    });
+                    await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
+                        method: "POST",
+                        body : {
+                            "email" : output.value,
+                            "product" : location.href
+                        }
+                    })
+                } else {
+                    await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
+                        method: "POST",
+                        headers : {
+                            Authorization : sessionStorage.getItem("auth")
+                        },
+                        body : {
+                            "product" : location.href
+                        }
+                    })
+                    await Swal.fire({
+                        title: "Kontaktformular",
+                        input: "text",
+                        inputLabel: "E-Mail",
+                        inputPlaceholder: "johndoe@gmail.com",
+                        confirmButtonText: "Anfrage senden",
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return "E-Mail darf nicht leer sein";
+                            }
+                        },
+                    });
+
+                }
+                
+                
+                
+            })
+            // addButton.style.display = 'none';
 
         } else {
             await addCollectionButton()
