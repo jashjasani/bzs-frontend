@@ -247,10 +247,10 @@ document.addEventListener("DOMContentLoaded", async function () {
                     });
                     await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
                         method: "POST",
-                        body : {
+                        body : JSON.stringify({
                             "email" : output.value,
                             "product" : location.href
-                        }
+                        })
                     })
                 } else {
                     await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
@@ -258,9 +258,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                         headers : {
                             Authorization : sessionStorage.getItem("auth")
                         },
-                        body : {
+                        body : JSON.stringify({
                             "product" : location.href
-                        }
+                        })
                     })
                     await Swal.fire({
                         title: "Anfrage",
