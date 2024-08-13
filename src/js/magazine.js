@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (regExp.test(data.product.Preis) || data.product.Preis == 0) {
             await addCollectionButton()
             const priceIndicator = document.getElementsByClassName("price-wrapper")[0];
-            priceIndicator.style.display = 'none';
+            priceIndicator.style.display = 'flex';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.getElementsByClassName("button-text")[0].innerText = "Kontakt for preis"
             addButton.addEventListener("click", async (event)=>{
@@ -234,11 +234,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                 let output = null
                 if(sessionStorage.getItem("auth")==null){
                     output = await Swal.fire({
-                        title: "Kontaktformular",
+                        title: "Anfrage",
                         input: "text",
                         inputLabel: "E-Mail",
                         inputPlaceholder: "johndoe@gmail.com",
-                        confirmButtonText: "Anfrage senden",
+                        confirmButtonText: "Senden",
                         inputValidator: (value) => {
                             if (!value) {
                                 return "E-Mail darf nicht leer sein";
