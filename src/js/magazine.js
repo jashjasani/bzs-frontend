@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 
                 
             })
-            // addButton.style.display = 'none';
+            addButton.style.display = 'flex';
 
         } else {
             await addCollectionButton()
