@@ -98,21 +98,24 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             case "Fifth":
                 array.sort((a, b) => {
-                    const jahr_a = Number(a.getAttribute("jahr"))
-                    const jahr_b = Number(b.getAttribute("jahr"))
-                    const monat_a = months[a.getAttribute("monat")]
-                    const monat_b = months[b.getAttribute("monat")]
-                    const title_a = a.getAttribute("name")
-                    const title_b = b.getAttribute("name")
-                    if (jahr_a == jahr_b) {
-                        if (monat_a == monat_b) {
-                            return title_a.localeCompare(title_b)
-                        } else {
-                            return monat_a > monat_b
-                        }
-                    } else {
-                        return jahr_a > jahr_b
+                    const jahr_a = Number(a.getAttribute("jahr"));
+                    const jahr_b = Number(b.getAttribute("jahr"));
+                    const monat_a = months[a.getAttribute("monat")];
+                    const monat_b = months[b.getAttribute("monat")];
+                    const title_a = a.getAttribute("name");
+                    const title_b = b.getAttribute("name");
+                
+                    // Compare years
+                    if (jahr_a !== jahr_b) {
+                        return jahr_a - jahr_b; // Ascending order by year
+                    } 
+                    // If years are the same, compare months
+                    if (monat_a !== monat_b) {
+                        // Assuming months object has month names as keys and their order as values
+                        return monat_a - monat_b; // Ascending order by month
                     }
+                    // If months are the same, compare titles
+                    return title_a.localeCompare(title_b); // This already returns -1, 0, or 1
                 });
                 grid.innerHTML = "";
                 for (const i of array) {
@@ -121,21 +124,26 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             case "Sixth":
                 array.sort((a, b) => {
-                    const jahr_a = a.getAttribute("jahr")
-                    const jahr_b = b.getAttribute("jahr")
-                    const monat_a = months[a.getAttribute("monat")]
-                    const monat_b = months[b.getAttribute("monat")]
-                    const title_a = a.getAttribute("name")
-                    const title_b = b.getAttribute("name")
-                    if (jahr_a == jahr_b) {
-                        if (monat_a == monat_b) {
-                            return title_b.localeCompare(title_a)
-                        } else {
-                            return monat_b > monat_a
-                        }
-                    } else {
-                        return jahr_b > jahr_a
+                    const jahr_a = Number(a.getAttribute("jahr"));
+                    const jahr_b = Number(b.getAttribute("jahr"));
+                    const monat_a = months[a.getAttribute("monat")];
+                    const monat_b = months[b.getAttribute("monat")];
+                    const title_a = a.getAttribute("name");
+                    const title_b = b.getAttribute("name");
+                
+                    // Compare years - descending order
+                    if (jahr_a !== jahr_b) {
+                        return jahr_b - jahr_a; // Descending order by year
+                    } 
+                    // If years are the same, compare months - descending order
+                    if (monat_a !== monat_b) {
+                        // Assuming months object has month names as keys and their order as values,
+                        // reverse the order for descending
+                        return monat_b - monat_a; // Descending order by month
                     }
+                    // If months are the same, compare titles - we'll reverse this too for consistency,
+                    // though localeCompare naturally handles ascending order
+                    return title_b.localeCompare(title_a); // Descending order for titles
                 });
                 grid.innerHTML = "";
                 for (const i of array) {
