@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const preimage = "https://res.cloudinary.com/wdy-bzs/image/upload/images/"
                 const str = ``
                 for (const i = 0; i < res.items.length; i++) {
-                    const img = res.items[i].replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
-                    str += `<a href="https://www.bildzeitschrift.com/magazine?productId=${res.items[i]}" class="item-link w-inline-block" randid=${i} sku="${res.items[i]}" jahr=${response[i].Jahr} name="${response[i].Name}" monat="${response[i].Monat}">
+                    const img = res.collection.items[i].replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
+                    str += `<a href="https://www.bildzeitschrift.com/magazine?productId=${res.collection.items[i]}" class="item-link w-inline-block" randid=${i} sku="${res.collection.items[i]}" jahr="${res.resolved[i].Jahr}" name="${res.resolved[i].Name}" monat="${res.resolved[i].Monat}">
                 <img src="${preimage + img}"  style="height: -webkit-fill-available; width: -webkit-fill-available;" loading="lazy" sizes="(max-width: 479px) 86vw, (max-width: 767px) 40vw, (max-width: 991px) 27vw, 21vw" alt="" srcset="${preimage + img} 500w, ${preimage + img} 800w,${preimage + img} 1080w, ${preimage + img} 1536w," class="single-collection-img"></a>`
                 }
                 document.querySelector(".produvt-img-wrapper.w-inline-block").remove();
@@ -101,8 +101,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             case "Fifth":
                 array.sort((a, b) => {
-                    const jahr_a = a.getAttribute("jahr")
-                    const jahr_b = b.getAttribute("jahr")
+                    const jahr_a = Number(a.getAttribute("jahr"))
+                    const jahr_b = Number(b.getAttribute("jahr"))
                     const monat_a = months[a.getAttribute("monat")]
                     const monat_b = months[b.getAttribute("monat")]
                     const title_a = a.getAttribute("name")
