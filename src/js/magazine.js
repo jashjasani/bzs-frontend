@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                             }
                         },
                     });
-                    if(output.value!=null){
+                    if(output.hasOwnProperty("value")){
                         let res = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
                             method: "POST",
                             body : JSON.stringify({
