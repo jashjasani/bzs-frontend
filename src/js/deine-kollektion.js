@@ -12,9 +12,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         }).then(res => res.json())
             .then((res) => {
-                let response = res.resolved
-                res = res.collection
-                
                 
 
                 wrapper.innerHTML = ""
