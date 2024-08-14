@@ -245,15 +245,24 @@ document.addEventListener("DOMContentLoaded", async function () {
                             }
                         },
                     });
-                    await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
+                    let res = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
                         method: "POST",
                         body : JSON.stringify({
                             "email" : output.value,
                             "product" : location.href
                         })
                     })
+                    if (res.ok){
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Your inquiry was sent to BZS",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 } else {
-                    await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
+                    let res = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
                         method: "POST",
                         headers : {
                             Authorization : sessionStorage.getItem("auth")
@@ -262,19 +271,15 @@ document.addEventListener("DOMContentLoaded", async function () {
                             "product" : location.href
                         })
                     })
-                    await Swal.fire({
-                        title: "Anfrage",
-                        input: "text",
-                        inputLabel: "E-Mail",
-                        inputPlaceholder: "johndoe@gmail.com",
-                        confirmButtonText: "Anfrage senden",
-                        inputValidator: (value) => {
-                            if (!value) {
-                                return "E-Mail darf nicht leer sein";
-                            }
-                        },
-                    });
-
+                    if (res.ok){
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Your inquiry was sent to BZS",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 }
                 
                 
