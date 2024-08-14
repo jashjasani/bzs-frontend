@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 wrapper.innerHTML = ""
                 const preimage = "https://res.cloudinary.com/wdy-bzs/image/upload/images/"
-                const str = ``
+                let str = ``
                 for (const i = 0; i < res.collection.items.length; i++) {
                     const img = res.collection.items[i].replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
                     str += `<a href="https://www.bildzeitschrift.com/magazine?productId=${res.collection.items[i]}" class="item-link w-inline-block" randid=${i} sku="${res.collection.items[i]}" jahr="${res.resolved[i].Jahr}" name="${res.resolved[i].Name}" monat="${res.resolved[i].Monat}">
