@@ -245,22 +245,25 @@ document.addEventListener("DOMContentLoaded", async function () {
                             }
                         },
                     });
-                    let res = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
-                        method: "POST",
-                        body : JSON.stringify({
-                            "email" : output.value,
-                            "product" : location.href
+                    if(output.value!=null){
+                        let res = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
+                            method: "POST",
+                            body : JSON.stringify({
+                                "email" : output.value,
+                                "product" : location.href
+                            })
                         })
-                    })
-                    if (res.ok){
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "Your inquiry was sent to BZS",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
+                        if (res.ok){
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Your inquiry was sent to BZS",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
                     }
+                    
                 } else {
                     let res = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
                         method: "POST",
