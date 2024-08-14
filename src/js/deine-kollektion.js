@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 wrapper.innerHTML = ""
                 const preimage = "https://res.cloudinary.com/wdy-bzs/image/upload/images/"
                 const str = ``
-                for (const i = 0; i < res.items.length; i++) {
+                for (const i = 0; i < res.collection.items.length; i++) {
                     const img = res.collection.items[i].replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
                     str += `<a href="https://www.bildzeitschrift.com/magazine?productId=${res.collection.items[i]}" class="item-link w-inline-block" randid=${i} sku="${res.collection.items[i]}" jahr="${res.resolved[i].Jahr}" name="${res.resolved[i].Name}" monat="${res.resolved[i].Monat}">
                 <img src="${preimage + img}"  style="height: -webkit-fill-available; width: -webkit-fill-available;" loading="lazy" sizes="(max-width: 479px) 86vw, (max-width: 767px) 40vw, (max-width: 991px) 27vw, 21vw" alt="" srcset="${preimage + img} 500w, ${preimage + img} 800w,${preimage + img} 1080w, ${preimage + img} 1536w," class="single-collection-img"></a>`
