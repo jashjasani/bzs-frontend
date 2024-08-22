@@ -85,6 +85,7 @@ async function renderData(data) {
         new URL(document.baseURI).origin + "/magazine?productId=" + q.SKU;
       productImgWrapper.className = "produvt-img-wrapper w-inline-block";
       productImgWrapper.id = q.SKU
+      productImgWrapper.style.zIndex = "0"
       //img element creation
       var img = document.createElement("img");
       img.className = "product-img";
