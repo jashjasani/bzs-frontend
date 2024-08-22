@@ -411,16 +411,7 @@ async function renderData(data) {
       if(q.Bewertung == "Special"){
         const special_img = document.createElement("img")
         special_img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/special_icon";
-
-        // Set CSS styles for the image
-        special_img.style.zIndex = "999";
-        special_img.style.position = "absolute";
-        special_img.style.top = "-1vw";
-        special_img.style.left = "0.5vw";
-
-        // Set the width of the image using CSS styles
-        special_img.style.width = "25vw";
-        special_img.style.height = "25vw"
+        special_img.className = "special-img"
         productWrapper.append(special_img)
       }
       productWrapper.append(productImgWrapper);

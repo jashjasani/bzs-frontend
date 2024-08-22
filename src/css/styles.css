@@ -87,6 +87,15 @@ button {
     border: none;
 }
 
+.special-img {
+	z-index: 999;
+	position: absolute;
+	top: -1.5vw;
+	left: 0.5vw;
+	width: 32px;
+	height: 32px;
+}
+
 @media (max-width: 1180px) {
     .btn-specihern {
         position: absolute;
@@ -168,6 +177,14 @@ button {
         white-space: nowrap; /* Prevent text wrapping */
         overflow: hidden; /* Hide overflowing content */
         text-overflow: ellipsis;
+    }
+    .special-img {
+        z-index: 999;
+        position: absolute;
+        top: -3vw;
+        left: -2vw;
+        width: 25px;
+        height: 25px;
     }
 }
 
