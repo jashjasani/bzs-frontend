@@ -79,13 +79,13 @@ async function renderData(data) {
       let productWrapper = document.createElement("div");
       productWrapper.className = "archive-col-item w-dyn-item w-col w-col-3";
       //image wraper link creation
-      productWrapper.style = "position:relative;"
       var productImgWrapper = document.createElement("a");
       productImgWrapper.href =
         new URL(document.baseURI).origin + "/magazine?productId=" + q.SKU;
       productImgWrapper.className = "produvt-img-wrapper w-inline-block";
       productImgWrapper.id = q.SKU
       productImgWrapper.style.zIndex = "0"
+      productImgWrapper.style.position = "relative"
       //img element creation
       var img = document.createElement("img");
       img.className = "product-img";
@@ -406,14 +406,14 @@ async function renderData(data) {
       decade.className = "decade";
 
       issueWrapper.append(month, dateDivider, year, decade);
-
-      productImgWrapper.append(img, save, dropdown, title, issueWrapper);
       if(q.Bewertung == "Special"){
         const special_img = document.createElement("img")
         special_img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/special_icon";
         special_img.className = "special-img"
-        productWrapper.append(special_img)
+        productImgWrapper.append(special_img)
       }
+      productImgWrapper.append(img, save, dropdown, title, issueWrapper);
+      
       productWrapper.append(productImgWrapper);
       productWrapper.setAttribute("role", "listitem");
       fragment.append(productWrapper);
