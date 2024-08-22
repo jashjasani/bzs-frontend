@@ -409,10 +409,17 @@ async function renderData(data) {
       productImgWrapper.append(img, save, dropdown, title, issueWrapper);
       if(q.Bewertung == "Special"){
         const special_img = document.createElement("img")
-        special_img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/special_icon"
-        special_img.style = "z-index:999;position: absolute;top: -1vw; left: 0.5vw;"
-        special_img.src = "25vw"
-        special_img.width = "25vw"
+        special_img.src = "https://res.cloudinary.com/wdy-bzs/image/upload/v1661106376/asset/special_icon";
+
+        // Set CSS styles for the image
+        special_img.style.zIndex = "999";
+        special_img.style.position = "absolute";
+        special_img.style.top = "-1vw";
+        special_img.style.left = "0.5vw";
+
+        // Set the width of the image using CSS styles
+        special_img.style.width = "25vw";
+        special_img.style.height = "25vw"
         productWrapper.append(special_img)
       }
       productWrapper.append(productImgWrapper);
