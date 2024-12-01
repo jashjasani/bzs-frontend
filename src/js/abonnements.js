@@ -23,8 +23,8 @@ window.downgradeOrUpgrade = async (sub_id) => {
                         },
                     }).then(async (result) => {
                         let PLANS = [
-                            { name: "Starter", price: 5, active: false, description: "Das Starter Abo erlaubt es dir, den Filter zur Gänze zu nutzen und somit das Archiv bis ins letzte Details filtern zu können.", price_id: "price_1OsJmuSA2e71Dz91jqdMYH0V" },
-                            { name: "Inspiration", price: 8, active: false, description: "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id: "price_1OqG9PSA2e71Dz91HaJFV0xb" }
+                            { name: "Starter", price: 5, active: false, description: "Das Starter Abo erlaubt es dir, den Filter zur Gänze zu nutzen und somit das Archiv bis ins letzte Details filtern zu können.", price_id: "price_1QRCUVKZkpV6xPaVju1OKPZ8" },
+                            { name: "Inspiration", price: 8, active: false, description: "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id: "price_1QRCV4KZkpV6xPaVLe4ZLClw" }
                         ]
                         const active_plan = await result.json()
                         if (active_plan.plan) {
@@ -101,8 +101,8 @@ window.cancelPlan = async (sub_id) => {
                 },
             }).then(async (result) => {
                 let PLANS = [
-                    { name: "Starter", price: 5, active: false, description: "Das Starter Abo erlaubt es dir, den Filter zur Gänze zu nutzen und somit das Archiv bis ins letzte Details filtern zu können.", price_id: "price_1OsJmuSA2e71Dz91jqdMYH0V" },
-                    { name: "Inspiration", price: 8, active: false, description: "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id: "price_1OqG9PSA2e71Dz91HaJFV0xb" }
+                    { name: "Starter", price: 5, active: false, description: "Das Starter Abo erlaubt es dir, den Filter zur Gänze zu nutzen und somit das Archiv bis ins letzte Details filtern zu können.", price_id: "price_1QRCUVKZkpV6xPaVju1OKPZ8" },
+                    { name: "Inspiration", price: 8, active: false, description: "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id: "price_1QRCV4KZkpV6xPaVLe4ZLClw" }
                 ]
                 const active_plan = await result.json()
                 if (active_plan.plan) {
@@ -190,8 +190,8 @@ function renderPlans(plans, is_active, sub_id) {
 (async () => {
 
     let PLANS = [
-        { name: "Starter", price: 5, active: false, description: "Das Starter Abo erlaubt es dir, den Filter zur Gänze zu nutzen und somit das Archiv bis ins letzte Details filtern zu können.", price_id: "price_1OsJmuSA2e71Dz91jqdMYH0V" },
-        { name: "Inspiration", price: 8, active: false, description: "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id: "price_1OqG9PSA2e71Dz91HaJFV0xb" }
+        { name: "Starter", price: 5, active: false, description: "Das Starter Abo erlaubt es dir, den Filter zur Gänze zu nutzen und somit das Archiv bis ins letzte Details filtern zu können.", price_id: "price_1QRCUVKZkpV6xPaVju1OKPZ8" },
+        { name: "Inspiration", price: 8, active: false, description: "In diesem Abo hast du einerseits die Möglichkeit, den Filter zur Gänze zu nutzen und andererseits deine eigenen Kollektionen von Magazinen zu speichern. Deine Kollektionen kannst du dann auch in einem Präsentationsmodus abspielen.", price_id: "price_1QRCV4KZkpV6xPaVLe4ZLClw" }
     ]
     document.addEventListener("DOMContentLoaded", async () => {
 
