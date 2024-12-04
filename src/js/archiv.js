@@ -99,8 +99,7 @@ async function renderData(data) {
 
 
       // check if logged in 
-      if(true){
-      // if (sessionStorage.getItem("auth") && plan != null && plan.end_date > Math.floor(Date.now() / 1000) && plan.plan == "Inspiration") {
+      if (sessionStorage.getItem("auth") && plan != null && plan.end_date > Math.floor(Date.now() / 1000) && plan.plan == "Inspiration") {
         document.querySelector(".filter-info").style.display = "none"
         dropdown = document.createElement("button");
         dropdown.className = "btn-specihern left-btn"
@@ -763,7 +762,8 @@ async function loadFData(e) {
             const button = document.getElementsByClassName("pagination-page-button w-inline-block")[0];
             button.click();
           }
-          if (plan == null || plan.end_date < Math.floor(Date.now() / 1000) ) {
+          if(false){
+          // if (plan == null || plan.end_date < Math.floor(Date.now() / 1000) ) {
             const search = document.getElementsByClassName("search-field w-input")[0];
             search.remove()
             const dropdowns = document.querySelectorAll(".w-dropdown-toggle")
