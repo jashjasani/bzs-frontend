@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const button = document.getElementsByClassName('snipcart-add-item')[0];
         button.setAttribute('data-item-url', "https://www.bildzeitschrift.com/magazine?productId=" + data.product.SKU);
         button.setAttribute('data-item-id', data.product.SKU);
-        button.setAttribute('data-item-price', data.product.Preis);
+        button.setAttribute('data-item-price', parseFloat(data.product.Preis));
         button.setAttribute('data-item-name', data.product.Name + " " + data.product.Jahr);
         button.setAttribute('data-item-image', "https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images);
         button.setAttribute('data-item-description', data.product.Monat + " " + data.product.Jahr + " " + data.product.Ausgabe);
