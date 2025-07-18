@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "LoadmagazineScript.js",
   "scripts": {
-    "build" : "node main.js",
+    "build": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/jashjasani/BzsScriptFinal#readme",
   "dependencies": {
     "reveal.js": "^5.0.5",
-    "uglify-js": "^3.17.4"
+    "uglify-js": "^3.19.3"
   },
   "keywords": [],
   "description": ""
