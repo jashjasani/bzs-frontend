@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
     function addSnipcartAttributes(data) {
         const button = document.getElementsByClassName('snipcart-add-item')[0];
-        button.setAttribute('data-item-url', "https://bildzeitschrift.netlify.app/.netlify/functions/validateOrder?productId=" + data.product.SKU);
+        button.setAttribute('data-item-url', "https://bildzeitschrift.netlify.app/.netlify/functions/validateOrder?productId=" + encodeURIComponent(data.product.SKU));
         button.setAttribute('data-item-id', data.product.SKU);
         button.setAttribute('data-item-price', parseFloat(data.product.Preis).toFixed(2));
         button.setAttribute('data-item-name', data.product.Name + " " + data.product.Jahr);
