@@ -1,14 +1,4 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    function addSnipcartAttributes(data) {
-        const button = document.getElementsByClassName('snipcart-add-item')[0];
-        button.setAttribute('data-item-url', "https://bildzeitschrift.netlify.app/.netlify/functions/validateOrder?productId=" + encodeURIComponent(data.product.SKU));
-        button.setAttribute('data-item-id', data.product.SKU);
-        button.setAttribute('data-item-price', parseFloat(data.product.Preis).toFixed(2));
-        button.setAttribute('data-item-name', data.product.Name + " " + data.product.Jahr);
-        button.setAttribute('data-item-image', "https://res.cloudinary.com/wdy-bzs/image/upload/" + data.product.Images);
-        button.setAttribute('data-item-description', data.product.Monat + " " + data.product.Jahr + " " + data.product.Ausgabe);
-    }
-
     window.saveOrDelete = (event) => {
         const target = event.target
         const name = target.getAttribute("name")
@@ -35,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 })
             }).then((res) => {
                 // if it was saved to database only then update the state
-      
+
                 if (res.status == 200) {
                     arry.items.push(productId)
                     target.innerText = "Gespeichert"
@@ -79,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
-    window.createCollection = async(event)=>{
+    window.createCollection = async (event) => {
 
         let output = await Swal.fire({
             title: "Neue Kollektion",
@@ -93,52 +83,52 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
             },
         });
-        
-        // check if collection already exists
-        if(!window.collections.some(obj => obj.name == output.value) && output.value!= undefined){
-          // create new collection in database 
-          fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
-            method:"POST",
-            headers : {
-              Authorization : sessionStorage.getItem("auth")
-            }, 
-            body: JSON.stringify({
-              name : output.value,
-              item : window.productId
-            })
-          }).then((res)=>{
-            if(res.status == 200){
-              const obj = { name : output.value , items : [], cover : window.productId.replaceAll("-","_").replaceAll("(", "").replaceAll(")", "")}
-              obj.items.push(window.productId)
-              window.collections.push(obj)
-            }
-          })
 
-          
-          
+        // check if collection already exists
+        if (!window.collections.some(obj => obj.name == output.value) && output.value != undefined) {
+            // create new collection in database 
+            fetch("https://bildzeitschrift.netlify.app/.netlify/functions/collection", {
+                method: "POST",
+                headers: {
+                    Authorization: sessionStorage.getItem("auth")
+                },
+                body: JSON.stringify({
+                    name: output.value,
+                    item: window.productId
+                })
+            }).then((res) => {
+                if (res.status == 200) {
+                    const obj = { name: output.value, items: [], cover: window.productId.replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "") }
+                    obj.items.push(window.productId)
+                    window.collections.push(obj)
+                }
+            })
+
+
+
         }
     }
 
 
 
-    window.searchFilter =(event)=>{
+    window.searchFilter = (event) => {
         const it = event.target.parentElement.querySelectorAll(".collections")
-        if(event.target.value == ''){
-          
-          for(let i =0;i<it.length;i++){
-            it[i].style.display = "flex"
-            
-          }
-          
+        if (event.target.value == '') {
+
+            for (let i = 0; i < it.length; i++) {
+                it[i].style.display = "flex"
+
+            }
+
         }
-        for(let i=0;i<it.length;i++){
-          if(!it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())){
-            it[i].style.display = "none"
-          }else if(it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase()) && it[i].style.display == "none") {
-            it[i].style.display = "flex"
-          }
+        for (let i = 0; i < it.length; i++) {
+            if (!it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase())) {
+                it[i].style.display = "none"
+            } else if (it[i].innerText.toLowerCase().startsWith(event.target.value.toLowerCase()) && it[i].style.display == "none") {
+                it[i].style.display = "flex"
+            }
         }
-      }
+    }
 
 
 
@@ -164,7 +154,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             </div>
             `
         }
-        str+=`
+        str += `
         <div style="display:flex; justify-content: space-between;">
 
             <button style="margin: 10px; border: 2px solid var(--black); color: var(--black);
@@ -189,7 +179,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
     async function addCollectionButton() {
-        if (sessionStorage.getItem("auth") && subscription!= null && subscription.plan == "Inspiration") {
+        if (sessionStorage.getItem("auth") && subscription != null && subscription.plan == "Inspiration") {
             const wrapper = document.getElementsByClassName("product-price-wrapper")[0]
             const Link = document.createElement("a")
             Link.className = "button w-inline-block"
@@ -229,10 +219,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             priceIndicator.style.display = 'none';
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
             addButton.getElementsByClassName("button-text")[0].innerText = "Kontakt for preis"
-            addButton.addEventListener("click", async (event)=>{
+            addButton.addEventListener("click", async (event) => {
                 event.preventDefault()
                 let output = null
-                if(sessionStorage.getItem("auth")==null){
+                if (sessionStorage.getItem("auth") == null) {
                     output = await Swal.fire({
                         title: "Anfrage",
                         input: "text",
@@ -245,15 +235,15 @@ document.addEventListener("DOMContentLoaded", async function () {
                             }
                         },
                     });
-                    if(output.hasOwnProperty("value")){
+                    if (output.hasOwnProperty("value")) {
                         let res = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
                             method: "POST",
-                            body : JSON.stringify({
-                                "email" : output.value,
-                                "product" : location.href
+                            body: JSON.stringify({
+                                "email": output.value,
+                                "product": location.href
                             })
                         })
-                        if (res.ok){
+                        if (res.ok) {
                             Swal.fire({
                                 position: "center",
                                 icon: "success",
@@ -263,18 +253,18 @@ document.addEventListener("DOMContentLoaded", async function () {
                             });
                         }
                     }
-                    
+
                 } else {
                     let res = await fetch("https://bildzeitschrift.netlify.app/.netlify/functions/price-inquiry", {
                         method: "POST",
-                        headers : {
-                            Authorization : sessionStorage.getItem("auth")
+                        headers: {
+                            Authorization: sessionStorage.getItem("auth")
                         },
-                        body : JSON.stringify({
-                            "product" : location.href
+                        body: JSON.stringify({
+                            "product": location.href
                         })
                     })
-                    if (res.ok){
+                    if (res.ok) {
                         Swal.fire({
                             position: "center",
                             icon: "success",
@@ -284,9 +274,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                         });
                     }
                 }
-                
-                
-                
             })
             addButton.style.display = 'flex';
 
@@ -297,6 +284,16 @@ document.addEventListener("DOMContentLoaded", async function () {
             const priceWrapper = document.getElementsByClassName("price-wrapper")[0];
             priceWrapper.style.display = "flex";
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
+            addButton.addEventListener("click", async (event) => {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Die Warenkorb-Funktion ist derzeit wegen Wartungsarbeiten nicht verfügbar.',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+
+            })
             addButton.style.display = "flex";
 
         }
@@ -404,7 +401,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             fetch('https://bildzeitschrift.netlify.app/.netlify/functions/loadProduct?' + productId)
                 .then(resp => resp.json())
                 .then(async (data) => {
-                    addSnipcartAttributes(data)
                     let response = await loadCollections()
                     window.collections = response.collections
                     window.subscription = response.subscription
