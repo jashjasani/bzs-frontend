@@ -284,16 +284,34 @@ document.addEventListener("DOMContentLoaded", async function () {
             const priceWrapper = document.getElementsByClassName("price-wrapper")[0];
             priceWrapper.style.display = "flex";
             const addButton = document.getElementsByClassName('snipcart-add-item')[0];
-            addButton.addEventListener("click", async (event) => {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Die Warenkorb-Funktion ist derzeit wegen Wartungsarbeiten nicht verfügbar.',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true
-                });
+            addButton.addEventListener("click", (event) => {
+                event.preventDefault();
 
-            })
+                const product = {
+                    id: data.product.SKU,
+                    name: data.product.Name,
+                    price: data.product.Preis,
+                    image: data.product.Images
+                };
+
+                // --- get cart from localStorage ---
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+                // --- check if item already exists ---
+                let existing = cart.find(item => item.id === product.id);
+                if (existing) {
+                    existing.quantity += 1;
+                } else {
+                    cart.push({ ...product, quantity: 1 });
+                }
+
+                // --- save updated cart ---
+                localStorage.setItem("cart", JSON.stringify(cart));
+
+                // --- refresh cart UI + open it ---
+                window.renderCart();
+                window.openCart();
+            });
             addButton.style.display = "flex";
 
         }
