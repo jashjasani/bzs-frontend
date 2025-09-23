@@ -310,6 +310,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 // --- refresh cart UI + open it ---
                 window.renderCart();
+                window.updateCartCount();
                 window.openCart();
             });
             addButton.style.display = "flex";
