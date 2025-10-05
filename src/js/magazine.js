@@ -289,6 +289,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 const product = {
                     id: data.product.SKU,
+                    Jahr: data.product.Jahr,
+                    Ausgabe: data.product.Ausgabe,
                     name: data.product.Name,
                     price: data.product.Preis,
                     image: data.product.Images
