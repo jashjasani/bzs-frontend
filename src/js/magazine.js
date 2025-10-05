@@ -302,7 +302,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                 // --- check if item already exists ---
                 let existing = cart.find(item => item.id === product.id);
                 if (existing) {
-                    existing.quantity += 1;
+                    // Item already in cart - show message and don't add again
+                    window.openCart(); // Just open the cart to show it's already there
+                    return; // Stop execution
                 } else {
                     cart.push({ ...product, quantity: 1 });
                 }
